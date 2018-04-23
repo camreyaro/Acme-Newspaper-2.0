@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="suscription/suscribe" extends="master.page">	
+		<put-attribute name="title" value="Suscribirse a periodico" />
+		<put-attribute name="body" value="/views/suscription/suscribe.jsp" />
+	</definition>
+	
+	<definition name="customer/edit" extends="master.page">	
+		<put-attribute name="title" value="Edicion de cliente" />
+		<put-attribute name="body" value="/views/customer/edit.jsp" />
+	</definition>
+	
+	<definition name="suscription/display" extends="master.page">	
+		<put-attribute name="title" value="Mostrando cliente" />
+		<put-attribute name="body" value="/views/suscription/display.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>

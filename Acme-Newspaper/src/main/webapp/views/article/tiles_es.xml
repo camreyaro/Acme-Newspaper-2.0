@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="newspaper/article/user/create" extends="master.page">	
+		<put-attribute name="title" value="Crear un artículo" />
+		<put-attribute name="body" value="/views/article/create.jsp" />
+	</definition>
+	
+	<definition name="newspaper/article/user/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar un artículo" />
+		<put-attribute name="body" value="/views/article/edit.jsp" />
+	</definition>
+	
+	<definition name="newspaper/article/list" extends="master.page">	
+		<put-attribute name="title" value="Artículos de un periódico" />
+		<put-attribute name="body" value="/views/article/list.jsp" />
+	</definition>
+	
+	<definition name="newspaper/article/user/myList" extends="master.page">	
+		<put-attribute name="title" value="Mis artículos" />
+		<put-attribute name="body" value="/views/article/myList.jsp" />
+	</definition>
+	
+	<definition name="newspaper/article/search" extends="master.page">	
+		<put-attribute name="title" value="Búsqueda de Artículos" />
+		<put-attribute name="body" value="/views/article/search.jsp" />
+	</definition>
+	
+	<definition name="newspaper/article/searchedList" extends="master.page">	
+		<put-attribute name="title" value="Artículos encontrados" />
+		<put-attribute name="body" value="/views/article/searchedList.jsp" />
+	</definition>
+	
+	<definition name="newspaper/article/display" extends="master.page">	
+		<put-attribute name="title" value="Artículo mostrado" />
+		<put-attribute name="body" value="/views/article/display.jsp" />
+	</definition>
+	
+</tiles-definitions>

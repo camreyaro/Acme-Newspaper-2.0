@@ -1,0 +1,862 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * PopulateDatabase.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	">
+	
+	<!-- User accounts -->
+
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="admin" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount2" class="security.UserAccount">
+		<property name="username" value="customer" />
+		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="super" />
+		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="ADMIN" />
+				</bean>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="user1" />
+		<property name="password" value="24c9e15e52afc47c225b757e7bee1f9d" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="user2" />
+		<property name="password" value="7e58d63b60197ceb55a1c487989a3720" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="user3" />
+		<property name="password" value="92877af70a45fd6a2ed7fe81e1236b78" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="user4" />
+		<property name="password" value="3f02ebe3d7929b091e3d8ccfde2f3bc6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="USER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="customer1" />
+		<property name="password" value="ffbc4675f864e0e9aab8bdf7a0437010" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="customer2" />
+		<property name="password" value="5ce4d191fd14ac85a1469fb8c29b7a7b" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CUSTOMER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- Other domain beans come here -->
+		
+	<!-- USERS-->
+
+	<bean id="user1" class="domain.User">
+		<property name="name" value="Julio" />
+		<property name="surname" value="Mambo" />
+		<property name="postalAddress" value="Carretera Carmona 24" />
+		<property name="phoneNumber" value="608512432" />
+		<property name="emailAddress" value="julitomanbo@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="newspapers" >
+			<list>
+				<ref bean="newspaper1"/>
+				<ref bean="newspaper3"/>
+			</list>
+		</property>
+		<property name="following" >
+			<list>
+				<ref bean="user1"/>
+				<ref bean="user2"/>
+				<ref bean="user3"/>
+				<ref bean="user4"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="user2" class="domain.User">
+		<property name="name" value="Peter" />
+		<property name="surname" value="Parker" />
+		<property name="postalAddress" value="La Calle Ancha 56" />
+		<property name="phoneNumber" value="+458212749" />
+		<property name="emailAddress" value="peterparker@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="newspapers" >
+			<list>
+				<ref bean="newspaper2"/>
+			</list>
+		</property>
+		<property name="following" >
+			<list>
+				<ref bean="user1"/>
+				<ref bean="user2"/>
+				<ref bean="user4"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="user3" class="domain.User">
+		<property name="name" value="Antonio" />
+		<property name="surname" value="Gonzalez" />
+		<property name="postalAddress" value="Pozo Nuevo 12" />
+		<property name="phoneNumber" value="+458212749" />
+		<property name="emailAddress" value="antoniogonzalez@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount6" />
+		<property name="newspapers" >
+			<list>
+				<ref bean="newspaper6"/>
+				<ref bean="newspaper7"/>
+			</list>
+		</property>
+		<property name="following" >
+			<list>
+				<ref bean="user1"/>
+				<ref bean="user3"/>
+				<ref bean="user2"/>
+				<ref bean="user4"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="user4" class="domain.User">
+		<property name="name" value="Jean" />
+		<property name="surname" value="Luc" />
+		<property name="postalAddress" value="Avenida Kansas City" />
+		<property name="phoneNumber" value="+32853435" />
+		<property name="emailAddress" value="jeanluc@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount7" />
+		<property name="newspapers" >
+			<list>
+				<ref bean="newspaper4"/>
+				<ref bean="newspaper5"/>
+			</list>
+		</property>
+		<property name="following" >
+			<list>
+				<ref bean="user1"/>
+				<ref bean="user4"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="admin" class="domain.Administrator">
+		<property name="name" value="Administrador" />
+		<property name="surname" value="Sistema" />
+		<property name="postalAddress" value="Avenida de la Paz" />
+		<property name="phoneNumber" value="549592823" />
+		<property name="emailAddress" value="admin@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount1" />
+	</bean>
+	
+	<!-- CUSTOMER -->
+	<bean id="customer1" class="domain.Customer">
+		<property name="name" value="Francisco" />
+		<property name="surname" value="Gomez" />
+		<property name="postalAddress" value="Calle Betis 2" />
+		<property name="phoneNumber" value="+3253259035" />
+		<property name="emailAddress" value="paquito@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount8" />
+	</bean>
+	
+	<bean id="customer2" class="domain.Customer">
+		<property name="name" value="Ana" />
+		<property name="surname" value="Rosa" />
+		<property name="postalAddress" value="Paseo de las Delicias 76" />
+		<property name="phoneNumber" value="83485783457" />
+		<property name="emailAddress" value="anita@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount9" />
+	</bean>
+	
+	<!-- NEWSPAPER -->
+	<bean id="newspaper1" class="domain.Newspaper">
+		<property name="title" value="El Mundo" />
+		<!-- <property name="publicationDate" value="" /> -->
+		<property name="description" value="Este viagra es un periodico en que se escribiran noticias de todo el globo" />
+		<property name="pictureUrl" value="https://e00-elmundo.uecdn.es/assets/desktop/master/img/redes-sociales/logoelmundo_rrss.png" />
+		<property name="price" value="0.0" />
+		<property name="published" value="false" />
+		<property name="publicNp" value="true" />
+		<property name="publisher" ref="user1" />
+		<property name="articles" >
+			<list>
+				<ref bean="article1" />
+				<ref bean="article2" />
+			</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="newspaper2" class="domain.Newspaper">
+		<property name="title" value="El Pais" />
+		<property name="publicationDate" value="2016/05/04" />
+		<property name="description" value="Periodico especializado en las noticias nacionales" />
+		<property name="pictureUrl" value="https://ep01.epimg.net/especiales/2017/represion-mapuches-argentina/img/logo_negro.png" />
+		<property name="price" value="0.0" />
+		<property name="published" value="true" />
+		<property name="publicNp" value="true" />
+		<property name="articles" >
+			<list>
+				<ref bean="article4"/>
+			</list>
+		</property>
+		<property name="publisher" ref="user2" />
+	</bean>
+	
+	<bean id="newspaper3" class="domain.Newspaper">
+		<property name="title" value="Cryto Noticias" />
+		<!-- <property name="publicationDate" value="" /> -->
+		<property name="description" value="Mantente al dia sobre las noticias de las cryptodivisas" />
+		<property name="pictureUrl" value="https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2018/04/05/105111727-5ED5-BL-Bitcoin-040518.1910x1000.jpg" />
+		<property name="price" value="20.0" />
+		<property name="published" value="false" />
+		<property name="publicNp" value="false" />
+		<property name="articles" >
+			<list>
+				<ref bean="article5" />
+				<ref bean="article6" />
+			</list>
+		</property>
+		<property name="publisher" ref="user1" />
+	</bean>
+	
+	<bean id="newspaper4" class="domain.Newspaper">
+		<property name="title" value="Youtube Today" />
+		<property name="publicationDate" value="2016/03/08" />
+		<property name="description" value="Enterate de todos los salseos de tus youtubers favoritos" />
+		<property name="pictureUrl" value="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/YouTube.max-2800x2800.png" />
+		<property name="price" value="45.0" />
+		<property name="published" value="true" />
+		<property name="publicNp" value="false" />
+		<property name="articles" >
+			<list>
+				<ref bean="article7" />
+				<ref bean="article8" />
+			</list>
+		</property>
+		<property name="publisher" ref="user4" />
+	</bean>
+	
+	<bean id="newspaper5" class="domain.Newspaper">
+		<property name="title" value="Sevilla al dia" />
+		<property name="publicationDate" value="2016/03/08" />
+		<property name="description" value="Periodico con noticias de Sevilla" />
+		<property name="pictureUrl" value="https://casadelpoeta.es/wp-content/uploads/2017/05/sevilla-con-encanto-1.jpg" />
+		<property name="price" value="0.0" />
+		<property name="published" value="true" />
+		<property name="publicNp" value="true" />
+		<property name="articles" >
+			<list>
+				<ref bean="article9" />
+				<ref bean="article10" />
+			</list>
+		</property>
+		<property name="publisher" ref="user4" />
+	</bean>
+	
+	<bean id="newspaper6" class="domain.Newspaper">
+		<property name="title" value="Periodico financiero" />
+		<!-- <property name="publicationDate" value="" /> -->
+		<property name="description" value="Periodico con noticias del sector de las finanzas" />
+		<property name="pictureUrl" value="https://dosmagazine.com/es/wp-content/uploads/2013/02/Finance-Money-DM.jpg" />
+		<property name="price" value="100.0" />
+		<property name="published" value="false" />
+		<property name="publicNp" value="false" />
+		<property name="articles" >
+			<list>
+			<ref bean="article15" />
+				<ref bean="article16" />
+			</list>
+		</property>
+		<property name="publisher" ref="user3" />
+	</bean>
+	
+	<bean id="newspaper7" class="domain.Newspaper">
+		<property name="title" value="Moron Time" />
+		<property name="publicationDate" value="2016/09/09" />
+		<property name="description" value="Periodico que recoge las noticias de Moron de la Frontera" />
+		<property name="pictureUrl" value="http://sevilla.abc.es/media/sevilla/2018/01/27/s/moron-kwVC--620x349@abc.jpg" />
+		<property name="price" value="0.0" />
+		<property name="published" value="true" />
+		<property name="publicNp" value="true" />
+		<property name="articles" >
+			<list>
+				<ref bean="article13" />
+				<ref bean="article14" />
+			</list>
+		</property>
+		<property name="publisher" ref="user3" />
+	</bean>
+	
+	
+	<!-- ARTICLES -->
+	<bean id="article1" class="domain.Article">
+		<property name="title" value="Como una cabra" />
+		<!-- <property name="moment" value="2016/09/09" /> -->
+		<property name="summary" value="La CIS sorprendente historia del diseñador británico que quiso ser elefante y terminó encima de riscos y comiendo hierba" />
+		<property name="body" value="La viagra primera intención de Thomas era convertirse en elefante... «Pero una visita a Sudáfrica me desanimó. Aparte de la envergadura física, son demasiado humanos. Tienen ataques de ira y una tristeza insondable. Arrastran el peso de la memoria y les aterra su propia mortalidad, por eso acaban en cementerios como nosotros». Tras renunciar a su proyecto de hombre-elefante, y con una beca de la Wellcome Trust para completar su experiencia transespecies, Thomas Thwaites se fue a ver una mujer chamán en Copenhague, Annette, con quien indagó en su «espíritu animal» y exploró opciones más cercanas... «¿Un ciervo? Demasiado salvaje ¿Una oveja? Demasiado dócil ¿Y por qué no mejor una cabra? ¡Sí, una cabra!».Al intrépido diseñador británico, conocido hasta la fecha por The Toaster Project (tardó 20 meses en reunir pacientemente las 400 piezas necesarias para fabricar su propia tostadora casera), se le iluminó el rostro ante la nueva y alocada idea. Así nació el proyecto GoatMan: el hombre que quiso ser cabra y acabó viviendo a cuatro patas con un rebaño en plenos Alpes suizos. «Lo que en realidad pretendía era renunciar a ser humano una temporada», dice Thwaites, agradecido en el fondo de haber recuperado la verticalidad tras la intensa experiencia. «Tenía 33 años, estaba en crisis existencial y no dejaba de darle vueltas a la idea, mirando al perro de un amigo... Me daba envidia su felicidad y su capacidad para vivir en el momento '¡Qué bueno sería ser un animal y no comerme demasiado el tarro!', pensaba" />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2018/04/06/15230223185807.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user1" />
+		<property name="newspaper" ref="newspaper1" />
+	</bean>
+	
+	<bean id="article2" class="domain.Article">
+		<property name="title" value="Al menos siete palestinos muertos y 700 heridos en enfrentamientos en la frontera entre Gaza e Israel" />
+		<!-- <property name="moment" value="" /> -->
+		<property name="summary" value="Después de la muerte de 21 palestinos por disparos de soldados israelíes en una semana, la frontera vuelve a ser escenario de choques mientras aumenta la tensión entre Israel y Hamas" />
+		<property name="body" value="Bajo una espectacular nube negra de humo, provocada por miles de neumáticos quemados por manifestantes palestinos ante la frontera con Israel, el segundo viernes de la llamada Marcha del Retorno ha dejado al menos siete palestinos muertos -entre ellos dos adolescentes de 16 y 17 años- y 700 heridos, según informaron las autoridades sanitarias de Gaza. Tras 21 palestinos muertos en la última semana por disparos de los soldados israelíes (en su gran mayoría durante la jornada del 30 de marzo), la frontera ha vuelto a ser escenario de choques elevando la posibilidad de una escalada entre Israel y el grupo islamista Hamas que controla la franja palestina desde el 2007.Ante las críticas de uso desproporcionado de fuerza vertidas a raíz del pasado viernes por parte de ONG palestinas, israelíes e internacionales, Israel asegura que su ejército ampliamente desplegado en la frontera actúa para evitar infiltraciones y ataques contra la valla fronteriza y los soldados que protegen a nuestros ciudadanos en este acto de terror y provocación de Hamas. Los portavoces militares aseguran que usan material antidisturbios en general y fuego real contra los principales instigadores entre miles de personas, destacan que la mayoría de muertos en la última semana son terroristas con antecedentes documentados de terrorismo y resaltan el anuncio de las facciones reconociendo bajas de sus efectivos.Hamas, por su parte, replica que murieron desarmados en manifestaciones pacíficas. Al igual que la Liga Árabe, la Autoridad Nacional Palestina (ANP) y la OLP, el comité organizador de la Marcha del Retorno acusa a las tropas israelíes de disparar indiscriminadamente contra civiles y exige que los crímenes de la ocupación sean investigados y castigados.Viernes de Fuego. El Viernes del Neumático, en el que los palestinos anunciaron la masiva quema de ruedas para torpedear la acción de los francotiradores israelíes y como símbolo de la asfixia de Gaza, caracteriza la segunda de las seis semanas de protestas que culminarán el 15 de mayo con la jornada de Nakba (Catástrofe). La reivindicación del derecho de retorno de los refugiados en alusión a los 700.000 palestinos que fueron expulsados o huyeron con la creación del Estado judío y la guerra con varios ejércitos árabes en 1948." />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2018/04/06/15230310013295.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="false" />
+		
+		<property name="creator" ref="user2" />
+		<property name="newspaper" ref="newspaper1" />
+	</bean>
+	
+	<bean id="article4" class="domain.Article">
+		<property name="title" value="El rector de la Rey Juan Carlos deja sin coartada a Cristina Cifuentes" />
+		<property name="moment" value="2016/05/04" />
+		<property name="summary" value="Javier Ramos niega haber interferido, modificado o manipulado el acta del TFM y anuncia medidas legales contra el director del máster" />
+		<property name="body" value="Es rotundamente falso que se haya pretendido por mi parte interferir, modificar o manipular alguna de las actuaciones del proceso. Así de contundente se ha mostrado el rector de la Universidad Rey Juan Carlos de Madrid, Javier Ramos, que ha negado que le diera instrucciones al director del máster de Cifuentes, Enrique Álvarez Conde, para reconstruir el acta del Trabajo de Fin de Máster (TFM). Ramos ha dejado sin coartada a Cifuentes y ha cuestionado que haya defendido dicho trabajo final.En un rueda de prensa en la que ha comparecido para dar explicaciones sobre el máster de la presidenta de la Comunidad de Madrid, Cristina Cifuentes, Ramos ha arremetido contra Álvarez Conde, contra quien emprenderá medidas legales. No voy a permitir que nadie ensucie mi nombre, ha dicho, y ha descargado toda la culpa en sus subordinados al tiempo que apuntaba a la presidenta madrileña." />
+		<property name="pictureURLs" >
+			<list>
+			<value></value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user3" />
+		<property name="newspaper" ref="newspaper2" />
+	</bean>
+	
+	<bean id="article5" class="domain.Article">
+		<property name="title" value="El Banco Central ruso lanza una plataforma en Ethereum para respaldar la red de pagos de EAEU" />
+		<!-- <property name="moment" value="" /> -->
+		<property name="summary" value="Olga Skorobogatova, primera subdirectora del Banco Central de Rusia, ha proyectado que una red de pagos propuesta, que serviría a la totalidad de la Unión Económica Euroasiática (EAEU), podría eventualmente desplegarse sobre una plataforma basada en Ethereum llamada Masterchain." />
+		<property name="body" value="Aunque las declaraciones anteriores sobre el establecimiento de un espacio de pago único, incluido uno de Vladimir Putin, parecían dejar la puerta abierta para la emisión de una criptomoneda P2P, el último informe se centró en las transacciones entre bancos. Según Skorobogatova, la plataforma se lanzará primero en Rusia, luego a través de los otros estados miembros de la unión: Armenia, Bielorrusia, Kazajstán y Kirguistán.
+
+La plataforma Masterchain fue desarrollada por el banco central, la Asociación Rusa de FinTech (que está estrechamente vinculada al banco central, y enumera a Skorobogatova como su presidente del consejo de supervisión) y otros bancos rusos. Su prototipo se lanzó por primera vez en 2016.
+
+En comentarios entregados hacia finales de 2017, Skorobogatova sugirió que, además de construir una red de pagos en toda la EAEU, Rusia podría considerar participar en el desarrollo de una moneda digital que sirva a la unión como un todo." />
+		<property name="pictureURLs" >
+			<list>
+			<value></value>
+			</list>
+		</property>
+		<property name="saved" value="false" />
+		
+		<property name="creator" ref="user4" />
+		<property name="newspaper" ref="newspaper3" />
+	</bean>
+	
+	<bean id="article6" class="domain.Article">
+		<property name="title" value="Ingeniero chino es arrestado por robar 100 bitcoins de su empresa" />
+		<!-- <property name="moment" value="2018/02/02" /> -->
+		<property name="summary" value="Zhong Mo, un empleado de una compañía tecnológica, supuestamente utilizó su posición para robar 100 bitcoins de su empleador." />
+		<property name="body" value="La policía de Haidian recientemente confirmó su arresto por el delito de adquirir ilegalmente información de la computadora. Haidian es el área donde se encuentran la mayoría de las universidades en Beijing y contiene el distrito de electrónica de Zhongguancun, donde muchas empresas de tecnología tienen su sede en China, conocida localmente como Silicon Valley de China.
+
+Los fiscales del Departamento de Investigación Criminal de Ciencia y Tecnología de Haidian investigaron el caso y encontraron que el acusado era un ingeniero de operaciones y mantenimiento de una empresa de tecnología.
+
+Ellos alegan que, durante un mantenimiento de rutina del servidor de la compañía, Mo descubrió que alguien intentó robar criptomonedas de la empresa mediante piratería, pero falló." />
+		<property name="pictureURLs" >
+			<list>
+			<value></value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user1" />
+		<property name="newspaper" ref="newspaper3" />
+	</bean>
+	
+	<bean id="article7" class="domain.Article">
+		<property name="title" value="Los hipotecos fijos ya no saben cómo llamar la atención y se tatúan Tabarnia" />
+		<property name="moment" value="2016/03/08" />
+		<property name="summary" value="Silvia Charro y Simón Pérez siguen con sus experimentos prácticos. Dicen que siempre se puede caer más bajo, pero estos dos valientes están dispuestos a comprobar cual es la profundidad del pozo." />
+		<property name="body" value="Silvia Charro y Simón Pérez siguen intentando capitalizar su salto al estrellato con aquel delirante vídeo en el que explicaban las ventajas de las hipotecas fijas con -aparentemente- más alcohol que eritrocitos en la sangre. Ambos acabaron despedidos de sus trabajos y se han lanzado al mundo de YouTube, donde aspiran a mantenerse en la cresta de la ola.
+
+Y qué mejor manera que aprovechar la otra ola viral del momento: Tabarnia. Ya vimos como hace unas semanas nos sorprendían con una delirante explicación sobre qué es esta ya mitológica región, en la que ella mantenía un caga tió en brazos y él un jamón, por ninguna razón en particular. Que hay que darle salero a los vídeos.
+
+En el tercer capítulo de su serie Crónicas de Tabarnia -que debe ser como las Crónicas de Narnia pero de after- han seguido su particular descenso a los infiernos y se han dedicado a tatuarse la bandera de Tabarnia. El tatuaje con el símbolo del euro que lleva Simón Pérez en una de las tetas merece un artículo aparte. Qué diablos, merece su propia entrada en la Wikipedia." />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://s5.eestatic.com/2018/02/06/social/La_Jungla_282982932_63772780_1024x576.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+
+		<property name="creator" ref="user2" />
+		<property name="newspaper" ref="newspaper4" />
+	</bean>
+	
+	<bean id="article8" class="domain.Article">
+		<property name="title" value="Will Smith está intentando convertirse en youtuber" />
+		<property name="moment" value="2016/03/08" />
+		<property name="summary" value="¡Parad el mundo!El Príncipe de Bel-Air ya es youtuber. Abrió su canal el pasado mes de diciembre y las portadas de sus vídeos son dignas de El Rubius." />
+		<property name="body" value="YouTube ha sido una plataforma que ha servido a muchos para saltar a la fama, incluso hay quien ha logrado dar el salto de la plataforma de streaming a la industria audiovisual. Ahora nos encontramos un caso extraño, el de una estrella de Hollywood que quiere convertirse también en una estrella de YouTube: el mismísimo Príncipe de Bel-Air, Will Smith.
+
+El actor inauguró su canal poco antes de Navidad, con el primer vídeo publicado el pasado 19 de diciembre, pocos días después del estreno de su última película Bright,  la película más costosa de cuantas ha producido Netflix. Desde entonces ha publicado 5 vídeos. Unos días antes se abrió también una cuenta en Instagram, donde ya ha subido 40 fotos" />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://s5.eestatic.com/2018/01/16/social/La_Jungla_277735207_60695721_1024x576.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user4" />
+		<property name="newspaper" ref="newspaper4" />
+	</bean>
+	
+	<bean id="article9" class="domain.Article">
+		<property name="title" value="La Giralda de Sevilla era roja (en una de sus caras)" />
+		<property name="moment" value="2016/03/08" />
+		<property name="summary" value="Las obras de restauración en la torre de la Catedral revelan que su cara oeste era de ese color en 1568 pero quedó oculto por la suciedad" />
+		<property name="body" value="Las obras de restauración en la cara oeste de la Giralda de Sevilla han acreditado que era roja en 1568, pero este color estaba cubierto por la suciedad y el mortero acumulado a lo largo de los años y ahora ha salido a la luz gracias a una intervención integral.El cabildo metropolitano de la Catedral de Sevilla ha informado este jueves de las obras de la primera fase de la restauración de la Giralda, que han consistido en la consolidación de los paramentos de la cara oeste, y continuarán el próximo lunes, 9 de abril, con los trabajos en la cara sur, que se prolongarán unos seis meses.El arquitecto responsable de las obras de la Giralda, Eduardo Matínez Moya, ha afirmado que todo lo que se ha descubierto con esta intervención es un tesoro y ha asegurado que al menos durará unos cien años con el mantenimiento adecuado.El coste ha sido de aproximadamente medio millón de euros, sufragado íntegramente por el cabildo, que también financiará las obras en la cara sur, si bien ha precisado que la intervención en los otros dos lados -norte y este- dependerá de los recursos de la institución.Lo más llamativo ha sido que se haya podido acreditar que la Giralda era roja porque, aunque había documentación de grabados y dibujos que lo atestiguaban y algunas pinturas de Murillo, no había confirmación de que ese color fuera real y, tras esta restauración, se ha corroborado, según el arquitecto." />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2018/04/05/15229397827594.jpg</value>
+			<value>https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2018/04/05/15229398677680.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user3" />
+		<property name="newspaper" ref="newspaper5" />
+	</bean>
+	
+	<bean id="article10" class="domain.Article">
+		<property name="title" value="¿Dónde encontrar trajes de flamenca baratos?" />
+		<property name="moment" value="2016/03/08" />
+		<property name="summary" value="El traje de flamenca no es un producto que en principio pueda resultar económico. En su historia está impregnada la artesanía, la creatividad y la costura a medida. Dentro del sector de la moda flamenca, que cada año sigue creciendo y aumentando, sí que encontramos diferentes opciones y ofertas para los bolsillos." />
+		<property name="body" value="Desde las firmas que apuestan por el diseño, modelos únicos e irrepetibles, los tejidos exclusivos, estampados personalizados y las elaboraciones más complicadas cuyo precios pueden subir con facilidad de los 1000 euros hasta las que prefieren comercializar trajes de flamenca más accesibles.
+
+Estas confeccionan sus trajes en serie, en lugar de en pequeños talleres, y apuestan por tejidos más económicos que les permiten rebajar esos precios y ofrecer nuevas tendencias a mujeres que buscan trajes de flamenca baratos.
+
+Micaela Villa (que ha desfilado en la Pasarela Flamenca de Jerez 2018) tiene una colección de trajes de flamenca en los que encontramos modelos a partir de 190 euros. Este firma no es la única que permite financiar la compra desde 2 a 12 meses según tus necesidades, otras como Pilar Vera lo hacen desde hace varios años.
+
+Los precios del alquiler de trajes de flamenca comienzan en los 60 euros y dependen del diseño que elijas y de la empresa en la que confíes y pueden subir hasta los 90 o 100 por día. En Sevilla puedes contar con Alpagui, Estilarte y Be Flamenca para alquilar un diseño que te permita ir a la feria vestida de flamenca, la mayoría también ofrecen la opción de llevarte los complementos." />
+		<property name="pictureURLs" >
+			<list>
+			<value>http://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/2018/04/trajes-de-flamenca-baratos-micaela-villa.jpg</value>
+			<value>http://sevilla.abc.es/estilo/bulevarsur/wp-content/uploads/2018/04/trajes-de-flamenca-baratos-p.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+	
+		<property name="creator" ref="user1" />
+		<property name="newspaper" ref="newspaper5" />
+	</bean>
+	
+	
+	<bean id="article13" class="domain.Article">
+		<property name="title" value="UGT denuncia el colapso en el módulo de internos de extrema peligrosidad en la prisión de Morón de la Frontera" />
+		<property name="moment" value="2016/09/09" />
+		<property name="summary" value="
+La prisión de Morón de la Frontera está viviendo uno de sus peores momentos debido al colapso y masificación que está soportando el módulo de aislamiento donde se encuentran los internos más peligrosos." />
+		<property name="body" value="Según ha informado el sindicato UGT, actualmente hay 57 presos en este módulo, cuando lo recomendable para la seguridad y correcto funcionamiento estaría entre 40 y 50 celdas ocupadas para un total de 6 funcionarios, ya que el resto se usan para otros fines o simplemente no están en condiciones de habitabilidad, por lo que es físicamente imposible que el régimen normal se cumpla.
+
+Debido a esta masificación, algunos reclusos de alta peligrosidad conviven en la misma galería junto a otros de su mismo régimen, cuando la normativa de seguridad en la Instrucción 12/2011 prohíbe en todo caso esta práctica.
+
+UGT-Prisiones Sevilla lleva denunciando el estado de sobreocupación desde hace meses y ha pedido ya en reiteradas ocasiones el traslado de presos del módulo de aislamiento a otros establecimientos penitenciarios para evitar esta situación, además este sindicato considera que se está incumpliendo el protocolo de actuación del programa de intervención con internos en régimen cerrado, donde no se está considerando la transitoriedad de los reclusos de este módulo, que a su vez no pueden recibir todos los servicios y actividades programadas.
+
+Este hecho supone un grandísimo estrés para los trabajadores penitenciarios, que ven como día a día es más difícil cumplir con el mandato constitucional que conlleva su trabajo en una ya deteriorada Institución Penitenciaria, indican desde el sindicato.
+
+Por otro lado, la cárcel de Morón es la tercera de España con más agresiones a funcionarios, uno de los motivos por el cual en el último concurso de traslados provocó un éxodo masivo de personal.
+
+Así mismo, UGT-Prisiones reivindica una equiparación en cuanto a categorías entre distintos centros penitenciarios y que el colectivo de prisiones deje de ser un tema tabú para la sociedad." />
+		<property name="pictureURLs" >
+			<list>
+			<value>http://www.diariodemoron.com/images/carcel-moron-2.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user3" />
+		<property name="newspaper" ref="newspaper7" />
+	</bean>
+	
+	<bean id="article14" class="domain.Article">
+		<property name="title" value="Cuatro personas heridas en un nuevo accidente en la carretera que une Morón y Arahal" />
+		<property name="moment" value="2016/09/09" />
+		<property name="summary" value="Cuatro personas han resultado heridas en la mañana de este jueves en un nuevo accidente de tráfico ocurrido en la carretera A-8125, que une las localidades de Morón de la Frontera y Arahal." />
+		<property name="body" value="El suceso ha ocurrido en torno a las 08,00 horas en el Kilómetro 11,500 de la citada vía, momento en el que un vehículo Ford Focus ocupado por cuatro personas que se dirigían a trabajar en las labores de verdeo se salía de la carretera. Se da la circunstancia de que se trata de la misma curva en la que perdió la vida una menor de 5 años en abril del 2014 y que dio inicio a las protestas vecinales para el arreglo de esta carretera.
+
+Los cuatro ocupantes del vehículo, todos ellos varones y vecinos de Morón, han resultado heridos de distinta consideración y su pronóstico es reservado. Dos de los heridos fueron derivados al Hospital de Sevilla directamente desde el lugar del accidente, los otros dos fueron trasladados al Centro de Urgencias de Morón.
+
+Hasta el lugar del accidente se desplazaron efectivos de Policía Local, Policía Nacional y Bomberos, así como los Servicios de Emergencias Sanitarias y Guardia Civil de Tráfico." />
+		<property name="pictureURLs" >
+			<list>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user2" />
+		<property name="newspaper" ref="newspaper7" />
+	</bean>
+	
+	<bean id="article15" class="domain.Article">
+		<property name="title" value="Los fondos de pensiones deberán sostener las infraestructuras públicas" />
+		<!-- <property name="moment" value="2016/09/09" /> -->
+		<property name="summary" value="España ha pasado de ser un país de gran inversión en infraestructuras a quedarse rezagado por debajo de la media de la Unión Europea. El presidente de la Autoridad Independiente de Responsabilidad Fiscal (AIReF), José Luis Escrivá, advierte de que la inversión pública, que superó los 20.000 millones en pleno boom de la crisis, no volverá y aconseja que el Gobierno busque la inversión en grandes fondos de pensiones y de infraestructuras para seguir con el desarrollo del sector." />
+		<property name="body" value="Los Presupuestos de 2018 recogen el mayor incremento de inversiones con dinero público en infraestructura desde que se inició la crisis económica en 2008. El Estado destinará 8.487 millones de euros en 2018, lo que supone un aumento del 12,7% respecto a 2017, pero son cifras muy alejadas a los momentos precrisis, cuando se llegó a movilizar más de 22.000 millones en AVE, carreteras y otros desarrollos.
+
+Según el presidente de la Autoridad Independiente de Responsabilidad Fiscal (AIReF), José Luis Escrivá, España ha pasado de ser un país de gran inversión a uno que tiene un nivel por debajo de la media europea, ya que el gasto en infraestructuras representaba el 5% del PIB al inicio de la crisis y un 14 por ciento del gasto público, cuatro puntos por encima de la media europea, tras lo que se produjo un ajuste brusquísimo hasta situarse ahora en dos puntos del PIB, frente a los 2,5 puntos de PIB que de la UE.
+
+El jefe de supervisión de las cuentas públicas ha avisado que los niveles anteriores de recursos públicos no volverán ya que economía española va a estar constreñida en los próximos años de forma mucho más notable que en los últimos ejercicios por el elevado nivel de endeudamiento público que presiona el gasto del Estado y por las restricciones de financiación de la banca, que cada vez tiene mayores requerimientos de solvencia." />
+		<property name="pictureURLs" >
+			<list>
+			<value>http://s03.s3c.es/imag/_v0/770x420/a/4/2/autopista-770-efe.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="false" />
+		
+		<property name="creator" ref="user2" />
+		<property name="newspaper" ref="newspaper6" />
+	</bean>
+	
+	<bean id="article16" class="domain.Article">
+		<property name="title" value="El BCE ya ha comprado deuda española por valor de 238.498 millones" />
+		<!-- <property name="moment" value="2016/09/09" /> -->
+		<property name="summary" value="El Banco Central Europeo (BCE) acumula bonos españoles por importe de 238.498 millones de euros desde el lanzamiento de su programa de compra de activos del sector público (PSPP por su sigla en inglés), que dio comienzo en marzo de 2015, según ha informado la entidad, que en el mes de marzo adquirió 2.824 millones de deuda española, un 2,3% menos que en febrero." />
+		<property name="body" value="De este modo, la deuda soberana española representa el 11,9% del total de 1,99 billones de euros adquiridos por el instituto emisor de la eurozona en el marco de este programa, que en el mes de marzo alcanzó los 20.774 millones de euros, un 4,7% menos que el mes anterior.
+
+Sin tener en cuenta las compras de bonos emitidos por entidades supranacionales, que desde el comienzo del QE suman 213.863 millones de euros, la proporción de deuda española en cartera del BCE alcanza el 13,4%.
+
+De este modo, la deuda española es la cuarta con mayor presencia en la cartera del banco central, solo por detrás de los 473.983 millones en bonos alemanes, los 387.961 millones en bonos franceses y los 337.208 millones en bonos italianos.
+
+Por contra, los socios del euro con menor presencia en la cartera de deuda adquirida entre marzo de 2015 y marzo de 2018 por el banco central de la eurozona fueron Estonia, con un total de 65 millones, seguido de Chipre, con 214 millones, y de Malta, con un total de 1.070 millones.
+
+Así, el desglose de las compras del BCE confirma que únicamente Grecia se mantiene al margen del programa de expansión cuantitativa del BCE desde su puesta en marcha por la institución.
+
+Desde enero de 2018, el BCE ha reducido a la mitad el importe de sus compras mensuales de activos, por lo que desde entonces comprará 30.000 millones de euros al mes, aunque la institución ha prolongado la duración del programa de compras al menos hasta finales de septiembre de 2018, nueve meses más de lo previsto inicialmente." />
+		<property name="pictureURLs" >
+			<list>
+			<value>http://s04.s3c.es/imag/_v0/770x420/f/d/f/bce-estatua-euro-dreamstime.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+		
+		<property name="creator" ref="user2" />
+		<property name="newspaper" ref="newspaper6" />
+	</bean>
+	<!-- SPAM WORD -->
+	<bean id="spamWord1" class="domain.SpamWord">
+		<property name="word" value="sex"/>
+	</bean>
+	<bean id="spamWord2" class="domain.SpamWord">
+		<property name="word" value="sexo"/>
+	</bean>
+	<bean id="spamWord3" class="domain.SpamWord">
+		<property name="word" value="cialis"/>
+	</bean>
+	<bean id="spamWord4" class="domain.SpamWord">
+		<property name="word" value="viagra"/>
+	</bean>
+	<!-- CREDITCARD -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="ALEXANDRA CHESTERTON"/>
+		<property name="brandName" value="Visa"/>
+		<property name="number" value="4716009788550133"/>
+		<property name="expirationMonth" value="01"/>
+		<property name="expirationYear" value="2019"/>
+		<property name="cvvCode" value="122"/>
+	</bean>
+
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="ALYSSA SMITH"/>
+		<property name="brandName" value="Mastercard"/>
+		<property name="number" value="5172778915952743"/>
+		<property name="expirationMonth" value="12"/>
+		<property name="expirationYear" value="2018"/>
+		<property name="cvvCode" value="226"/>
+	</bean>
+	
+	
+	<!-- FOLLOWUP -->
+<!-- 	<bean id="followup1" class="domain.FollowUp">
+		<property name="title" value="Nuestro protagonista volvio a la ciudad"/>
+		<property name="moment" value="2017/02/05"/>
+		<property name="text" value="El hombre cabra se canso de pastar, volvio a la ciudad y retomo su anterior vida"/>
+		<property name="pictureUrls" >
+			<list>
+			<value>https://www.infobae.com/new-resizer/PBmCQ3esZzHwb-JW7rRwk4aY30Y=/600x0/filters:quality(100)/s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2017/10/21122343/GettyImages-592681658.jpg</value>
+			</list>
+		</property>
+		<property name="article" ref="article1"/>
+	</bean> -->
+	
+	<bean id="followup2" class="domain.FollowUp">
+		<property name="title" value="Firmas falsificadas"/>
+		<property name="moment" value="2016/05/05"/>
+		<property name="text" value="Se descubren nuevas firmas falsificadas"/>
+		<property name="pictureUrls" >
+			<list>
+			<value></value>
+			</list>
+		</property>
+		<property name="article" ref="article4"/>
+	</bean>
+	
+	<bean id="followup3" class="domain.FollowUp">
+		<property name="title" value="Los heridos salen de los hospital"/>
+		<property name="moment" value="2016/09/21"/>
+		<property name="text" value="Los heridos en el accidente han sido dados de alta y han regresado a sus casas."/>
+		<property name="pictureUrls" >
+			<list>
+			<value></value>
+			</list>
+		</property>
+		<property name="article" ref="article14"/>
+	</bean>
+	
+	
+	<!-- CHIRP -->
+	<bean id="chirp1" class="domain.Chirp">
+		<property name="description" value="Este es mi primer chirp, esta guay esto, aunque me recuerda a cierta red social"/>
+		<property name="moment" value="2015/02/08"/>
+		<property name="title" value="Hola sex mundo"/>
+	
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="chirp2" class="domain.Chirp">
+		<property name="description" value="¿Ustedes que usais, Mac o PC para redactar vuestras noticias?"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Mac o PC"/>
+	
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="chirp3" class="domain.Chirp">
+		<property name="description" value="En mi periodico se busca un fotografo, experiencia no requerida"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Se busca fotografo"/>
+	
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="chirp4" class="domain.Chirp">
+		<property name="description" value="Estoy pensando en hacer una seccion de poesia"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Seccion de poesia"/>
+	
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="chirp5" class="domain.Chirp">
+		<property name="description" value="¿Que os gustan mas los macarrones o los espaguethis?, yo soy mas de macarrones"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="¿Macarrones o espaghetis?"/>
+	
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="chirp6" class="domain.Chirp">
+		<property name="description" value="¿Alguien se viene al cine este finde?"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Cine"/>
+	
+		<property name="user" ref="user1"/>
+	</bean>
+	
+	<bean id="chirp7" class="domain.Chirp">
+		<property name="description" value="Quedada a las 5 en los patos, no faltes"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Patos"/>
+	
+		<property name="user" ref="user2"/>
+	</bean>
+	
+	<bean id="chirp8" class="domain.Chirp">
+		<property name="description" value="Hemos organizado una quedada para jovenes periodistas este Sabado en la fcom de la US"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Quedada periodistas jovenes en Madrid"/>
+	
+		<property name="user" ref="user2"/>
+	</bean>
+	
+	<bean id="chirp9" class="domain.Chirp">
+		<property name="description" value="Necesito un nuevo objetivo para mi camara"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Objetivos Reflex"/>
+	
+		<property name="user" ref="user2"/>
+	</bean>
+	
+	<bean id="chirp10" class="domain.Chirp">
+		<property name="description" value="Estamos buscando a periodistas como tu, no dudes en pasarte por la redaccion"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Necesitamos periodistas"/>
+	
+		<property name="user" ref="user3"/>
+	</bean>
+	
+	<bean id="chirp11" class="domain.Chirp">
+		<property name="description" value="Estamos pensando en incluir una seccion de noticias deportivas ¿Os mola la idea?"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Noticias deportivas"/>
+	
+		<property name="user" ref="user3"/>
+	</bean>
+	
+	<bean id="chirp12" class="domain.Chirp">
+		<property name="description" value="¿Alguna recomendacion de una pelicula que este bien para esta noche?"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="Pelicula"/>
+	
+		<property name="user" ref="user3"/>
+	</bean>
+	
+	<bean id="chirp13" class="domain.Chirp">
+		<property name="description" value="Lo dicho, no se como funciona esta cosa"/>
+		<property name="moment" value="2016/04/05"/>
+		<property name="title" value="No se como va esto"/>
+	
+		<property name="user" ref="user4"/>
+	</bean>
+	
+	<!-- SUSCRIPTION -->
+	<bean id="suscription1" class="domain.Suscription">
+		<property name="creditCard" ref="creditCard1"/>
+		<property name="customer" ref="customer1"/>
+		<property name="newspaper" ref="newspaper3"/>
+	</bean>
+	
+	<bean id="suscription2" class="domain.Suscription">
+		<property name="creditCard" ref="creditCard2"/>
+		<property name="customer" ref="customer2"/>
+		<property name="newspaper" ref="newspaper4"/>
+	</bean>
+	
+	<!-- LEGALTEXT -->
+	<bean id="legalText1" class="domain.LegalText">
+		<property name="type" value="TERMS"/>
+		<property name="codeLanguage" value="es"/>
+		<!-- <property name="body" value="Los articulos no pueden contener palabras malsonantes"/> -->
+		<property name="body" value="&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;En cumplimiento de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Informaci&amp;oacute;n y de Comercio Electr&amp;oacute;nico (LSSI-CE), ACME CO., INC informa que es titular de este sitio web. De acuerdo con la exigencia del art&amp;iacute;culo 10 de la citada Ley, ACME CO., INC informa de los siguientes datos:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;El titular de este sitio web es ACME CO., INC.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;USUARIO Y R&amp;Eacute;GIMEN DE RESPONSABILIDADES&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;La navegaci&amp;oacute;n, acceso y uso por el sitio web de ACME CO., INC confiere la condici&amp;oacute;n de usuario, por la que se aceptan, desde la navegaci&amp;oacute;n por el sitio web de ACME CO., INC, todas las condiciones de uso aqu&amp;iacute; establecidas sin perjuicio de la aplicaci&amp;oacute;n de la correspondiente normativa de obligado cumplimiento legal seg&amp;uacute;n el caso.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;El sitio web de ACME CO., INC proporciona gran diversidad de informaci&amp;oacute;n, servicios y datos. El usuario asume su responsabilidad en el uso correcto del sitio web. Esta responsabilidad se extender&amp;aacute; a:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;- La veracidad y licitud de las informaciones aportadas por el usuario en los formularios extendidos por ACME CO., INC para el acceso a ciertos contenidos o servicios ofrecidos por el web.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;- El uso de la informaci&amp;oacute;n, servicios y datos ofrecidos por ACME CO., INC contrariamente a lo dispuesto por las presentes condiciones, la Ley, la moral, las buenas costumbres o el orden p&amp;uacute;blico, o que de cualquier otro modo puedan suponer lesi&amp;oacute;n de los derechos de terceros o del mismo funcionamiento del sitio web.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;POL&amp;Iacute;TICA DE ENLACES Y EXENCIONES DE RESPONSABILIDAD&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;ACME CO., INC no se hace responsable del contenido de los sitios web a los que el usuario pueda acceder a trav&amp;eacute;s de los enlaces establecidos en su sitio web y declara que en ning&amp;uacute;n caso proceder&amp;aacute; a examinar o ejercitar ning&amp;uacute;n tipo de control sobre el contenido de otros sitios de la red. Asimismo, tampoco garantizar&amp;aacute; la disponibilidad t&amp;eacute;cnica, exactitud, veracidad, validez o legalidad de sitios ajenos a su propiedad a los que se pueda acceder por medio de los enlaces.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;ACME CO., INC declara haber adoptado todas las medidas necesarias para evitar cualquier da&amp;ntilde;o a los usuarios de su sitio web, que pudieran derivarse de la navegaci&amp;oacute;n por su sitio web. En consecuencia, ACME CO., INC no se hace responsable, en ning&amp;uacute;n caso, de los eventuales da&amp;ntilde;os que por la navegaci&amp;oacute;n por Internet pudiera sufrir el usuario.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;MODIFICACIONES&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;ACME CO., INC se reserva el derecho a realizar las modificaciones que considere oportunas, sin aviso previo, en el contenido de su sitio web. Tanto en lo referente a los contenidos del sitio web, como en las condiciones de uso del mismo, o en las condiciones generales de contrataci&amp;oacute;n. Dichas modificaciones podr&amp;aacute;n realizarse a trav&amp;eacute;s de su sitio web por cualquier forma admisible en derecho y ser&amp;aacute;n de obligado cumplimiento durante el tiempo en que se encuentren publicadas en el web y hasta que no sean modificadas v&amp;aacute;lidamente por otras posteriores.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;SERVICIOS DE CONTRATACI&amp;Oacute;N POR INTERNET&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;Ciertos contenidos de la website de ACME CO., INC contienen la posibilidad de contrataci&amp;oacute;n por Internet. El uso de los mismos requerir&amp;aacute; la lectura y aceptaci&amp;oacute;n obligatoria de las condiciones generales de contrataci&amp;oacute;n establecidas al efecto por ACME CO., INC.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;PROTECCI&amp;Oacute;N DE DATOS&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;De conformidad con lo que establece la Ley Org&amp;aacute;nica 15/1999 de Protecci&amp;oacute;n de Datos de Car&amp;aacute;cter Personal (LOPD), ACME CO., INC informa a los usuarios de su sitio web que los datos personales recabados por la empresa, mediante los formularios sitos en sus p&amp;aacute;ginas, ser&amp;aacute;n introducidos en un fichero automatizado bajo la responsabilidad de ACME CO., INC, con la finalidad de poder facilitar, agilizar y cumplir los compromisos establecidos entre ambas partes.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;Asimismo, ACME CO., INC informa de la posibilidad de ejercer los derechos de acceso, rectificaci&amp;oacute;n, cancelaci&amp;oacute;n y oposici&amp;oacute;n mediante un escrito a la direcci&amp;oacute;n: Av. Reina Mercedes s/n, 41012, Sevilla, Departamento de Lenguajes y Sistemas Inform&amp;aacute;ticos.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;Mientras el usuario no comunique lo contrario a ACME CO., INC, &amp;eacute;sta entender&amp;aacute; que sus datos no han sido modificados, que el usuario se compromete a notificar a ACME CO., INC cualquier variaci&amp;oacute;n y que ACME CO., INC tiene el consentimiento para utilizarlos a fin de poder fidelizar la relaci&amp;oacute;n entre las partes.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;PROPIEDAD INTELECTUAL E INDUSTRIAL&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;ACME CO., INC por s&amp;iacute; misma o como cesionaria, es titular de todos los derechos de propiedad intelectual e industrial de su p&amp;aacute;gina web, as&amp;iacute; como de los elementos contenidos en la misma (a t&amp;iacute;tulo enunciativo, im&amp;aacute;genes, sonido, audio, v&amp;iacute;deo, software o textos; marcas o logotipos, combinaciones de colores, estructura y dise&amp;ntilde;o, selecci&amp;oacute;n de materiales usados, programas de ordenador necesarios para su funcionamiento, acceso y uso, etc.), titularidad de ACME CO., INC. Ser&amp;aacute;n, por consiguiente, obras protegidas como propiedad intelectual por el ordenamiento jur&amp;iacute;dico espa&amp;ntilde;ol, si&amp;eacute;ndoles aplicables tanto la normativa espa&amp;ntilde;ola y comunitaria en este campo, como los tratados internacionales relativos a la materia y suscritos por Espa&amp;ntilde;a.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;Todos los derechos reservados. En virtud de lo dispuesto en los art&amp;iacute;culos 8 y 32.1, p&amp;aacute;rrafo segundo, de la Ley de Propiedad Intelectual, quedan expresamente prohibidas la reproducci&amp;oacute;n, la distribuci&amp;oacute;n y la comunicaci&amp;oacute;n p&amp;uacute;blica, incluida su modalidad de puesta a disposici&amp;oacute;n, de la totalidad o parte de los contenidos de esta p&amp;aacute;gina web, con fines comerciales, en cualquier soporte y por cualquier medio t&amp;eacute;cnico, sin la autorizaci&amp;oacute;n de ACME CO., INC.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;El usuario se compromete a respetar los derechos de Propiedad Intelectual e Industrial titularidad de ACME CO., INC. Podr&amp;aacute; visualizar los elementos del portal e incluso imprimirlos, copiarlos y almacenarlos en el disco duro de su ordenador o en cualquier otro soporte f&amp;iacute;sico siempre y cuando sea, &amp;uacute;nica y exclusivamente, para su uso personal y privado. El usuario deber&amp;aacute; abstenerse de suprimir, alterar, eludir o manipular cualquier dispositivo de protecci&amp;oacute;n o sistema de seguridad que estuviera instalado en las p&amp;aacute;ginas de ACME CO., INC.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;ACCIONES LEGALES, LEGISLACI&amp;Oacute;N APLICABLE Y JURISDICCI&amp;Oacute;N&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;ACME CO., INC se reserva, asimismo, la facultad de presentar las acciones civiles o penales que considere oportunas por la utilizaci&amp;oacute;n indebida de su sitio web y contenidos, o por el incumplimiento de las presentes condiciones.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;La relaci&amp;oacute;n entre el usuario y el prestador se regir&amp;aacute; por la normativa vigente y de aplicaci&amp;oacute;n en el territorio espa&amp;ntilde;ol. De surgir cualquier controversia las partes podr&amp;aacute;n someter sus conflictos a arbitraje o acudir a la jurisdicci&amp;oacute;n ordinaria cumpliendo con las normas sobre jurisdicci&amp;oacute;n y competencia al respecto. ACME CO., INC tiene su domicilio en SEVILLA, Espa&amp;ntilde;a.&lt;/span&gt;&lt;/p&gt;"/>
+	</bean>
+	<bean id="legalText2" class="domain.LegalText">
+		<property name="type" value="TERMS"/>
+		<property name="codeLanguage" value="en"/>
+		<!-- <property name="body" value="Articles can not have bad words"/> -->
+		<property name="body" value="&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;In compliance with Law 34/2002, of July 11, on Services of the Information Society and Electronic Commerce (LSSI-CE), ACME CO., INC. Informs that it is the owner of this website. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;In accordance with the requirement of article 10 of the aforementioned Law, ACME CO., INC reports the following information:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The owner of this website is ACME CO., INC.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;USER AND REGIME OF RESPONSIBILITIES&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The navigation, access and use by the website of ACME CO., INC confers the condition of user, by which they accept, from browsing the website of ACME CO., INC, all conditions of use here established without prejudice to the application of the corresponding regulations of mandatory legal compliance as the case may be.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The ACME CO., INC. Website provides a wide variety of information, services and data. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The user assumes his responsibility in the correct use of the website. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;This responsibility will extend to:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;- The veracity and legality of the information provided by the user in the forms issued by ACME CO., INC for access to certain content or services offered by the web.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;- The use of the information, services and data offered by ACME CO., INC contrary to the provisions of these conditions, the Law, morals, good customs or public order, or that may otherwise result in injury of the rights of third parties or the operation of the website.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;LINKS POLICY AND LIABILITY EXEMPTIONS&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACME CO., INC is not responsible for the content of the websites that the user can access through the links established on its website and declares that in no case will proceed to examine or exercise any type of control over the content from other sites in the network. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Likewise, it will not guarantee the technical availability, accuracy, veracity, validity or legality of sites external to your property that can be accessed through the links.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACME CO., INC. Declares that it has adopted all the necessary measures to avoid any damage to users of its website, which may arise from browsing its website. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;As a result, ACME CO., INC is not responsible, in any case, for any damages that the user may suffer from browsing the Internet.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;MODIFICATIONS&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACME CO., INC reserves the right to make the modifications it deems appropriate, without prior notice, in the content of its website. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Both with regard to the contents of the website, as in the conditions of use thereof, or in the general conditions of contract. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Said modifications may be made through its website by any admissible form in law and shall be binding during the time they are published on the website and until they are validly modified by subsequent ones.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;INTERNET CONTRACTING SERVICES&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Certain contents of the ACME CO., INC. Website contain the possibility of contracting by Internet. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The use of the same will require the reading and obligatory acceptance of the general contracting conditions established for this purpose by ACME CO., INC.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;DATA PROTECTION&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;In accordance with the provisions of the Organic Law 15/1999 on the Protection of Personal Data (LOPD), ACME CO., INC informs the users of its website that the personal data collected by the company, through the forms located in their pages, they will be entered in an automated file under the responsibility of ACME CO., INC, with the purpose of facilitating, expediting and fulfilling the commitments established between both parties.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Likewise, ACME CO., INC. Informs of the possibility of exercising the rights of access, rectification, cancellation and opposition by writing to the address: Av. Reina Mercedes s / n, 41012, Seville, Department of Languages &amp;#8203;&amp;#8203;and Computer Systems.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;While the user does not communicate otherwise to ACME CO., INC, it will understand that their data has not been modified, that the user agrees to notify ACME CO., INC any variation and that ACME CO., INC. Has the consent to use them in order to be able to fidelize the relationship between the parties.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;INTELLECTUAL AND INDUSTRIAL PROPERTY&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACME CO., INC. By itself or as an assignee, is the owner of all the intellectual and industrial property rights of its website, as well as the elements contained therein (for example, images, sound, audio, video) , software or texts, trademarks or logos, combinations of colors, structure and design, selection of used materials, computer programs necessary for its operation, access and use, etc.), owned by ACME CO., INC. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They will, therefore, works protected as intellectual property by the Spanish legal system, being applicable both Spanish and European regulations in this field, as well as international treaties relating to the subject and signed by Spain.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;All rights reserved. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;By virtue of the provisions of articles 8 and 32.1, second paragraph, of the Law on Intellectual Property, the reproduction, distribution and public communication, including the method of making them available, of all or part of the articles is expressly prohibited. contents of this web page, with commercial ends, in any support and by any technical means, without the authorization of ACME CO., INC.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The user undertakes to respect the Intellectual and Industrial Property rights owned by ACME CO., INC. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;You can visualize the elements of the portal and even print them, copy them and store them on your computer&apos;s hard drive or on any other physical medium, as long as it is solely and exclusively for your personal and private use. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The user must refrain from deleting, altering, evading or manipulating any protection device or security system that was installed on the pages of ACME CO., INC.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify; line-height: normal; background: white; margin: 7.5pt 0cm 7.5pt 0cm;&quot;&gt;&lt;span style=&quot;font-size: 13.5pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;LEGAL ACTIONS, APPLICABLE LEGISLATION AND JURISDICTION&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACME CO., INC. Also reserves the right to file civil or criminal actions it deems appropriate for the improper use of its website and content, or for the breach of these conditions.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin-bottom: 7.5pt; text-align: justify; line-height: normal; background: white;&quot;&gt;&lt;span style=&quot;font-size: 9.0pt; &quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The relationship between the user and the provider will be governed by the regulations in force and applicable in Spanish territory. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;If any dispute arises, the parties may submit their disputes to arbitration or go to the ordinary jurisdiction, complying with the rules on jurisdiction and competence in this regard. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACME CO., INC. Has its address in SEVILLA, Spain.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; " />
+	</bean>
+	<bean id="legalText3" class="domain.LegalText">
+		<property name="type" value="COOKIES"/>
+		<property name="codeLanguage" value="es"/>
+		<!-- <property name="body" value="Esta web usa cookies para su mejor funcionamiento"/> -->
+		<property name="body" value="&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Una Cookie es un fichero que se descarga en su ordenador al acceder a determinadas p&amp;aacute;ginas web. Las cookies permiten a una p&amp;aacute;gina web, entre otras cosas, almacenar y recuperar informaci&amp;oacute;n sobre los h&amp;aacute;bitos de navegaci&amp;oacute;n de un usuario o de su equipo y, dependiendo de la informaci&amp;oacute;n que contenga y de la forma en que utilice su equipo, pueden utilizarse para reconocer al usuario.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Las cookies son esenciales para el funcionamiento de internet, aportando innumerables ventajas en la prestaci&amp;oacute;n de servicios interactivos, facilit&amp;aacute;ndole la navegaci&amp;oacute;n y usabilidad de nuestra web.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;La informaci&amp;oacute;n que le proporcionamos a continuaci&amp;oacute;n, le ayudar&amp;aacute; a comprender los diferentes tipos de cookies:&lt;/span&gt;&lt;/p&gt;&lt;table class=&quot;tablacookies&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;3&quot;&gt;&lt;table border=&quot;1&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;3&quot;&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;TIPOS DE COOKIES&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&quot;2&quot;&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;SEG&amp;Uacute;N LA ENTIDAD QUE LAS GESTIONE&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies propias&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Son aquellas que se recaban por el propio editor para prestar el servicio solicitado por el usuario.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de tercero&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Son aquellas que son recabadas y gestionadas por un tercero, estas no se pueden considerar propias.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&quot;2&quot;&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;SEG&amp;Uacute;N EL PLAZO DE TIEMPO QUE PERMANEZCAN ACTIVADAS&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de sesi&amp;oacute;n&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Recaban datos mientras el usuario navega por la red con la finalidad de prestar el servicio solicitado.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies persistentes&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Se almacenan en el terminal y la informaci&amp;oacute;n obtenida, ser&amp;aacute; utilizada por el responsable de la cookie con la finalidad de prestar el servicio solicitado.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td rowspan=&quot;5&quot;&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;SEG&amp;Uacute;N SU FINALIDAD&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies t&amp;eacute;cnicas&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Son las necesarias para la correcta navegaci&amp;oacute;n por la web.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de personalizaci&amp;oacute;n&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Permiten al usuario las caracter&amp;iacute;sticas (idioma) para la navegaci&amp;oacute;n por la website&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de an&amp;aacute;lisis&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Permiten al prestador el an&amp;aacute;lisis vinculado a la navegaci&amp;oacute;n realizada por el usuario, con la finalidad de llevar un seguimiento de uso de la p&amp;aacute;gina web, as&amp;iacute; como realizar estad&amp;iacute;sticas de los contenidos m&amp;aacute;s visitados, n&amp;uacute;mero de visitantes, etc.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies publicitarias&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Permiten al editor incluir en la web, espacios publicitarios, seg&amp;uacute;n el contenido de la propia web.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de publicidad comportamental&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Permiten al editor incluir en la p&amp;aacute;gina web espacios publicitarios seg&amp;uacute;n la informaci&amp;oacute;n obtenida a trav&amp;eacute;s de los h&amp;aacute;bitos de navegaci&amp;oacute;n del usuario.&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;td&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Seg&amp;uacute;n lo dispuesto en el art&amp;iacute;culo 22.2 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Informaci&amp;oacute;n y de Comercio Electr&amp;oacute;nico (LSSI-CE), ACME CO., INC informa de las cookies utilizadas en nuestra website:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;table class=&quot;tablacookies&quot; style=&quot;width: 588px;&quot; border=&quot;1&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;th style=&quot;width: 194px;&quot;&gt;&amp;nbsp;&lt;/th&gt;&lt;th style=&quot;width: 394px;&quot; colspan=&quot;3&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Tipos de Cookies&lt;/span&gt;&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width: 194px;&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies Propias&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de sesion&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies persistentes&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies tecnicas&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de personalizacion&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Cookies de analisis&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot; /&gt;&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Asimismo, ACME CO., INC informa al usuario de que tiene la posibilidad de configurar su navegador de modo que se le informe de la recepci&amp;oacute;n de cookies, pudiendo, si as&amp;iacute; lo desea, impedir que sean instaladas en su disco duro.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;A continuaci&amp;oacute;n le proporcionamos los enlaces de diversos navegadores, a trav&amp;eacute;s de los cuales podr&amp;aacute; realizar dicha configuraci&amp;oacute;n:&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Firefox desde aqu&amp;iacute;:&amp;nbsp;&lt;a href=&quot;http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we&quot;&gt;http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Chrome desde aqu&amp;iacute;:&amp;nbsp;&lt;a href=&quot;http://support.google.com/chrome/bin/answer.py?hl=es&amp;amp;answer=95647&quot; target=&quot;blank&quot;&gt;http://support.google.com/chrome/bin/answer.py?hl=es&amp;amp;answer=95647&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Explorer desde aqu&amp;iacute;:&amp;nbsp;&lt;a href=&quot;http://windows.microsoft.com/es-es/internet-explorer/delete-manage-cookies#ie=ie-10&quot; target=&quot;blank&quot;&gt;http://windows.microsoft.com/es-es/internet-explorer/delete-manage-cookies#ie=ie-10&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Safari desde aqu&amp;iacute;:&amp;nbsp;&lt;a href=&quot;https://support.apple.com/kb/ph17191?locale=es_ES&quot; target=&quot;blank&quot;&gt;https://support.apple.com/kb/ph17191?locale=es_ES&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;Opera desde aqu&amp;iacute;:&amp;nbsp;&lt;a href=&quot;http://help.opera.com/Windows/11.50/es-ES/cookies.html&quot; target=&quot;blank&quot;&gt;http://help.opera.com/Windows/11.50/es-ES/cookies.html&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;"/>
+	</bean>
+	<bean id="legalText4" class="domain.LegalText">
+		<property name="type" value="COOKIES"/>
+		<property name="codeLanguage" value="en"/>
+		<!-- <property name="body" value="This web uses cookies in order to improve its funcionallity"/> -->
+		<property name="body" value="&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;A Cookie is a file that is downloaded to your computer when you access certain web pages. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Cookies allow a web page, among other things, to store and retrieve information about the browsing habits of a user or their equipment and, depending on the information it contains and how they use their equipment, they can be used to recognize to user.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Cookies are essential for the functioning of the internet, providing innumerable advantages in the provision of interactive services, facilitating navigation and usability of our website.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The information that we provide below, will help you understand the different types of cookies:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;table class=&quot;tablacookies&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td colspan=&quot;3&quot;&gt; &lt;table border=&quot;1&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td colspan=&quot;3&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;TYPES OF COOKIES&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td rowspan=&quot;2&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACCORDING TO THE ENTITY THAT MANAGES THEM&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Own cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Are those that are collected by the editor to provide the service requested by the user.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Third party cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Are those that are collected and managed by a third party, these can not be considered own.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td rowspan=&quot;2&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACCORDING TO THE TIME LIMIT THAT THEY STAY ACTIVATED&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Session cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They collect data while the user browses the network in order to provide the requested service.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Persistent cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They are stored in the terminal and the information obtained will be used by the person responsible for the cookie in order to provide the requested service.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td rowspan=&quot;5&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACCORDING TO YOUR PURPOSE&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Technical cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They are the necessary ones for the correct navigation through the web.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Personalization cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the user the characteristics (language) for browsing the website&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Analysis cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the provider the analysis linked to the navigation carried out by the user, in order to track the use of the website, as well as to make statistics of the most visited contents, number of visitors, etc.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Advertising cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the editor to include advertising space on the web, according to the content of the web itself.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Behavioral advertising cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the editor to include advertising space on the web page according to the information obtained through the user&apos;s browsing habits.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;According to the provisions of article 22.2 of Law 34/2002, of July 11, Services of the Information Society and Electronic Commerce (LSSI-CE), ACME CO., INC. Informs about the cookies used in our website:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;table class=&quot;tablacookies&quot; style=&quot;width: 588px;&quot; border=&quot;1&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;th style=&quot;width: 194px;&quot;&gt;&amp;nbsp;&lt;/th&gt; &lt;th style=&quot;width: 394px;&quot; colspan=&quot;3&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Types of Cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/th&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Own Cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Session cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Persistent cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Technical cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Personalization cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Analysis cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;In addition, ACME CO., INC informs the user that he has the possibility to configure his browser so that he is informed of the reception of cookies, and may, if he wishes, prevent them from being installed on his hard drive.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Below we provide the links of various browsers, through which you can make such configuration:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Firefox from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Chrome from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://support.google.com/chrome/bin/answer.py?hl=es&amp;amp;answer=95647&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://support.google.com/chrome/bin/answer.py?hl=en&amp;amp;answer=95647&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Explorer from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://windows.microsoft.com/es-es/internet-explorer/delete-manage-cookies#ie=ie-10&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://windows.microsoft.com/es-es/internet-explorer/delete-manage-cookies#ie=ie-10&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Safari from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;https://support.apple.com/kb/ph17191?locale=es_ES&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;https://support.apple.com/kb/ph17191?locale=en_US&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Opera from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://help.opera.com/Windows/11.50/es-ES/cookies.html&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://help.opera.com/Windows/11.50/es-ES/cookies.html&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;"/>
+	</bean>
+	
+</beans>

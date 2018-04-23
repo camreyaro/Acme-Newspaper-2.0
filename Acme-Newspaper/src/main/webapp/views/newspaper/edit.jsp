@@ -1,0 +1,38 @@
+<%--
+ * action-1.jsp
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ --%>
+
+<%@page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
+<%@taglib prefix="jstl"	uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+	<form:form action="newspaper/user/save.do" modelAttribute="newspaper">
+	<form:hidden path="id" />
+	<form:hidden path="version" />
+
+	<acme:textbox code="master.page.title" path="title"/>
+	<acme:textbox code="master.page.description" path="description"/>
+	<acme:textbox code="master.page.picture" path="pictureUrl"/>
+	<spring:message code="master.page.public" /><form:checkbox path="publicNp" value="true"/>
+	<i><spring:message code="newspaper.help.public" /></i>
+	<acme:textbox code="master.page.price" path="price"/> <i><spring:message code="newspaper.help.price" /></i>
+	<p/>
+	
+	
+	<acme:submit code="master.page.save"  name="save" />
+	<jstl:if test="${newspaper.id != 0 }">
+	<acme:submit code="master.page.delete"  name="delete" />
+	</jstl:if>
+	<acme:cancel code="master.page.return" url="/newspaper/display.do?newspaperId=${newspaper.id }" />
+</form:form>
