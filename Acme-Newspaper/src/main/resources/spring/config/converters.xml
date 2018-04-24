@@ -32,6 +32,12 @@
 		
 		<bean class="converters.SuscriptionToStringConverter" />
 		<bean class="converters.StringToSuscriptionConverter" />
+		
+		<bean class="converters.FolderToStringConverter" />
+		<bean class="converters.StringToFolderConverter" />
+		
+		<bean class="converters.MessageToStringConverter" />
+		<bean class="converters.StringToMessageConverter" />
 		<!-- END ANGEL -->
 		
 		<!-- CARLOS -->

@@ -35,6 +35,9 @@
 		<!-- ANGEL -->
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/suscription/tiles.xml</value>
+		
+		<value>/views/folder/tiles.xml</value>
+		<value>/views/message/tiles.xml</value>
 		 
 		<!-- END ANGEL -->
 		

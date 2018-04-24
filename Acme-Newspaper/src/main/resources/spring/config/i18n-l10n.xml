@@ -36,6 +36,9 @@
 		<value>/views/customer/messages</value>
 		<value>/views/suscription/messages</value>
 		
+		<value>/views/folder/messages</value>
+		<value>/views/message/messages</value>
+		
 		<!-- END ANGEL -->
 		
 		<!-- CARLOS -->
