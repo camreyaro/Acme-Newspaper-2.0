@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
-import org.hibernate.engine.config.spi.ConfigurationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,20 +25,16 @@ import domain.SpamWord;
 public class MessageService {
 
 	@Autowired
-	private MessageRepository		messageRepository;
+	private MessageRepository	messageRepository;
 	@Autowired
-	private ActorService			actorService;
+	private ActorService		actorService;
 	@Autowired
-	private FolderService			folderService;
+	private FolderService		folderService;
+	@Autowired
+	private SpamWordService		spamWordService;
 
 	@Autowired
-	private ConfigurationService	configurationService;
-
-	@Autowired
-	private SpamWordService			spamWordService;
-
-	@Autowired
-	Validator						validator;
+	Validator					validator;
 
 
 	public MessageService() {

@@ -66,7 +66,7 @@ public class SpamWordService {
 		this.spamWordRepository.delete(spamWord.getId());
 	}
 	// Other business methods
-	public SpamWord getSpamWords() {
+	public Collection<SpamWord> getSpamWords() {
 		return this.spamWordRepository.getSpamWords();
 	}
 }
