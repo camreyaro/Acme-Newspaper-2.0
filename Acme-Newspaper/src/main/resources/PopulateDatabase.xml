@@ -130,6 +130,18 @@
 		</property>
 	</bean>
 	
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="agent1" />
+		<property name="password" value="83a87fd756ab57199c0bb6d5e11168cb" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="AGENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Other domain beans come here -->
 		
 	<!-- USERS-->
@@ -157,6 +169,16 @@
 				<ref bean="user4"/>
 			</list>
 		</property>
+		<property name="folder">
+			<list>
+			<ref bean="folderU1.1"/>
+			<ref bean="folderU1.2"/>
+			<ref bean="folderU1.3"/>
+			<ref bean="folderU1.4"/>
+			<ref bean="folderU1.5"/>
+			<ref bean="folderU1.6"/>
+		</list>
+		</property>
 	</bean>
 	
 	<bean id="user2" class="domain.User">
@@ -179,6 +201,16 @@
 				<ref bean="user2"/>
 				<ref bean="user4"/>
 			</list>
+		</property>
+		<property name="folder">
+			<list>
+			<ref bean="folderU2.1"/>
+			<ref bean="folderU2.2"/>
+			<ref bean="folderU2.3"/>
+			<ref bean="folderU2.4"/>
+			<ref bean="folderU2.5"/>
+			<ref bean="folderU2.6"/>
+		</list>
 		</property>
 	</bean>
 	
@@ -205,6 +237,16 @@
 				<ref bean="user4"/>
 			</list>
 		</property>
+		<property name="folder">
+			<list>
+			<ref bean="folderU3.1"/>
+			<ref bean="folderU3.2"/>
+			<ref bean="folderU3.3"/>
+			<ref bean="folderU3.4"/>
+			<ref bean="folderU3.5"/>
+			<ref bean="folderU3.6"/>
+		</list>
+		</property>
 	</bean>
 	
 	<bean id="user4" class="domain.User">
@@ -228,6 +270,16 @@
 				<ref bean="user4"/>
 			</list>
 		</property>
+		<property name="folder">
+			<list>
+			<ref bean="folderU4.1"/>
+			<ref bean="folderU4.2"/>
+			<ref bean="folderU4.3"/>
+			<ref bean="folderU4.4"/>
+			<ref bean="folderU4.5"/>
+			<ref bean="folderU4.6"/>
+		</list>
+		</property>
 	</bean>
 	
 	<bean id="admin" class="domain.Administrator">
@@ -239,6 +291,16 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount1" />
+		<property name="folder">
+			<list>
+			<ref bean="folderA1"/>
+			<ref bean="folderA2"/>
+			<ref bean="folderA3"/>
+			<ref bean="folderA4"/>
+			<ref bean="folderA5"/>
+			<ref bean="folderA6"/>
+		</list>
+		</property>
 	</bean>
 	
 	<!-- CUSTOMER -->
@@ -251,6 +313,16 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount8" />
+		<property name="folder">
+			<list>
+			<ref bean="folderC1.1"/>
+			<ref bean="folderC1.2"/>
+			<ref bean="folderC1.3"/>
+			<ref bean="folderC1.4"/>
+			<ref bean="folderC1.5"/>
+			<ref bean="folderC1.6"/>
+		</list>
+		</property>
 	</bean>
 	
 	<bean id="customer2" class="domain.Customer">
@@ -262,6 +334,38 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount9" />
+		<property name="folder">
+			<list>
+			<ref bean="folderC2.1"/>
+			<ref bean="folderC2.2"/>
+			<ref bean="folderC2.3"/>
+			<ref bean="folderC2.4"/>
+			<ref bean="folderC2.5"/>
+			<ref bean="folderC2.6"/>
+		</list>
+		</property>
+	</bean>
+	
+	<!--  AGENT -->
+	<bean id="agent1" class="domain.Customer">
+		<property name="name" value="Rafael" />
+		<property name="surname" value="Macias" />
+		<property name="postalAddress" value="Paseo de las Delicias 24" />
+		<property name="phoneNumber" value="83427833427" />
+		<property name="emailAddress" value="rafa@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount10" />
+		<property name="folder">
+			<list>
+			<ref bean="folderA1.1"/>
+			<ref bean="folderA1.2"/>
+			<ref bean="folderA1.3"/>
+			<ref bean="folderA1.4"/>
+			<ref bean="folderA1.5"/>
+			<ref bean="folderA1.6"/>
+		</list>
+		</property>
 	</bean>
 	
 	<!-- NEWSPAPER -->
@@ -379,6 +483,57 @@
 			<list>
 				<ref bean="article13" />
 				<ref bean="article14" />
+			</list>
+		</property>
+		<property name="publisher" ref="user3" />
+	</bean>
+	
+	<bean id="newspaper8" class="domain.Newspaper">
+		<property name="title" value="Noticias de futbol" />
+		<property name="publicationDate" value="2016/08/09" />
+		<property name="description" value="Periodico que recoge las noticias de futbol" />
+		<property name="pictureUrl" value="http://diario16.com/wp-content/uploads/2017/05/f%C3%BAtbol.jpg" />
+		<property name="price" value="5.0" />
+		<property name="published" value="true" />
+		<property name="publicNp" value="false" />
+		<property name="articles" >
+			<list>
+				<ref bean="article17" />
+				<ref bean="article18" />
+			</list>
+		</property>
+		<property name="publisher" ref="user1" />
+	</bean>
+	
+	<bean id="newspaper9" class="domain.Newspaper">
+		<property name="title" value="Noticias de basket" />
+		<property name="publicationDate" value="2016/08/09" />
+		<property name="description" value="Encuentra aqui todo lo que necesitas saber del mundo del baloncesto" />
+		<property name="pictureUrl" value="http://www.adpradomarianistas.com/wp-content/uploads/2016/04/marianistas-baloncesto.jpg" />
+		<property name="price" value="4.0" />
+		<property name="published" value="true" />
+		<property name="publicNp" value="false" />
+		<property name="articles" >
+			<list>
+				<ref bean="article19" />
+				<ref bean="article20" />
+			</list>
+		</property>
+		<property name="publisher" ref="user1" />
+	</bean>
+	
+	<bean id="newspaper10" class="domain.Newspaper">
+		<property name="title" value="Marchena Today" />
+		<property name="publicationDate" value="2016/09/09" />
+		<property name="description" value="Periodico que recoge las noticias de Marchena" />
+		<property name="pictureUrl" value="https://andaluciarustica.com/wp-content/uploads/2013/08/marchena.jpg" />
+		<property name="price" value="3.0" />
+		<property name="published" value="true" />
+		<property name="publicNp" value="false" />
+		<property name="articles" >
+			<list>
+				<ref bean="article21" />
+				<ref bean="article22" />
 			</list>
 		</property>
 		<property name="publisher" ref="user3" />
@@ -644,6 +799,114 @@ Desde enero de 2018, el BCE ha reducido a la mitad el importe de sus compras men
 		<property name="creator" ref="user2" />
 		<property name="newspaper" ref="newspaper6" />
 	</bean>
+	
+	<bean id="article17" class="domain.Article">
+		<property name="title" value="Guardiola: Iniesta me ayudó a entender mejor el fútbol" />
+		<property name="moment" value="2017/03/08" />
+		<property name="summary" value="Compañeros, rivales y todo tipo de personalidades se rinden a la magia y la sencillez del ocho del Barcelona" />
+		<property name="body" value="En su despedida, a Andrés Iniesta la lista de agradecimientos se le quedaba corta. Al club, a La Masia, a sus compañeros, a la afición, a su familia... No veía el momento de parar. Algo así pasó con los agradecimientos y las muestras de afecto que compañeros, entrenadores, admiradores, amigos o simples conocidos dedicaban al capitán del Barcelona. Eterno Iniesta, como se esforzaba por recordar el club en las redes sociales, a través de donde llegaron la mayoría de los mensajes. " />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://ep01.epimg.net/deportes/imagenes/2018/04/27/actualidad/1524839665_111473_1524842638_noticia_normal_recorte1.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+	
+		<property name="creator" ref="user1" />
+		<property name="newspaper" ref="newspaper8" />
+	</bean>
+	
+	<bean id="article18" class="domain.Article">
+		<property name="title" value="El Espanyol arrasa en el fútbol base femenino" />
+		<property name="moment" value="2017/03/08" />
+		<property name="summary" value="El club blanquiazul se impone al Barça con títulos en todas las categorías, desde juveniles hasta alevines" />
+		<property name="body" value="El curso 2017-2018 no ha sido precisamente el mejor del mundo para el Espanyol. Al menos para el primer equipo masculino, que ha indignado a todos los pericos con el despedido Quique Sánchez Flores en el banquillo. No todo ha sido negativo en la temporada. Lejos de los focos existe un excelente trabajo en otras parcelas. Un buen ejemplo se encuentra en el fútbol base femenino, que está completando la mejor temporada de su historia.
+
+Las periquitas han logrado ya matemáticamente tres títulos de Liga, dos en categoría infantil y uno en alevín. Los dos juveniles también llegarán en unas semanas. Están encarrilados. Si logramos el pentacampeonato será algo histórico. Lo nunca visto. El año perfecto. Serían cinco títulos de seis posibles. Y el sexto no lo logramos porque decidimos que las más pequeñitas compitieran con los chicos, explica el coordinador Lauren Florido en una charla con EL PERIÓDICO. " />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://estaticos.elperiodico.com/resources/jpg/7/8/rpaniagua43080200-barcelona-2017-equipo-femenino-infantil-del-esp180427003024-1524782013987.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+	
+		<property name="creator" ref="user1" />
+		<property name="newspaper" ref="newspaper8" />
+	</bean>
+	
+	<bean id="article19" class="domain.Article">
+		<property name="title" value="La Selección Femenina jugará contra Ucrania en Melilla" />
+		<property name="moment" value="2017/03/08" />
+		<property name="summary" value="Jose Montero, vicepresidente de la FEB, y Antonio Miranda, consejero de Educación, Juventud y Deportes de la Ciudad Autónoma de Melilla, han firmado un convenio de colaboración por el cual, entre otras actividades, la selección femenina jugará el partido de clasificación del próximo mes de noviembre ante Ucrania en el Pabellón Javier Imbroda." />
+		<property name="body" value="Este viernes se han reunido en Melilla el vicepresidente de la FEB, Jose Montero, y el consejero de Educación, Juventud y Deportes de la Ciudad Autónoma de Melilla, Antonio Miranda, con la presencia del presidente de la Federación Melillense, Javier Almansa. 
+
+Una reunión que se ha cerrado con la firma de un convenio de colaboración entre las tres entidades entre las que se incluyen una serie de actividades de competición y promoción del baloncesto. Entre ellas, estará el partido de clasificación para el EuroBasket Femenino de 2019 que disputará la selección española ante Ucrania.
+
+Las actuales campeonas de Europa y subcampeonas olímpicas visitarán el Pabellón Javier Imbroda en el partido entre los dos equipos más potentes del Grupo F de clasificación para el EuroBasket 2019, que cerrará la fase el próximo 21 de noviembre. Un recinto que ya recibió la visita de la selección masculina el pasado verano en su preparación para el Europeo, y que registró un lleno absoluto." />
+		<property name="pictureURLs" >
+			<list>
+			<value>http://www.feb.es/Imagenes/Noticias/121553_2.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+	
+		<property name="creator" ref="user1" />
+		<property name="newspaper" ref="newspaper9" />
+	</bean>
+	
+	<bean id="article20" class="domain.Article">
+		<property name="title" value="Comienzan en Bilbao las finales de la Euroliga de baloncesto en silla de ruedas con la asistencia del alcalde" />
+		<property name="moment" value="2017/03/08" />
+		<property name="summary" value="El alcalde de Bilbao, Juan Mari Aburto, ha asistido este viernes al partido inaugural de las finales de la Euroliga de Baloncesto en silla de ruedas que se disputan a lo largo de todo el fin de semana en la capital vizcaína." />
+		<property name="body" value="El primer edil ha estado acompañado por la concejal de Juventud y Deportes, Oihane Agirregoitia; el edil de Acción Social, Iñigo Pombo; la diputada de Euskera y Cultura, Lorea Bilbao, y la presidenta de Juntas Generales, Ana Otadui, según ha informado el Consistorio.
+
+El encuentro que ha dado el pistoletazo de salida a esta cita deportiva ha enfrentado, en el Polideportivo Municipal de Txurdinaga, al Bidaideak Bilbao BSR y al equipo austriaco del Interwetten Coldplast Sitting Bulls.
+
+La Federación Internacional de Baloncesto en Silla de Ruedas ha designado a Bilbao como organizadora de la final de esta edición, tras el éxito organizativo cosechado por la Villa en 2017, cuando acogió la fase preliminar de estas mismas finales." />
+		<property name="pictureURLs" >
+			<list>
+			<value>https://www.eldiario.es/norte/euskadi/Comienzan-Bilbao-Euroliga-baloncesto-asistencia_EDIIMA20180427_0777_4.jpg</value>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+	
+		<property name="creator" ref="user1" />
+		<property name="newspaper" ref="newspaper9" />
+	</bean>
+	
+	<bean id="article21" class="domain.Article">
+		<property name="title" value="El PA de Marchena señala las derrotas judiciales de la alcaldesa por sus actitudes caciquiles"/>
+		<property name="moment" value="2017/03/08" />
+		<property name="summary" value="Después de que el Juzgado de lo Contencioso Administrativo número cuatro de Sevilla haya ordenado a la alcaldesa de Marchena, María del Mar Romero (PSOE), que facilite al PA la información solicitada por dicho partido respecto a los pagos efectuados a los distintos grupos políticos del Ayuntamiento desde 2010, los andalucistas de dicha localidad han señalado las derrotas judiciales de la alcaldesa por sus actitudes caciquiles" />
+		<property name="body" value="Si la alcaldesa sigue acumulando derrotas judiciales, habrá que ir pensando en reclamarle desde el pleno que pague ella las costas judiciales de los litigios, en lugar de costear sus caprichosas violaciones de derechos con dinero público, señala el PA de Marchena en un comunicado. A través de una sentencia emitida el pasado 23 de abril y recogida por Europa Press, la citada instancia judicial aborda un litigio promovido por el Grupo andalucista del Ayuntamiento de Marchena, después de que la primer edil no accediese a proporcionar una serie de datos y documentos solicitados por dicho partido. En concreto, allá por octubre de 2017, el PA solicitó acceso a los pagos efectuados a los distintos grupos políticos del Ayuntamiento desde 2010 hasta la fecha, con todos los documentos completos de autorización de gasto, disposición del mismo u órdenes de abono" />
+		<property name="pictureURLs" >
+			<list>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+	
+		<property name="creator" ref="user3" />
+		<property name="newspaper" ref="newspaper10" />
+		
+	</bean>
+	
+	<bean id="article22" class="domain.Article">
+		<property name="title" value="Condenas en Constantina y Marchena por denegar datos a la oposición"/>
+		<property name="moment" value="2017/03/08" />
+		<property name="summary" value="Las resistencia de algunos gobiernos locales a facilitar a la oposición toda la documentación que solicitan lleva a que muchos casos terminen en el juzgado. Ayer, trascendieron dos sentencias que condenan a los gobiernos de Marchena y Constantina, del PSOE, por vulnerar los derechos fundamentales de concejales a los que no facilitaron datos sobre la gestión municipal que pidieron." />
+		<property name="body" value="El primer fallo del juzgado de lo contencioso-administrativo número 4 de Sevilla ordena a la alcaldesa de Marchena, María del Mar Romero, a facilitar al PA la información que pidió sobre los pagos realizados a grupos políticos desde 2010, a lo que se negó al considerar que era un exceso y entraba dentro de la esfera contable de los grupos. El Ayuntamiento debe pagar las costas del proceso judicial.
+
+El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho fundamental al acceso a la información del grupo Ciudadanos por Constantina, al que se denegó la petición de documentación alegando que prepararla obligaría a varios técnicos a desatender otras funciones. El grupo pidió todos los gastos por partidas de junio de 2015 a agosto de 2016; proyectos de obra de 2011 a 2016 y datos sobre un contrato, que se tendrán que aportar. El Consistorio también debe pagar las costas." />
+		<property name="pictureURLs" >
+			<list>
+			</list>
+		</property>
+		<property name="saved" value="true" />
+	
+		<property name="creator" ref="user3" />
+		<property name="newspaper" ref="newspaper10" />
+		
+	</bean>
 	<!-- SPAM WORD -->
 	<bean id="spamWord1" class="domain.SpamWord">
 		<property name="word" value="sex"/>
@@ -857,6 +1120,800 @@ Desde enero de 2018, el BCE ha reducido a la mitad el importe de sus compras men
 		<property name="codeLanguage" value="en"/>
 		<!-- <property name="body" value="This web uses cookies in order to improve its funcionallity"/> -->
 		<property name="body" value="&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;A Cookie is a file that is downloaded to your computer when you access certain web pages. &lt;/font&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Cookies allow a web page, among other things, to store and retrieve information about the browsing habits of a user or their equipment and, depending on the information it contains and how they use their equipment, they can be used to recognize to user.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Cookies are essential for the functioning of the internet, providing innumerable advantages in the provision of interactive services, facilitating navigation and usability of our website.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;The information that we provide below, will help you understand the different types of cookies:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;table class=&quot;tablacookies&quot; border=&quot;0&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td colspan=&quot;3&quot;&gt; &lt;table border=&quot;1&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;td colspan=&quot;3&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;TYPES OF COOKIES&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td rowspan=&quot;2&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACCORDING TO THE ENTITY THAT MANAGES THEM&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Own cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Are those that are collected by the editor to provide the service requested by the user.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Third party cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Are those that are collected and managed by a third party, these can not be considered own.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td rowspan=&quot;2&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACCORDING TO THE TIME LIMIT THAT THEY STAY ACTIVATED&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Session cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They collect data while the user browses the network in order to provide the requested service.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Persistent cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They are stored in the terminal and the information obtained will be used by the person responsible for the cookie in order to provide the requested service.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td rowspan=&quot;5&quot;&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;ACCORDING TO YOUR PURPOSE&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Technical cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They are the necessary ones for the correct navigation through the web.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Personalization cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the user the characteristics (language) for browsing the website&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Analysis cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the provider the analysis linked to the navigation carried out by the user, in order to track the use of the website, as well as to make statistics of the most visited contents, number of visitors, etc.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Advertising cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the editor to include advertising space on the web, according to the content of the web itself.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Behavioral advertising cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;td&gt; &lt;p&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;They allow the editor to include advertising space on the web page according to the information obtained through the user&apos;s browsing habits.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;p&gt;&amp;nbsp;&lt;/p&gt; &lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;td&gt;&amp;nbsp;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;According to the provisions of article 22.2 of Law 34/2002, of July 11, Services of the Information Society and Electronic Commerce (LSSI-CE), ACME CO., INC. Informs about the cookies used in our website:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;table class=&quot;tablacookies&quot; style=&quot;width: 588px;&quot; border=&quot;1&quot;&gt; &lt;tbody&gt; &lt;tr&gt; &lt;th style=&quot;width: 194px;&quot;&gt;&amp;nbsp;&lt;/th&gt; &lt;th style=&quot;width: 394px;&quot; colspan=&quot;3&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Types of Cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/th&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&amp;nbsp;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Own Cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Session cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Persistent cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Technical cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Personalization cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;tr&gt; &lt;td style=&quot;width: 194px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Analysis cookies&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 115px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 130px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;td style=&quot;width: 149px;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;input checked=&quot;checked&quot; disabled=&quot;disabled&quot; type=&quot;checkbox&quot;&gt;&lt;/span&gt;&lt;/td&gt; &lt;/tr&gt; &lt;/tbody&gt; &lt;/table&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&amp;nbsp;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;In addition, ACME CO., INC informs the user that he has the possibility to configure his browser so that he is informed of the reception of cookies, and may, if he wishes, prevent them from being installed on his hard drive.&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Below we provide the links of various browsers, through which you can make such configuration:&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Firefox from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Chrome from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://support.google.com/chrome/bin/answer.py?hl=es&amp;amp;answer=95647&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://support.google.com/chrome/bin/answer.py?hl=en&amp;amp;answer=95647&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Explorer from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://windows.microsoft.com/es-es/internet-explorer/delete-manage-cookies#ie=ie-10&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://windows.microsoft.com/es-es/internet-explorer/delete-manage-cookies#ie=ie-10&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Safari from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;https://support.apple.com/kb/ph17191?locale=es_ES&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;https://support.apple.com/kb/ph17191?locale=en_US&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt; &lt;p style=&quot;text-align: justify;&quot;&gt;&lt;span style=&quot;font-size: 9pt;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;Opera from here:&amp;nbsp; &lt;/font&gt;&lt;/font&gt;&lt;a href=&quot;http://help.opera.com/Windows/11.50/es-ES/cookies.html&quot; target=&quot;blank&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;&lt;font style=&quot;vertical-align: inherit;&quot;&gt;http://help.opera.com/Windows/11.50/es-ES/cookies.html&lt;/font&gt;&lt;/font&gt;&lt;/a&gt;&lt;/span&gt;&lt;/p&gt;"/>
+	</bean>
+	
+	
+	<!-- SuscriptionVolumen -->
+	<bean id="suscriptionVolumen" class="domain.suscriptionVolumen">
+	<property name="creditCard" ref="creditCard1"/>
+	<property name="customer" ref="customer1"/>
+	<property name="volumen" ref="volumen1"/>
+	</bean>
+	
+	<bean id="suscriptionVolumen" class="domain.suscriptionVolumen">
+	<property name="creditCard" ref="creditCard1"/>
+	<property name="customer" ref="customer1"/>
+	<property name="volumen" ref="volumen2"/>
+	</bean>
+	
+	<bean id="suscriptionVolumen" class="domain.suscriptionVolumen">
+	<property name="creditCard" ref="creditCard2"/>
+	<property name="customer" ref="customer2"/>
+	<property name="volumen" ref="volumen2"/>
+	</bean>
+	
+	<!-- VOLUMEN -->
+	<bean id="volumen1" class="domain.volumen">
+	<property name="title" value="Deportes"/>
+	<property name="description" value="Coleccion de periodicos sobre deportes"/>
+	<property name="year" value="2018"/>
+	<property name="price" value="40.0"/>
+	<property name="user" ref="user1"/>
+	<property name="newspapers" >
+			<list>
+				<ref bean="newspaper8" />
+				<ref bean="newspaper9" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="volumen2" class="domain.volumen">
+	<property name="title" value="Sierra Sur"/>
+	<property name="description" value="Periodicos con noticias ocurridas en la Sierra Sur"/>
+	<property name="year" value="2018"/>
+	<property name="price" value="30.0"/>
+	<property name="user" ref="user3"/>
+	<property name="newspapers" >
+			<list>
+				<ref bean="newspaper7" />
+				<ref bean="newspaper10" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- ADVERTISMENT -->
+	<bean id="advertisment1" class="domain.advertisment">
+	<property name="title" value="Burguer King"/>
+	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
+	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
+	<property name="agent" ref="agent1"/>
+	<property name="newspaper" ref="newspaper2"/>
+	</bean>
+	
+	<bean id="advertisment2" class="domain.advertisment">
+	<property name="title" value="Burguer King"/>
+	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
+	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
+	<property name="agent" ref="agent1"/>
+	<property name="newspaper" ref="newspaper7"/>
+	</bean>
+	
+	<bean id="advertisment3" class="domain.advertisment">
+	<property name="title" value="Tele Pizza"/>
+	<property name="urlBanner" value="https://descuentos.reaj.com/wp-content/uploads/2015/10/logo_telepizza.jpg"/>
+	<property name="urlTargetPage" value="https://www.telepizza.es/"/>
+	<property name="agent" ref="agent1"/>
+	<property name="newspaper" ref="newspaper2"/>
+	</bean>
+	
+	<!-- FOLDERS PARA USER 1 -->
+	<bean id="folderU1.1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderU1.1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user1" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderU1.2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user1" />
+	</bean>
+	
+	<bean id="folderU1.3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user1" />
+	</bean>
+	
+	<bean id="folderU1.4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user1" />
+	</bean>
+
+	
+	<bean id="folderU1.5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user1" />
+	</bean>
+	
+
+	<bean id="folderU1.6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user1" />
+	</bean>
+	
+	<!-- FOLDERS PARA USER 2 -->
+	<bean id="folderU2.1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderU2.1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user2" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderU2.2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user2" />
+	</bean>
+	
+	<bean id="folderU2.3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user2" />
+	</bean>
+	
+	<bean id="folderU2.4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user2" />
+	</bean>
+
+	
+	<bean id="folderU2.5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user2" />
+	</bean>
+	
+
+	<bean id="folderU2.6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user2" />
+	</bean>
+	
+	<!-- FOLDERS PARA USER 3 -->
+	<bean id="folderU3.1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderU3.1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user3" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderU3.2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user3" />
+	</bean>
+	
+	<bean id="folderU3.3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user3" />
+	</bean>
+	
+	<bean id="folderU3.4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user3" />
+	</bean>
+
+	
+	<bean id="folderU3.5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user3" />
+	</bean>
+	
+
+	<bean id="folderU3.6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user3" />
+	</bean>
+	
+	<!-- FOLDERS PARA USER 4 -->
+	<bean id="folderU4.1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderU4.1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user4" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderU4.2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user4" />
+	</bean>
+	
+	<bean id="folderU4.3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user4" />
+	</bean>
+	
+	<bean id="folderU4.4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user4" />
+	</bean>
+
+	
+	<bean id="folderU4.5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user4" />
+	</bean>
+	
+
+	<bean id="folderU4.6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="user4" />
+	</bean>
+	
+	<!-- FOLDERS PARA ADMIN -->
+	<bean id="folderA1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderA1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderA2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+	
+	<bean id="folderA3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+	
+	<bean id="folderA4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+
+	
+	<bean id="folderA5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+	
+
+	<bean id="folderA6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="admin" />
+	</bean>
+	
+	<!-- FOLDERS PARA CUSTOMER 1 -->
+	<bean id="folderC1.1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderC1.1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderC1.2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+	<bean id="folderC1.3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+	<bean id="folderC1.4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+
+	
+	<bean id="folderC1.5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+
+	<bean id="folderC1.6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer1" />
+	</bean>
+	
+	<!-- FOLDERS PARA CUSTOMER 2 -->
+	<bean id="folderC2.1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderC2.1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderC2.2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+	<bean id="folderC2.3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+	<bean id="folderC2.4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+
+	
+	<bean id="folderC2.5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+
+	<bean id="folderC2.6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="customer2" />
+	</bean>
+	
+	<!-- FOLDERS PARA AGENT 1 -->
+	<bean id="folderA1.1" class="domain.Folder">
+		<property name="name" value="Carpeta creada 2" />
+		<property name="predefined" value="False" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+  		<property name="parent" ref="folderA1.1" />
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="agent1" />
+	</bean>
+	
+	<!--  Folders predefinidas para cada actor -->
+	
+	<bean id="folderA1.2" class="domain.Folder">
+		<property name="name" value="inbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="agent1" />
+	</bean>
+	
+	<bean id="folderA1.3" class="domain.Folder">
+		<property name="name" value="notificationbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="agent1" />
+	</bean>
+	
+	<bean id="folderA1.4" class="domain.Folder">
+		<property name="name" value="outbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="agent1" />
+	</bean>
+
+	
+	<bean id="folderA1.5" class="domain.Folder">
+		<property name="name" value="spambox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="agent" />
+	</bean>
+	
+
+	<bean id="folderA1.6" class="domain.Folder">
+		<property name="name" value="trashbox" />
+		<property name="predefined" value="True" />
+		<property name="children">
+			<list>
+  			</list>
+  		</property>
+		<property name="messages">
+			<list>
+  			</list>
+  		</property>
+		<property name="actor" ref="agent" />
 	</bean>
 	
 </beans>
