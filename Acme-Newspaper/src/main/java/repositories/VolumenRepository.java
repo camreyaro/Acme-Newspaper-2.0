@@ -27,4 +27,7 @@ public interface VolumenRepository extends JpaRepository<Volumen, Integer> {
 
 	@Query("select sv.volumen from SuscriptionVolumen sv where sv.customer.id=?1")
 	Collection<Volumen> getVolumensByCustomer(Integer customerId);
+
+	@Query("select 1.0*avg(v.newspapers.size) from Volumen v")
+	Double avgOfNewspaperPerVolumen();
 }

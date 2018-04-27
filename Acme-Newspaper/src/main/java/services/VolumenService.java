@@ -140,4 +140,10 @@ public class VolumenService {
 	public Collection<Volumen> getMyVolumens() {
 		return this.volumenRepository.getVolumensByCustomer(this.actorService.findByPrincipal().getId());
 	}
+
+	//Dashboard
+
+	public Double avgNewsPerVol() {
+		return this.volumenRepository.avgOfNewspaperPerVolumen();
+	}
 }

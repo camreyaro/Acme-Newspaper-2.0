@@ -81,6 +81,8 @@ public class SuscriptionVolumenService {
 		return res;
 	}
 
+	//Other Methods
+
 	public Boolean amSubscribed(final Volumen v) {
 		final Customer c = (Customer) this.actorService.findByPrincipal();
 		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromVolumenAndCustomer(v.getId(), c.getId());
@@ -99,6 +101,12 @@ public class SuscriptionVolumenService {
 		if (sv == null)
 			res = false;
 		return res;
+	}
+
+	//Dashboard
+
+	public Double ratioSV() {
+		return this.suscriptionVolumenRepository.ratioSuscriptionVolumen();
 	}
 
 }
