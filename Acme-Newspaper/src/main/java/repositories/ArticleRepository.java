@@ -27,11 +27,11 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	Collection<Article> getAllPrivatePublishedArticlesByUserId(int userId);
 
 	// Articulos privados publicados que no he comprado escritos por un Usuario X siendo yo un Customer Y
-	@Query("select a from Article a where a.newspaper.publicNp = 0 and a.newspaper.published = 1 and a.creator.id = ?1 and a.newspaper not in (select s.newspaper from Suscription s where s.customer.id =?2)")
+	@Query("select a from Article a where a.newspaper.publicNp = 0 and a.newspaper.published = 1 and a.creator.id = ?1 and a.newspaper not in (select s.newspaper from Suscription s where s.customer.id =?2) and a.newspaper not in(select distinct(p) from SuscriptionVolumen sv join sv.volumen.newspapers p where sv.customer.id=?2 )")
 	Collection<Article> getPrivatePublishedNotSuscribedArticlesByUserId(int userId, int customerId);
 
 	// Articulos privados publicados que he comprado escritos por un Usuario X siendo yo un customer Y
-	@Query("select a from Article a where a.newspaper.publicNp = 0 and a.newspaper.published = 1 and a.creator.id = ?1 and a.newspaper in (select s.newspaper from Suscription s where s.customer.id =?2)")
+	@Query("select a from Article a where a.newspaper.publicNp = 0 and a.newspaper.published = 1 and a.creator.id = ?1 and (a.newspaper in (select s.newspaper from Suscription s where s.customer.id =?2) OR a.newspaper in(select distinct(p) from SuscriptionVolumen sv join sv.volumen.newspapers p where sv.customer.id=?2 ))")
 	Collection<Article> getPrivatePublishedSuscribedArticlesByUserId(int userId, int customerId);
 
 	@Query("select a from Article a where a.newspaper.published=1 AND (a.newspaper.publicNp=1) AND(a.title LIKE concat(concat('%',?1),'%') OR a.body LIKE concat(concat('%',?1),'%') OR a.summary LIKE concat(concat('%',?1),'%'))")
