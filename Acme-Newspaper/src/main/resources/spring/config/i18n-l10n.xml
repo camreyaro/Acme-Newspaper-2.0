@@ -53,6 +53,12 @@
 		<!-- ISMAEL -->
 		<value>/views/user/messages</value>
 		<!-- END ISMAEL -->	
+		
+		<!-- ANGEL P -->
+		<value>/views/suscriptionVolumen/messages</value>
+		<value>/views/volumen/messages</value>
+		
+		<!-- END ANGEL  P-->
 			
 	</util:list>
 

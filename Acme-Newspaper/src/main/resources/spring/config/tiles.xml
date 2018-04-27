@@ -55,6 +55,14 @@
 		<value>/views/user/tiles.xml</value>
 		<!-- END ISMAEL -->	
 		
+		<!-- ANGEL P-->
+		<value>/views/volumen/tiles.xml</value>
+		<value>/views/suscriptionVolumen/tiles.xml</value>
+		
+		
+		 
+		<!-- END ANGEL P-->
+		
 		
 	</util:list>
 
