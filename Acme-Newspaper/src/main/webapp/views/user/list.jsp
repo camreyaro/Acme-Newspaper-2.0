@@ -10,7 +10,7 @@
 
 <!-- Listing grid -->
 
-<display:table pagesize="5" class="displaytag" keepStatus="true"
+<display:table pagesize="3" class="displaytag" keepStatus="true"
 	name="users" requestURI="user/list.do" id="row">
 
 	<spring:message code="user.name" var="nameHeader" />

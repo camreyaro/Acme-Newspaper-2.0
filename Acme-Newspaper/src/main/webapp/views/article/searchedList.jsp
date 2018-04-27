@@ -8,7 +8,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <acme:searchbox action="newspaper/article/searchedList.do"/>
 
-<display:table pagesize="5" class="displaytag"  keepStatus="true"
+<display:table pagesize="4" class="displaytag"  keepStatus="true"
 	name="articles" requestURI="${requestURI}" id="row">
 	
 	<spring:message code="master.page.picture" var="pictureUrlH" />
