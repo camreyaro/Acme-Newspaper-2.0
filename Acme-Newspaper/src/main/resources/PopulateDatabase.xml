@@ -169,7 +169,7 @@
 				<ref bean="user4"/>
 			</list>
 		</property>
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderU1.1"/>
 			<ref bean="folderU1.2"/>
@@ -178,7 +178,7 @@
 			<ref bean="folderU1.5"/>
 			<ref bean="folderU1.6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<bean id="user2" class="domain.User">
@@ -202,7 +202,7 @@
 				<ref bean="user4"/>
 			</list>
 		</property>
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderU2.1"/>
 			<ref bean="folderU2.2"/>
@@ -211,7 +211,7 @@
 			<ref bean="folderU2.5"/>
 			<ref bean="folderU2.6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<bean id="user3" class="domain.User">
@@ -237,7 +237,7 @@
 				<ref bean="user4"/>
 			</list>
 		</property>
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderU3.1"/>
 			<ref bean="folderU3.2"/>
@@ -246,7 +246,7 @@
 			<ref bean="folderU3.5"/>
 			<ref bean="folderU3.6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<bean id="user4" class="domain.User">
@@ -270,7 +270,7 @@
 				<ref bean="user4"/>
 			</list>
 		</property>
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderU4.1"/>
 			<ref bean="folderU4.2"/>
@@ -279,7 +279,7 @@
 			<ref bean="folderU4.5"/>
 			<ref bean="folderU4.6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<bean id="admin" class="domain.Administrator">
@@ -291,7 +291,7 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount1" />
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderA1"/>
 			<ref bean="folderA2"/>
@@ -300,7 +300,7 @@
 			<ref bean="folderA5"/>
 			<ref bean="folderA6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<!-- CUSTOMER -->
@@ -313,7 +313,7 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount8" />
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderC1.1"/>
 			<ref bean="folderC1.2"/>
@@ -322,7 +322,7 @@
 			<ref bean="folderC1.5"/>
 			<ref bean="folderC1.6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<bean id="customer2" class="domain.Customer">
@@ -334,7 +334,7 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount9" />
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderC2.1"/>
 			<ref bean="folderC2.2"/>
@@ -343,7 +343,7 @@
 			<ref bean="folderC2.5"/>
 			<ref bean="folderC2.6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<!--  AGENT -->
@@ -356,7 +356,7 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount10" />
-		<property name="folder">
+		<!-- <property name="folder">
 			<list>
 			<ref bean="folderA1.1"/>
 			<ref bean="folderA1.2"/>
@@ -365,7 +365,7 @@
 			<ref bean="folderA1.5"/>
 			<ref bean="folderA1.6"/>
 		</list>
-		</property>
+		</property> -->
 	</bean>
 	
 	<!-- NEWSPAPER -->
@@ -1124,26 +1124,26 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	
 	
 	<!-- SuscriptionVolumen -->
-	<bean id="suscriptionVolumen" class="domain.suscriptionVolumen">
+	<bean id="suscriptionVolumen" class="domain.SuscriptionVolumen">
 	<property name="creditCard" ref="creditCard1"/>
 	<property name="customer" ref="customer1"/>
 	<property name="volumen" ref="volumen1"/>
 	</bean>
 	
-	<bean id="suscriptionVolumen2" class="domain.suscriptionVolumen">
+	<bean id="suscriptionVolumen2" class="domain.SuscriptionVolumen">
 	<property name="creditCard" ref="creditCard1"/>
 	<property name="customer" ref="customer1"/>
 	<property name="volumen" ref="volumen2"/>
 	</bean>
 	
-	<bean id="suscriptionVolumen3" class="domain.suscriptionVolumen">
+	<bean id="suscriptionVolumen3" class="domain.SuscriptionVolumen">
 	<property name="creditCard" ref="creditCard2"/>
 	<property name="customer" ref="customer2"/>
 	<property name="volumen" ref="volumen2"/>
 	</bean>
 	
 	<!-- VOLUMEN -->
-	<bean id="volumen1" class="domain.volumen">
+	<bean id="volumen1" class="domain.Volumen">
 	<property name="title" value="Deportes"/>
 	<property name="description" value="Coleccion de periodicos sobre deportes"/>
 	<property name="year" value="2018"/>
@@ -1157,7 +1157,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 		</property>
 	</bean>
 	
-	<bean id="volumen2" class="domain.volumen">
+	<bean id="volumen2" class="domain.Volumen">
 	<property name="title" value="Sierra Sur"/>
 	<property name="description" value="Periodicos con noticias ocurridas en la Sierra Sur"/>
 	<property name="year" value="2018"/>
@@ -1172,7 +1172,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	</bean>
 	
 	<!-- ADVERTISMENT -->
-	<bean id="advertisment1" class="domain.advertisment">
+	<bean id="advertisment1" class="domain.Advertisment">
 	<property name="title" value="Burguer King"/>
 	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
 	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
@@ -1180,7 +1180,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="newspaper" ref="newspaper2"/>
 	</bean>
 	
-	<bean id="advertisment2" class="domain.advertisment">
+	<bean id="advertisment2" class="domain.Advertisment">
 	<property name="title" value="Burguer King"/>
 	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
 	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
@@ -1188,7 +1188,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="newspaper" ref="newspaper7"/>
 	</bean>
 	
-	<bean id="advertisment3" class="domain.advertisment">
+	<bean id="advertisment3" class="domain.Advertisment">
 	<property name="title" value="Tele Pizza"/>
 	<property name="urlBanner" value="https://descuentos.reaj.com/wp-content/uploads/2015/10/logo_telepizza.jpg"/>
 	<property name="urlTargetPage" value="https://www.telepizza.es/"/>
@@ -1205,10 +1205,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderU1.1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user1" />
 	</bean>
 	
@@ -1221,10 +1221,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user1" />
 	</bean>
 	
@@ -1235,10 +1235,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user1" />
 	</bean>
 	
@@ -1249,10 +1249,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user1" />
 	</bean>
 
@@ -1264,10 +1264,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user1" />
 	</bean>
 	
@@ -1279,10 +1279,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user1" />
 	</bean>
 	
@@ -1295,10 +1295,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderU2.1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user2" />
 	</bean>
 	
@@ -1311,10 +1311,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user2" />
 	</bean>
 	
@@ -1325,10 +1325,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user2" />
 	</bean>
 	
@@ -1339,10 +1339,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user2" />
 	</bean>
 
@@ -1354,10 +1354,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user2" />
 	</bean>
 	
@@ -1369,10 +1369,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user2" />
 	</bean>
 	
@@ -1385,10 +1385,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderU3.1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user3" />
 	</bean>
 	
@@ -1401,10 +1401,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user3" />
 	</bean>
 	
@@ -1415,10 +1415,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user3" />
 	</bean>
 	
@@ -1429,10 +1429,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user3" />
 	</bean>
 
@@ -1444,10 +1444,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user3" />
 	</bean>
 	
@@ -1459,10 +1459,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user3" />
 	</bean>
 	
@@ -1475,10 +1475,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderU4.1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user4" />
 	</bean>
 	
@@ -1491,10 +1491,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user4" />
 	</bean>
 	
@@ -1505,10 +1505,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user4" />
 	</bean>
 	
@@ -1519,10 +1519,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user4" />
 	</bean>
 
@@ -1534,10 +1534,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user4" />
 	</bean>
 	
@@ -1549,10 +1549,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="user4" />
 	</bean>
 	
@@ -1565,10 +1565,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderA1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="admin" />
 	</bean>
 	
@@ -1581,10 +1581,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="admin" />
 	</bean>
 	
@@ -1595,10 +1595,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="admin" />
 	</bean>
 	
@@ -1609,10 +1609,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="admin" />
 	</bean>
 
@@ -1624,10 +1624,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="admin" />
 	</bean>
 	
@@ -1639,10 +1639,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="admin" />
 	</bean>
 	
@@ -1655,10 +1655,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderC1.1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer1" />
 	</bean>
 	
@@ -1671,10 +1671,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer1" />
 	</bean>
 	
@@ -1685,10 +1685,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer1" />
 	</bean>
 	
@@ -1699,10 +1699,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer1" />
 	</bean>
 
@@ -1714,10 +1714,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer1" />
 	</bean>
 	
@@ -1729,10 +1729,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer1" />
 	</bean>
 	
@@ -1745,10 +1745,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderC2.1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer2" />
 	</bean>
 	
@@ -1761,10 +1761,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer2" />
 	</bean>
 	
@@ -1775,10 +1775,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer2" />
 	</bean>
 	
@@ -1789,10 +1789,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer2" />
 	</bean>
 
@@ -1804,10 +1804,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer2" />
 	</bean>
 	
@@ -1819,10 +1819,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="customer2" />
 	</bean>
 	
@@ -1835,10 +1835,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
   			</list>
   		</property>
   		<property name="parent" ref="folderA1.1" />
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="agent1" />
 	</bean>
 	
@@ -1851,10 +1851,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="agent1" />
 	</bean>
 	
@@ -1865,10 +1865,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="agent1" />
 	</bean>
 	
@@ -1879,10 +1879,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="agent1" />
 	</bean>
 
@@ -1894,10 +1894,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="agent" />
 	</bean>
 	
@@ -1909,10 +1909,10 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property>
-		<property name="messages">
+		<!-- <property name="messages">
 			<list>
   			</list>
-  		</property>
+  		</property> -->
 		<property name="actor" ref="agent" />
 	</bean>
 	
