@@ -1,12 +1,16 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.VolumenRepository;
 import security.LoginService;
@@ -22,17 +26,21 @@ public class VolumenService {
 	private VolumenRepository	volumenRepository;
 	@Autowired
 	private ActorService		actorService;
+	@Autowired
+	private Validator			validator;
 
 
 	public Volumen create() {
 		final Volumen res = new Volumen();
+		final LocalDate date = new LocalDate();
 
 		res.setUser((User) this.actorService.findByPrincipal());
+		res.setYear(date.getYear());
+		res.setNewspapers(new ArrayList<Newspaper>());
 
 		return res;
 
 	}
-
 	public Volumen findOne(final Integer id) {
 		return this.volumenRepository.findOne(id);
 	}
@@ -71,12 +79,59 @@ public class VolumenService {
 
 		final Collection<Newspaper> newspapers = v.getNewspapers();
 
-		Assert.isTrue(LoginService.getPrincipal().equals(v.getUser().getUserAccount()), "volumen.creator.error"); //No puedes eliminar periodicos de un volumen que no has creado tu
+		Assert.isTrue(LoginService.getPrincipal().equals(v.getUser().getUserAccount()) || LoginService.getPrincipal().isAuthority("ADMIN"), "volumen.creator.error"); //No puedes eliminar periodicos de un volumen que no has creado tu
 		Assert.isTrue(newspapers.remove(p), "volumen.uncontained.newspaper.error"); //No puedes eliminar periodicos que no estan añadidos
 
 		v.setNewspapers(newspapers);
 
 		this.volumenRepository.save(v);
 
+	}
+
+	public Volumen reconstruct(final Volumen volumen, final BindingResult binding) {
+		final Volumen res;
+		final Volumen original = this.volumenRepository.findOne(volumen.getId());
+
+		if (volumen.getId() == 0) {
+			res = new Volumen();
+			final LocalDate date = new LocalDate();
+
+			//dfault properties
+			res.setUser((User) this.actorService.findByPrincipal());
+			res.setYear(date.getYear());
+			res.setNewspapers(new ArrayList<Newspaper>());
+
+			//editable properties
+			res.setDescription(volumen.getDescription());
+			res.setTitle(volumen.getTitle());
+
+		} else {
+			res = volumen;
+
+			res.setUser(original.getUser());
+			res.setYear(original.getYear());
+			res.setNewspapers(original.getNewspapers());
+		}
+
+		return res;
+
+	}
+
+	//Other repository methods
+
+	public Collection<Newspaper> getPublicNewspaper(final Integer id) {
+		return this.volumenRepository.getPublicNewspaper(id);
+	}
+
+	public Collection<Newspaper> getPrivateNewspaper(final Integer id) {
+		return this.volumenRepository.getPrivateNewspaper(id);
+	}
+
+	public Collection<Newspaper> getAllNewspaper(final Integer id) {
+		return this.volumenRepository.getAllNewspaper(id);
+	}
+
+	public Collection<Volumen> getVolumensOfNewspaper(final Integer id) {
+		return this.volumenRepository.getVolumensOfNewspaper(id);
 	}
 }

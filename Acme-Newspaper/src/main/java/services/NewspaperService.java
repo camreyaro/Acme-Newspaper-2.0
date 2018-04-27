@@ -28,6 +28,7 @@ import domain.Newspaper;
 import domain.SpamWord;
 import domain.Suscription;
 import domain.User;
+import domain.Volumen;
 
 @Service
 @Transactional
@@ -49,6 +50,8 @@ public class NewspaperService {
 	private ArticleService		articleService;
 	@Autowired
 	private SuscriptionService	suscriptionService;
+	@Autowired
+	private VolumenService		volumenService;
 
 	@Autowired
 	Validator					validator;
@@ -56,7 +59,7 @@ public class NewspaperService {
 
 	// Simple CRUD methods ------------------------------ (Operaciones básicas, pueden tener restricciones según los requisitos)
 	public Newspaper create() {
-		Newspaper newspaper = new Newspaper();
+		final Newspaper newspaper = new Newspaper();
 		newspaper.setPublisher((User) this.actorService.findByPrincipal());
 		newspaper.setPublished(false);
 		newspaper.setArticles(new ArrayList<Article>());
@@ -72,7 +75,7 @@ public class NewspaperService {
 		return newspapers;
 	}
 
-	public Newspaper findOne(int NewspaperId) {
+	public Newspaper findOne(final int NewspaperId) {
 		Newspaper newspaper;
 		newspaper = this.newspaperRepository.findOne(NewspaperId);
 		Assert.notNull(newspaper, "error.commit.null");
@@ -80,8 +83,8 @@ public class NewspaperService {
 		return newspaper;
 	}
 
-	public Newspaper save(Newspaper newspaper) {
-		User user = (User) this.actorService.findByPrincipal();
+	public Newspaper save(final Newspaper newspaper) {
+		final User user = (User) this.actorService.findByPrincipal();
 		Assert.isTrue(LoginService.getPrincipal().isAuthority("USER"), "error.commit.owner");
 		Assert.isTrue(user.getUserAccount().equals(newspaper.getPublisher().getUserAccount()), "error.commit.owner");
 		Assert.isTrue(newspaper.getPublicNp() || (!newspaper.getPublicNp() && newspaper.getPrice() > 0.0), "newspaper.error.price");
@@ -94,7 +97,7 @@ public class NewspaperService {
 			result = this.newspaperRepository.save(newspaper);
 
 			//¿Esto hay que hacerlo o el nuevo newspaper se añade automaticamente cuando guardamos por primera vez?
-			Collection<Newspaper> newspapers = user.getNewspapers();
+			final Collection<Newspaper> newspapers = user.getNewspapers();
 			newspapers.add(result);
 			user.setNewspapers(newspapers);
 			this.userService.save(user);
@@ -106,14 +109,14 @@ public class NewspaperService {
 		return result;
 	}
 
-	public Newspaper publish(Newspaper newspaper) {
+	public Newspaper publish(final Newspaper newspaper) {
 		Assert.notNull(newspaper, "error.commit.null");
 		Assert.isTrue(this.findNotSavedArticlesByNewspaper(newspaper.getId()) == 0 && newspaper.getArticles().size() > 0 && !newspaper.getPublished(), "error.commit.publish");
 		Newspaper result;
 
-		Date publicationDate = new Date();
+		final Date publicationDate = new Date();
 		newspaper.setPublicationDate(publicationDate);
-		for (Article a : newspaper.getArticles()) {
+		for (final Article a : newspaper.getArticles()) {
 			a.setMoment(publicationDate);
 			this.articleService.save(a);
 		}
@@ -122,26 +125,28 @@ public class NewspaperService {
 		return result;
 
 	}
-	public void delete(Newspaper newspaper) {
+	public void delete(final Newspaper newspaper) {
 		Assert.notNull(newspaper, "error.commit.null");
 		Assert.isTrue(LoginService.getPrincipal().isAuthority("ADMIN"), "error.commit.permission");
 
 		newspaper.getPublisher().getNewspapers().remove(newspaper);
 
-		for (Article a : new ArrayList<>(newspaper.getArticles())) {
+		for (final Article a : new ArrayList<>(newspaper.getArticles())) {
 			newspaper.getArticles().remove(a);
 			this.articleService.delete(a);
 		}
 
-		for (Suscription s : new ArrayList<>(this.suscriptionService.suscriptionByNewspaperId(newspaper.getId())))
+		for (final Suscription s : new ArrayList<>(this.suscriptionService.suscriptionByNewspaperId(newspaper.getId())))
 			this.suscriptionService.delete(s.getId());
 
+		for (final Volumen v : this.volumenService.getVolumensOfNewspaper(newspaper.getId()))
+			this.volumenService.removeNewspaper(v, newspaper);
 		this.newspaperRepository.delete(newspaper);
 	}
 
 	// Other bussines methods ------------------------------ (Otras reglas de negocio, como por ejemplo findRegisteredUser())
 
-	public Integer findNotSavedArticlesByNewspaper(int newspaperId) {
+	public Integer findNotSavedArticlesByNewspaper(final int newspaperId) {
 		return this.newspaperRepository.findNotSavedArticlesByNewspaper(newspaperId);
 	}
 
@@ -149,33 +154,33 @@ public class NewspaperService {
 		return this.newspaperRepository.findAllPublished();
 	}
 
-	public Collection<Newspaper> findNewspapersByKeyword(String keyword) {
+	public Collection<Newspaper> findNewspapersByKeyword(final String keyword) {
 		return this.newspaperRepository.findByKeyword(keyword.replaceAll("[^a-zA-Z0-9_.ÑñáéíóúÁÉÍÓÚ ]", ""));
 	}
 
-	public Collection<Newspaper> findAllByUser(int userId) {
+	public Collection<Newspaper> findAllByUser(final int userId) {
 		return this.newspaperRepository.findAllByUser(userId);
 	}
 
 	public Collection<Newspaper> getNewspapersWithSpamWords() {
 
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("Acme-Newspaper");
+		final EntityManagerFactory factory = Persistence.createEntityManagerFactory("Acme-Newspaper");
 
-		EntityManager em = factory.createEntityManager();
-		FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+		final EntityManager em = factory.createEntityManager();
+		final FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
 		em.getTransaction().begin();
 
 		String regexp = "";
-		for (SpamWord sp : this.spamWordService.findAll())
+		for (final SpamWord sp : this.spamWordService.findAll())
 			regexp += sp.getWord() + "|";
 
-		QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Article.class).get();
-		org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("title", "description", "pictureURLs").ignoreFieldBridge().matching(regexp).createQuery();
+		final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Article.class).get();
+		final org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("title", "description", "pictureURLs").ignoreFieldBridge().matching(regexp).createQuery();
 
-		javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Newspaper.class);
+		final javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Newspaper.class);
 
-		List result = jpaQuery.getResultList();
-		Set<Newspaper> cc = new HashSet<>(result);
+		final List result = jpaQuery.getResultList();
+		final Set<Newspaper> cc = new HashSet<>(result);
 
 		em.getTransaction().commit();
 		em.close();
@@ -183,11 +188,11 @@ public class NewspaperService {
 		return cc;
 	}
 
-	public Newspaper saveForArticle(Newspaper newspaper) {
+	public Newspaper saveForArticle(final Newspaper newspaper) {
 		return this.newspaperRepository.save(newspaper);
 	}
 
-	public void saveAndFlush(Newspaper newspaper) {
+	public void saveAndFlush(final Newspaper newspaper) {
 		this.newspaperRepository.saveAndFlush(newspaper);
 	}
 
@@ -233,9 +238,9 @@ public class NewspaperService {
 		return this.newspaperRepository.findAllAvaibles();
 	}
 
-	public Newspaper reconstruct(Newspaper n, BindingResult binding) {
+	public Newspaper reconstruct(final Newspaper n, final BindingResult binding) {
 		Newspaper result;
-		Newspaper original = this.newspaperRepository.findOne(n.getId());
+		final Newspaper original = this.newspaperRepository.findOne(n.getId());
 
 		if (n.getId() == 0) {
 			result = n;
@@ -261,4 +266,5 @@ public class NewspaperService {
 		return result;
 
 	}
+
 }
