@@ -113,6 +113,8 @@ public class VolumenService {
 			res.setNewspapers(original.getNewspapers());
 		}
 
+		this.validator.validate(res, binding);
+
 		return res;
 
 	}
