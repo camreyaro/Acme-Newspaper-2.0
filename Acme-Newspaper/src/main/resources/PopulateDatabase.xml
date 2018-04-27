@@ -1130,13 +1130,13 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="volumen" ref="volumen1"/>
 	</bean>
 	
-	<bean id="suscriptionVolumen" class="domain.suscriptionVolumen">
+	<bean id="suscriptionVolumen2" class="domain.suscriptionVolumen">
 	<property name="creditCard" ref="creditCard1"/>
 	<property name="customer" ref="customer1"/>
 	<property name="volumen" ref="volumen2"/>
 	</bean>
 	
-	<bean id="suscriptionVolumen" class="domain.suscriptionVolumen">
+	<bean id="suscriptionVolumen3" class="domain.suscriptionVolumen">
 	<property name="creditCard" ref="creditCard2"/>
 	<property name="customer" ref="customer2"/>
 	<property name="volumen" ref="volumen2"/>
