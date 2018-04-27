@@ -59,6 +59,16 @@
 		<bean class="converters.UserToStringConverter" />
 		<bean class="converters.StringToUserConverter" />
 		<!-- END ISMAEL -->		
+		
+		<!-- ANGEL PEREZ -->
+		
+		<bean class="converters.VolumenToStringConverter" />
+		<bean class="converters.StringToVolumenConverter" />
+		
+		<bean class="converters.SuscriptionVolumenToStringConverter" />
+		<bean class="converters.StringToSuscriptionVolumenConverter" />
+		
+		<!-- END AP -->
 	</util:list>
 	
 </beans>

@@ -136,4 +136,8 @@ public class VolumenService {
 	public Collection<Volumen> getVolumensOfNewspaper(final Integer id) {
 		return this.volumenRepository.getVolumensOfNewspaper(id);
 	}
+
+	public Collection<Volumen> getMyVolumens() {
+		return this.volumenRepository.getVolumensByCustomer(this.actorService.findByPrincipal().getId());
+	}
 }
