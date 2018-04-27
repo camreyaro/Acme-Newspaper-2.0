@@ -1,4 +1,7 @@
+
 package services;
+
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +11,6 @@ import org.springframework.util.Assert;
 import repositories.ActorRepository;
 import security.LoginService;
 import security.UserAccount;
-
 import domain.Actor;
 
 @Service
@@ -18,16 +20,17 @@ public class ActorService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private ActorRepository actorRepository;
+	private ActorRepository	actorRepository;
+
 
 	// CRUD methods
 
-	public Actor findOne(int actorId) {
+	public Actor findOne(final int actorId) {
 		Assert.notNull(actorId);
 
 		Actor actor;
 
-		actor = actorRepository.findOne(actorId);
+		actor = this.actorRepository.findOne(actorId);
 
 		return actor;
 	}
@@ -39,16 +42,22 @@ public class ActorService {
 		Actor actor;
 
 		userAccount = LoginService.getPrincipal();
-		actor = actorRepository.findByUserAccountId(userAccount.getId());
+		actor = this.actorRepository.findByUserAccountId(userAccount.getId());
 
 		return actor;
 	}
-	
-	public Actor findByUserAccountUsername(String username){
+
+	public Actor findByUserAccountUsername(final String username) {
 		Assert.notNull(username);
-		Actor actor = actorRepository.findByUserAccountUsername(username);
-		
+		final Actor actor = this.actorRepository.findByUserAccountUsername(username);
+
 		return actor;
 	}
 
+	public Collection<Actor> findAll() {
+
+		final Collection<Actor> actors = this.actorRepository.findAll();
+
+		return actors;
+	}
 }

@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -17,7 +18,8 @@ public class SpamWordService {
 
 	// Used repository
 	@Autowired
-	private SpamWordRepository spamWordRepository;
+	private SpamWordRepository	spamWordRepository;
+
 
 	// Simple CRUD methods
 
@@ -29,25 +31,23 @@ public class SpamWordService {
 		return spamWord;
 	}
 
-	public SpamWord save(SpamWord spamWord) {
+	public SpamWord save(final SpamWord spamWord) {
 		Assert.notNull(spamWord);
 		SpamWord spamWordSaved;
 
-		if (spamWord.getId() == 0) {
-			for (SpamWord s : this.findAll()) {
-				Assert.isTrue(!s.getWord().equals(spamWord.getWord()),"spamword.word.exists");
-			}
-		}
-		spamWordSaved = spamWordRepository.save(spamWord);
+		if (spamWord.getId() == 0)
+			for (final SpamWord s : this.findAll())
+				Assert.isTrue(!s.getWord().equals(spamWord.getWord()), "spamword.word.exists");
+		spamWordSaved = this.spamWordRepository.save(spamWord);
 
 		return spamWordSaved;
 	}
 
-	public SpamWord findOne(int spamWordId) {
+	public SpamWord findOne(final int spamWordId) {
 		Assert.notNull(spamWordId);
 		SpamWord spamWord;
 
-		spamWord = spamWordRepository.findOne(spamWordId);
+		spamWord = this.spamWordRepository.findOne(spamWordId);
 
 		return spamWord;
 	}
@@ -55,16 +55,18 @@ public class SpamWordService {
 	public Collection<SpamWord> findAll() {
 		Collection<SpamWord> spamWords;
 
-		spamWords = spamWordRepository.findAll();
+		spamWords = this.spamWordRepository.findAll();
 
 		return spamWords;
 	}
 
-	public void delete(SpamWord spamWord) {
+	public void delete(final SpamWord spamWord) {
 		Assert.notNull(spamWord);
 
-		spamWordRepository.delete(spamWord.getId());
+		this.spamWordRepository.delete(spamWord.getId());
 	}
 	// Other business methods
-
+	public SpamWord getSpamWords() {
+		return this.spamWordRepository.getSpamWords();
+	}
 }
