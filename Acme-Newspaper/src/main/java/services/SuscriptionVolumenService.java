@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.SuscriptionVolumenRepository;
 import domain.CreditCard;
 import domain.Customer;
+import domain.Newspaper;
 import domain.SuscriptionVolumen;
 import domain.Volumen;
 
@@ -23,6 +25,8 @@ public class SuscriptionVolumenService {
 	private SuscriptionVolumenRepository	suscriptionVolumenRepository;
 	@Autowired
 	private ActorService					actorService;
+	@Autowired
+	private Validator						validator;
 
 
 	public SuscriptionVolumen create(final Volumen v) {
@@ -43,7 +47,7 @@ public class SuscriptionVolumenService {
 	}
 
 	public SuscriptionVolumen save(final SuscriptionVolumen sv) {
-		//TODO: ¿ESTA SUSCRITO YA?
+		Assert.isTrue(this.amSubscribed(sv.getVolumen()), "suscriptionVolumen.alreadySubscribed.error");
 		Assert.isTrue(this.validCreditCardDate(sv.getCreditCard()), "message.error.creditcard"); //Cc caducada
 		Assert.isTrue(sv.getId() == 0, "suscriptionVolumen.edit.error"); // No puedes editar una suscripción maquina
 
@@ -71,6 +75,29 @@ public class SuscriptionVolumenService {
 
 		} else
 			res = sv;
+
+		this.validator.validate(res, binding);
+
+		return res;
+	}
+
+	public Boolean amSubscribed(final Volumen v) {
+		final Customer c = (Customer) this.actorService.findByPrincipal();
+		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromVolumenAndCustomer(v.getId(), c.getId());
+
+		Boolean res = true;
+		if (sv == null)
+			res = false;
+		return res;
+	}
+
+	public Boolean amSubscribed(final Newspaper n) {
+		final Customer c = (Customer) this.actorService.findByPrincipal();
+		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(n.getId(), c.getId());
+
+		Boolean res = true;
+		if (sv == null)
+			res = false;
 		return res;
 	}
 
