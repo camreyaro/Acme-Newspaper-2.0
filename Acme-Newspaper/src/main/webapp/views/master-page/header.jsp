@@ -27,6 +27,7 @@
 					<li><a href="newspaper/search.do"><spring:message code="master.page.newspaper.search" /></a></li>
 					<li><a href="newspaper/article/search.do"><spring:message code="article.search" /></a></li>
 					<li><a href="newspaper/list.do"><spring:message code="master.page.newspaper" />s</a></li>
+					<li><a href="volumen/list.do"><spring:message code="master.page.volumens" /></a></li>
 				</ul>
 			</li>
 		<li><a href="user/list.do"  class="fNiv"><spring:message code="master.page.listUser" /></a></li>

@@ -142,6 +142,12 @@
 		<security:intercept-url pattern="/user/list.do" access="permitAll" />  
 		<!-- END ISMAEL -->	
 		
+		<!-- ANGEL P -->
+		<security:intercept-url pattern="/volumen/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/volumen/myList.do" access="hasRole('USER')" /> 
+		
+		<!-- END ANGL P -->	
+		
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
 		<security:form-login 
