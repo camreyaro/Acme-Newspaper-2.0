@@ -347,7 +347,7 @@
 	</bean>
 	
 	<!--  AGENT -->
-	<bean id="agent1" class="domain.Customer">
+	<bean id="agent1" class="domain.Agent">
 		<property name="name" value="Rafael" />
 		<property name="surname" value="Macias" />
 		<property name="postalAddress" value="Paseo de las Delicias 24" />
@@ -1172,7 +1172,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	</bean>
 	
 	<!-- ADVERTISMENT -->
-	<bean id="advertisment1" class="domain.Advertisment">
+	<bean id="advertisement1" class="domain.Advertisement">
 	<property name="title" value="Burguer King"/>
 	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
 	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
@@ -1180,7 +1180,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="newspaper" ref="newspaper2"/>
 	</bean>
 	
-	<bean id="advertisment2" class="domain.Advertisment">
+	<bean id="advertisement2" class="domain.Advertisement">
 	<property name="title" value="Burguer King"/>
 	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
 	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
@@ -1188,7 +1188,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="newspaper" ref="newspaper7"/>
 	</bean>
 	
-	<bean id="advertisment3" class="domain.Advertisment">
+	<bean id="advertisement3" class="domain.Advertisement">
 	<property name="title" value="Tele Pizza"/>
 	<property name="urlBanner" value="https://descuentos.reaj.com/wp-content/uploads/2015/10/logo_telepizza.jpg"/>
 	<property name="urlTargetPage" value="https://www.telepizza.es/"/>
@@ -1898,7 +1898,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property> -->
-		<property name="actor" ref="agent" />
+		<property name="actor" ref="agent1" />
 	</bean>
 	
 
@@ -1913,7 +1913,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 			<list>
   			</list>
   		</property> -->
-		<property name="actor" ref="agent" />
+		<property name="actor" ref="agent1" />
 	</bean>
 	
 </beans>
