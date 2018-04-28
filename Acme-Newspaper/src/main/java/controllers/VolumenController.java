@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.ActorService;
 import services.VolumenService;
 import domain.Actor;
@@ -28,7 +30,17 @@ public class VolumenController extends AbstractController {
 	@RequestMapping("/list")
 	public ModelAndView list() {
 		final ModelAndView res;
-		final Collection<Volumen> volumens = this.volumenService.findAll();
+		Collection<Volumen> volumens = new ArrayList<Volumen>();
+
+		try {
+			if (LoginService.getPrincipal().isAuthority("CUSTOMER"))
+				volumens = this.volumenService.getMyNoSuscribedVolumens();
+			else
+				volumens = this.volumenService.findAll();
+
+		} catch (final Throwable oops) {
+			volumens = this.volumenService.findAll();
+		}
 
 		res = new ModelAndView("volumen/list");
 		res.addObject("requestURI", "volumen/list.do");
