@@ -92,6 +92,16 @@ public class SuscriptionVolumenService {
 		return res;
 	}
 
+	public Boolean amSubscribed(final Integer newspaperId) {
+		final Customer c = (Customer) this.actorService.findByPrincipal();
+		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(newspaperId, c.getId());
+
+		Boolean res = true;
+		if (sv == null)
+			res = false;
+		return res;
+	}
+
 	//Dashboard
 
 	public Double ratioSV() {

@@ -25,16 +25,18 @@ public class SuscriptionService {
 	// Managed repository -----------------------------------------------------
 
 	@Autowired
-	private SuscriptionRepository	suscriptionRepository;
+	private SuscriptionRepository		suscriptionRepository;
 
 	@Autowired
-	private ActorService			actorService;
+	private ActorService				actorService;
 
 	@Autowired
-	private NewspaperService		newspaperService;
+	private NewspaperService			newspaperService;
+	@Autowired
+	private SuscriptionVolumenService	suscriptionVolumenService;
 
 	@Autowired
-	Validator						validator;
+	Validator							validator;
 
 
 	// Supporting services ----------------------------------------------------
@@ -56,45 +58,45 @@ public class SuscriptionService {
 		return suscription;
 	}
 
-	public void saveFromCreate(Suscription suscription) {
+	public void saveFromCreate(final Suscription suscription) {
 
 		this.save(suscription);
 
 	}
 
-	public void save(Suscription suscription) {
-		boolean res = this.isCustomerSuscribe(Integer.toString(suscription.getNewspaper().getId()));
+	public void save(final Suscription suscription) {
+		final boolean res = this.isCustomerSuscribe(Integer.toString(suscription.getNewspaper().getId()));
 		Assert.isTrue(res == false, "suscription.duplicate");
 		this.suscriptionRepository.save(suscription);
 	}
 
-	public Suscription findOne(int suscriptionId) {
+	public Suscription findOne(final int suscriptionId) {
 		Assert.notNull(suscriptionId);
-		Suscription suscription = this.suscriptionRepository.findOne(suscriptionId);
+		final Suscription suscription = this.suscriptionRepository.findOne(suscriptionId);
 
 		return suscription;
 	}
 
 	public Collection<Suscription> findAll() {
-		Collection<Suscription> suscriptions = this.suscriptionRepository.findAll();
+		final Collection<Suscription> suscriptions = this.suscriptionRepository.findAll();
 
 		return suscriptions;
 	}
 
-	public void suscribe(Suscription suscription) {
+	public void suscribe(final Suscription suscription) {
 		//En el suscript, vamos a hacer tambien el save de la suscripcion
 		Assert.isTrue(this.validCreditCardDate(suscription.getCreditCard()), "message.error.creditcard");
 
 		Newspaper newspaper;
 		newspaper = suscription.getNewspaper();
 		Assert.isTrue(newspaper.getPublicNp() == false, "message.error.customer.publicNewspaper");
-		boolean res = this.isCustomerSuscribe(Integer.toString(suscription.getNewspaper().getId()));
+		final boolean res = this.isCustomerSuscribe(Integer.toString(suscription.getNewspaper().getId()));
 		Assert.isTrue(res == false, "message.error.suscription.duplicate");
 		this.save(suscription);
 
 	}
 
-	public Suscription reconstruct(Suscription s, BindingResult binding) {
+	public Suscription reconstruct(final Suscription s, final BindingResult binding) {
 		Suscription result;
 
 		if (s.getId() == 0) {
@@ -113,14 +115,14 @@ public class SuscriptionService {
 
 	}
 	//--------------Others
-	private boolean validCreditCardDate(CreditCard cc) {
+	private boolean validCreditCardDate(final CreditCard cc) {
 		if (cc.getExpirationYear() > Calendar.getInstance().get(Calendar.YEAR) || (cc.getExpirationYear() == Calendar.getInstance().get(Calendar.YEAR) && cc.getExpirationMonth() >= Calendar.getInstance().get(Calendar.MONTH) + 1))
 			return true;
 		else
 			return false;
 	}
 
-	public boolean isCustomerSuscribe(String newspaperId) {
+	public boolean isCustomerSuscribe(final String newspaperId) {
 		boolean res = false;
 		int customerId;
 		Integer query;
@@ -135,14 +137,16 @@ public class SuscriptionService {
 			res = false;
 		else if (query >= 1)
 			res = true;
+		if (!res)
+			res = this.suscriptionVolumenService.amSubscribed(id);
 
 		return res;
 	}
-	
-	public void delete(int suscriptionId){
+
+	public void delete(final int suscriptionId) {
 		Assert.notNull(suscriptionId);
-		
-		Suscription s = this.findOne(suscriptionId);
+
+		final Suscription s = this.findOne(suscriptionId);
 		this.suscriptionRepository.delete(s);
 	}
 
@@ -156,11 +160,11 @@ public class SuscriptionService {
 		return suscriptions;
 	}
 
-	public void saveAndFlush(Suscription suscription) {
+	public void saveAndFlush(final Suscription suscription) {
 		this.suscriptionRepository.saveAndFlush(suscription);
 	}
-	
-	public Collection<Suscription> suscriptionByNewspaperId(int newspaperId){
+
+	public Collection<Suscription> suscriptionByNewspaperId(final int newspaperId) {
 		return this.suscriptionRepository.suscriptionByNewspaperId(newspaperId);
 	}
 }
