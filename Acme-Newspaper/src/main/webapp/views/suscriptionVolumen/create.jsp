@@ -9,7 +9,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="suscriptionVolumen/customer/save.do" modelAttribute="suscriptionVolumen">
+<form:form action="suscriptionVolumen/create.do" modelAttribute="suscriptionVolumen">
 
 	<form:hidden path="id"/>
 	<form:hidden path="version"/>

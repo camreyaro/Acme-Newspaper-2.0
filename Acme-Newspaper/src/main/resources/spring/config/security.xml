@@ -148,6 +148,7 @@
 		<security:intercept-url pattern="/volumen/myList.do" access="hasRole('USER')" /> 
 		
 		<security:intercept-url pattern="/suscriptionVolumen/myList.do" access="hasRole('CUSTOMER')" /> 
+		<security:intercept-url pattern="/suscriptionVolumen/create.do" access="hasRole('CUSTOMER')" /> 
 		
 		<!-- END ANGL P -->	
 		

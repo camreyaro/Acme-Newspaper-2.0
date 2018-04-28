@@ -47,7 +47,7 @@ public class SuscriptionVolumenService {
 	}
 
 	public SuscriptionVolumen save(final SuscriptionVolumen sv) {
-		Assert.isTrue(this.amSubscribed(sv.getVolumen()), "suscriptionVolumen.alreadySubscribed.error");
+		Assert.isTrue(!this.amSubscribed(sv.getVolumen()), "suscriptionVolumen.alreadySubscribed.error");
 		Assert.isTrue(this.validCreditCardDate(sv.getCreditCard()), "message.error.creditcard"); //Cc caducada
 		Assert.isTrue(sv.getId() == 0, "suscriptionVolumen.edit.error"); // No puedes editar una suscripción maquina
 
@@ -62,23 +62,12 @@ public class SuscriptionVolumenService {
 	}
 
 	public SuscriptionVolumen reconstruct(final SuscriptionVolumen sv, final BindingResult binding) {
-		final SuscriptionVolumen res;
 
-		//TODO:obligar en el controlador a que siempre pase por el if y no por el else
-		if (sv.getId() == 0) {
-			res = new SuscriptionVolumen();
+		sv.setCustomer((Customer) this.actorService.findByPrincipal());
 
-			res.setCustomer((Customer) this.actorService.findByPrincipal());
-			res.setVolumen(sv.getVolumen());
+		this.validator.validate(sv, binding);
 
-			res.setCreditCard(sv.getCreditCard());
-
-		} else
-			res = sv;
-
-		this.validator.validate(res, binding);
-
-		return res;
+		return sv;
 	}
 
 	//Other Methods
