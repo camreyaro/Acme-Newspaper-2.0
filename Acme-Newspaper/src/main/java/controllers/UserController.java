@@ -46,8 +46,8 @@ public class UserController extends AbstractController {
 	// Display ----------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam(required = false) Integer userId) {
-		ModelAndView result;
-		Actor actor;
+		ModelAndView result = null;
+		Actor actor = null;
 		Collection<Article> articles = new ArrayList<>();
 		Collection<Chirp> chirps = new ArrayList<>();
 		Collection<Article> privateArticlesSuscribed = new ArrayList<>();
@@ -55,38 +55,60 @@ public class UserController extends AbstractController {
 		Collection<Article> AllPrivateArticles = new ArrayList<>();
 		Boolean owner = false;
 
-		if (userId == null)
-			userId = this.actorService.findByPrincipal().getId();
-
-		actor = this.actorService.findOne(userId);
-
-		if (LoginService.getPrincipal().equals(actor.getUserAccount()))
-			owner = true;
-
-		articles = this.articleService.getPublishedArticlesByUserId(userId);
-		chirps = this.chirpService.findChirpsByUserId(userId);
-		result = new ModelAndView("user/display");
-		result.addObject("numFollowers", this.userService.getFollowers(userId).size());
-
-		try {
-			if (LoginService.getPrincipal().isAuthority("CUSTOMER")) {
-				privateArticlesSuscribed = this.articleService.getPrivatePublishedSuscribedArticlesByUserId(userId);
-				privateArticlesNotSuscribed = this.articleService.getPrivatePublishedNotSuscribedArticlesByUserId(userId);
-				result.addObject("privateArticlesSuscribed", privateArticlesSuscribed);
-				result.addObject("privateArticlesNotSuscribed", privateArticlesNotSuscribed);
-
-			} else if (LoginService.getPrincipal().isAuthority("USER") || LoginService.getPrincipal().isAuthority("ADMIN")) {
-				AllPrivateArticles = this.articleService.getAllPrivatePublishedArticlesByUserId(userId);
-				result.addObject("AllPrivateArticles", AllPrivateArticles);
-
-				User me = (User) this.actorService.findByPrincipal();
-				User following = (User) actor;
-				result.addObject("owner", owner);
-				result.addObject("isFollower", me.getFollowing().contains(following));
+		//Si la userID es nula y no está logueado, lo envío a la lista de usuarios.
+		if(userId == null)
+			try{
+				userId = this.actorService.findByPrincipal().getId();
+			
+			}catch(Throwable oops){
+				result = new ModelAndView("user/list");
+				result.addObject("users", this.userService.findAll());
+				return result;
 			}
-		} catch (Throwable oops) {
+		
+		//Si la userId no es de ningún actor, devuelve a la lista de usuarios. 
+		//Puede darse el caso de que un no-autenticado intente meter la url con un userId no válido.
+		else{
+			try{
+		
+				actor = this.actorService.findOne(userId);
+			
+				if(actor == null){
+					result = new ModelAndView("user/list");
+					result.addObject("users",this.userService.findAll());
+					return result;
+				}
+			
+				if (LoginService.getPrincipal().getId() == actor.getUserAccount().getId())
+					owner = true;
+			}catch(Throwable oops){	}
+			
+			
+			articles = this.articleService.getPublishedArticlesByUserId(userId);
+			chirps = this.chirpService.findChirpsByUserId(userId);
+			result = new ModelAndView("user/display");
+			result.addObject("numFollowers", this.userService.getFollowers(userId).size());
 
+			try {
+				if (LoginService.getPrincipal().isAuthority("CUSTOMER")) {
+					privateArticlesSuscribed = this.articleService.getPrivatePublishedSuscribedArticlesByUserId(userId);
+					privateArticlesNotSuscribed = this.articleService.getPrivatePublishedNotSuscribedArticlesByUserId(userId);
+					result.addObject("privateArticlesSuscribed", privateArticlesSuscribed);
+					result.addObject("privateArticlesNotSuscribed", privateArticlesNotSuscribed);
+
+				} else if (LoginService.getPrincipal().isAuthority("USER") || LoginService.getPrincipal().isAuthority("ADMIN")) {
+					AllPrivateArticles = this.articleService.getAllPrivatePublishedArticlesByUserId(userId);
+					result.addObject("AllPrivateArticles", AllPrivateArticles);
+
+					User me = (User) this.actorService.findByPrincipal();
+					User following = (User) actor;
+					result.addObject("owner", owner);
+					result.addObject("isFollower", me.getFollowing().contains(following));
+				}
+			} catch (Throwable oops) {}
 		}
+		
+		
 
 		result.addObject("user", actor);
 		result.addObject("articles", articles);
@@ -94,6 +116,9 @@ public class UserController extends AbstractController {
 
 		return result;
 	}
+	
+	
+	
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
