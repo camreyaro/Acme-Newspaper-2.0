@@ -51,6 +51,10 @@
 		<spring:message code="master.page.title" var="titleH" />
 		<display:column title="${titleH}">
 			<a href="newspaper/article/display.do?articleId=${row.id}"> <jstl:out value="${row.title}"/> </a> 
+		
+			<jstl:if test="${ owner && (!row.saved)}">
+				<acme:action url="newspaper/article/user/edit.do?articleId=${row.id}" code="master.page.edit"/>
+			</jstl:if>
 		</display:column>
 	
 	
