@@ -10,3 +10,18 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
+<form:form action="volumen/user/edit.do" modelAttribute="volumen">
+
+	<form:hidden path="id"/>
+	<form:hidden path="version"/>
+	
+	<acme:textbox code="volumen.title" path="title"/>
+	<acme:textbox code="volumen.description" path="description"/>
+	<acme:textbox code="volumen.price" path="price"/>
+	
+	<acme:submit name="save" code="master.page.save"/>
+	<acme:cancel url="volumen/myList.do" code="master.page.cancel"/>
+
+</form:form>
+
+

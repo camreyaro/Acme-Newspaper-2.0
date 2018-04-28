@@ -25,6 +25,7 @@
 		<spring:message code="volumen.noVolumens1"></spring:message><a href="volumen/user/create.do"><spring:message code="volumen.noVolumens2"></spring:message></a>?
 	</jstl:if>
 	
+	
 	<acme:cancel url="volumen/user/myList.do" code="master.page.cancel"/>
 
 </form:form>
