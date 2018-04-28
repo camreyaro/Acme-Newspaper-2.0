@@ -1,9 +1,12 @@
 
 package domain;
 
+import java.util.Calendar;
+
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -79,6 +82,15 @@ public class CreditCard {
 
 	public void setExpirationYear(Integer expirationYear) {
 		this.expirationYear = expirationYear;
+	}
+
+	@Transient
+	//which must not expire during the current month (i remove >= to month comparator to >)
+	public boolean validCreditCardDate() {
+		if (this.getExpirationYear() > Calendar.getInstance().get(Calendar.YEAR) || (this.getExpirationYear() == Calendar.getInstance().get(Calendar.YEAR) && this.getExpirationMonth() > Calendar.getInstance().get(Calendar.MONTH) + 1))
+			return true;
+		else
+			return false;
 	}
 
 }

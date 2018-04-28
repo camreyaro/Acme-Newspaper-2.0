@@ -30,12 +30,15 @@
 		<!-- SERGIO -->
 		<value>/views/newspaper/messages</value>
 		<value>/views/chirp/messages</value>
+		<value>/views/agent/messages</value>
+		<value>/views/advertisement/messages</value>
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->
 		<value>/views/customer/messages</value>
 		<value>/views/suscription/messages</value>
 		
+		 
 		<value>/views/folder/messages</value>
 		<value>/views/message/messages</value>
 		

@@ -24,6 +24,12 @@
 		
 		<bean class="converters.ChirpToStringConverter" />
 		<bean class="converters.StringToChirpConverter" />
+		
+		<bean class="converters.AgentToStringConverter" />
+		<bean class="converters.StringToAgentConverter" />
+		
+		<bean class="converters.AdvertisementToStringConverter" />
+		<bean class="converters.StringToAdvertisementConverter" />
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->
@@ -32,7 +38,7 @@
 		
 		<bean class="converters.SuscriptionToStringConverter" />
 		<bean class="converters.StringToSuscriptionConverter" />
-		
+		  
 		<bean class="converters.FolderToStringConverter" />
 		<bean class="converters.StringToFolderConverter" />
 		

@@ -127,7 +127,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	@Transient
 	public boolean isAuthority(final String expectedAuthority) {
-		Assert.isTrue(expectedAuthority == "ADMIN" || expectedAuthority == "USER" || expectedAuthority == "CUSTOMER");
+		Assert.isTrue(expectedAuthority == "ADMIN" || expectedAuthority == "USER" || expectedAuthority == "CUSTOMER" || expectedAuthority == "AGENT");
 		final Authority authority = new Authority();
 		authority.setAuthority(expectedAuthority);
 		return this.getAuthorities().contains(authority);

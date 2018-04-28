@@ -84,6 +84,17 @@
 		<security:intercept-url pattern="/user/following.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/user/follow.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/user/unfollow.do" access="hasRole('USER')" /> 
+		
+		<security:intercept-url pattern="/agent/register.do" access="permitAll" /> 
+		<security:intercept-url pattern="/agent/edit.do" access="hasRole('AGENT')" />
+		<security:intercept-url pattern="/agent/display.do" access="hasRole('AGENT')" />
+		
+		<security:intercept-url pattern="/newspaper/advertisement/agent/list.do" access="hasRole('AGENT')" />
+		<security:intercept-url pattern="/newspaper/advertisement/agent/create.do" access="hasRole('AGENT')" />
+		<security:intercept-url pattern="/newspaper/advertisement/agent/edit.do" access="hasRole('AGENT')" />
+		<security:intercept-url pattern="/newspaper/advertisement/agent/save.do" access="hasRole('AGENT')" />
+		<security:intercept-url pattern="/newspaper/advertisement/administrator/delete.do" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/newspaper/advertisement/administrator/list.do" access="hasRole('ADMIN')" />
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->

@@ -43,6 +43,15 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('AGENT')">
+			<li><a class="fNiv"><spring:message	code="master.page.agent" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="newspaper/advertisement/agent/list.do"><spring:message code="master.page.newspaperAdv" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
 		<security:authorize access="hasRole('ADMIN')">
 			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
@@ -68,8 +77,16 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
-			<li><a class="fNiv" href="user/register.do"><spring:message code="master.page.registerUser" /></a></li>
-			<li><a class="fNiv" href="customer/register.do"><spring:message code="master.page.registerCustomer" /></a></li>
+			<li><a class="fNiv"><spring:message code="master.page.submit" /></a>
+			<ul>
+					<li class="arrow"></li>
+					<li><a href="user/register.do"><spring:message code="master.page.registerUser" /></a></li>
+					<li><a href="customer/register.do"><spring:message code="master.page.registerCustomer" /></a></li>
+					<li><a href="agent/register.do"><spring:message code="master.page.registerAgent" /></a></li>
+					</ul>
+			
+			</li>
+			
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
@@ -85,8 +102,12 @@
 						<li><a href="user/display.do"><spring:message code="master.page.displayUser" /></a></li>
 					</security:authorize>
 					<security:authorize access="hasRole('CUSTOMER')">
-					<li><a href="customer/display.do"><spring:message code="master.page.customer.display" /></a></li>
-					<li><a href="customer/edit.do"><spring:message code="master.page.customer.edit" /></a></li>	
+						<li><a href="customer/display.do"><spring:message code="master.page.customer.display" /></a></li>
+						<li><a href="customer/edit.do"><spring:message code="master.page.customer.edit" /></a></li>	
+					</security:authorize>
+					<security:authorize access="hasRole('AGENT')">
+						<li><a href="agent/display.do"><spring:message code="master.page.agent.display" /></a></li>
+						<li><a href="agent/edit.do"><spring:message code="master.page.agent.edit" /></a></li>	
 					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>

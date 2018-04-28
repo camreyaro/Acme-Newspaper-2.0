@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-		@Index(columnList = "newspaper_id"), @Index(columnList = "customer_id")
-	})
+	@Index(columnList = "newspaper_id"), @Index(columnList = "customer_id")
+})
 public class Suscription extends DomainEntity {
 
 	private CreditCard	creditCard;

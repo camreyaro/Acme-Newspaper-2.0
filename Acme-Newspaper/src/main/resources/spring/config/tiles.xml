@@ -30,11 +30,14 @@
 		<!-- SERGIO -->
 		<value>/views/newspaper/tiles.xml</value>
 		<value>/views/chirp/tiles.xml</value>
+		<value>/views/agent/tiles.xml</value>
+		<value>/views/advertisement/tiles.xml</value>
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->
 		<value>/views/customer/tiles.xml</value>
 		<value>/views/suscription/tiles.xml</value>
+		
 		
 		<value>/views/folder/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>

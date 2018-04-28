@@ -28,10 +28,15 @@
 		<jstl:out value="${article.creator.name}" />
 		 <jstl:out value="${article.creator.surname}" /></li>
 		<jstl:forEach var="susURLss" items="${susURLs}">
-		<img src="${susURLss}" /></br>
+		<img src="${susURLss}" /><br/>
 	</jstl:forEach>
 		
 </ul>
+
+<jstl:if test="${advertisement != null }">
+<br/>
+<a href="${advertisement.urlTargetPage}" target="_blank"><img src="${advertisement.urlBanner}" alt="${advertisement.title}"/></a>
+</jstl:if>
 
 <jstl:if test="${seeFU}">
 	<acme:action code="article.followups"  url="newspaper/article/followup/list.do?articleId=${article.id}"/>

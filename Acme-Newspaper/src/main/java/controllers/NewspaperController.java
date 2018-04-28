@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
+import services.ActorService;
+import services.AdvertisementService;
 import services.ArticleService;
 import services.NewspaperService;
 import services.SuscriptionService;
+import domain.Agent;
 import domain.Article;
 import domain.Newspaper;
 
@@ -24,13 +27,19 @@ import domain.Newspaper;
 public class NewspaperController extends AbstractController {
 
 	@Autowired
-	private NewspaperService	newspaperService;
+	private NewspaperService		newspaperService;
 
 	@Autowired
-	private SuscriptionService	suscriptionService;
-	
+	private SuscriptionService		suscriptionService;
+
 	@Autowired
-	private ArticleService	articleService;
+	private AdvertisementService	advertisementService;
+
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private ArticleService			articleService;
 
 
 	// Listing ----------------------------------------------------------------
@@ -47,6 +56,23 @@ public class NewspaperController extends AbstractController {
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", newspapers);
 		result.addObject("requestURI", "newspaper/list.do");
+		return result;
+	}
+
+	//ADVERTISEMENT
+	@RequestMapping(value = "/advertisement/agent/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Collection<Newspaper> newspapersWithAdv, newspapersWithNoAdv;
+		Agent agent = (Agent) this.actorService.findByPrincipal();
+
+		newspapersWithAdv = this.advertisementService.findAdvertisedNewspapers(agent.getId());
+		newspapersWithNoAdv = this.advertisementService.findNotAdvertisedNewspapers(agent.getId());
+
+		result = new ModelAndView("newspaper/advertisement/agent/list");
+		result.addObject("newspapersWithAdv", newspapersWithAdv);
+		result.addObject("newspapersWithNoAdv", newspapersWithNoAdv);
+		result.addObject("requestURI", "newspaper/advertisement/agent/list.do");
 		return result;
 	}
 
@@ -69,17 +95,17 @@ public class NewspaperController extends AbstractController {
 
 		return result;
 	}
-	
+
 	@RequestMapping("/administrator/delete")
 	public ModelAndView deleteNewspaper(@RequestParam(value = "newspaperId", required = true) int newspaperId) {
 		ModelAndView result;
 		Newspaper newspaper;
 
 		newspaper = this.newspaperService.findOne(newspaperId);
-		
-		try{
-			newspaperService.delete(newspaper);
-		}catch (Throwable o) { 
+
+		try {
+			this.newspaperService.delete(newspaper);
+		} catch (Throwable o) {
 			return new ModelAndView("redirect:/newspaper/display.do?newspaperId=" + newspaperId);
 		}
 
@@ -92,15 +118,16 @@ public class NewspaperController extends AbstractController {
 	public ModelAndView display(@RequestParam(value = "newspaperId", required = true) String newspaperId) {
 		ModelAndView result;
 		Newspaper newspaper;
-		Collection <Article> articles = new ArrayList<Article>(); 
+		Collection<Article> articles = new ArrayList<Article>();
 		Integer id;
 		Boolean owner, suscribe;
-		Boolean esAdmin =false;
-		
-		try{
+		Boolean esAdmin = false;
+
+		try {
 			esAdmin = LoginService.getPrincipal().isAuthority("ADMIN");
-		}catch(Throwable oops){}
-		
+		} catch (Throwable oops) {
+		}
+
 		try {
 			id = Integer.valueOf(newspaperId);
 			newspaper = this.newspaperService.findOne(id);
@@ -116,11 +143,10 @@ public class NewspaperController extends AbstractController {
 			owner = false;
 			suscribe = false;
 		}
-		
+
 		if (!esAdmin && !owner && !newspaper.getPublished()) //si intenta acceder a un periodico no valido
 			return new ModelAndView("redirect:list.do");
 
-		
 		result = new ModelAndView("newspaper/display");
 		result.addObject("articles", articles);
 		result.addObject("newspaper", newspaper);
@@ -129,7 +155,7 @@ public class NewspaperController extends AbstractController {
 		result.addObject("suscribe", suscribe);
 		return result;
 	}
-	
+
 	protected ModelAndView createEditModelAndView(Newspaper newspaper) {
 		return this.createEditModelAndView(newspaper, null);
 	}
