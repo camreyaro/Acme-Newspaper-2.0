@@ -294,7 +294,11 @@ public class ArticleController extends AbstractController {
 				res.addObject("newspaperId", newsp.getId());
 				//res.addObject("articled", rend.getId());
 			} catch (Throwable oops) {
-				res = this.createCreateModelAndView(art, "article.commit.error");
+				String messageCode = "article.commit.error";
+				if(oops.getMessage().contains("org.hibernate.validator.constraints.URL.message")){
+					messageCode = "org.hibernate.validator.constraints.URL.message";
+				}
+				res = this.createCreateModelAndView(art, messageCode);
 
 			}
 		return res;

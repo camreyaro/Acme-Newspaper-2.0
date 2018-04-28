@@ -12,6 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.transaction.Transactional;
 
+import org.apache.commons.validator.routines.UrlValidator;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,6 +89,14 @@ public class ArticleService {
 		Assert.isTrue(a.getCreator().equals(this.actorService.findByPrincipal()) || a.getNewspaper().getPublisher().equals(this.actorService.findByPrincipal()));
 
 		Article saved;
+		
+		if(a.getPictureURLs() != null){
+			UrlValidator urlValidator = new UrlValidator();
+			
+			for(String url : a.getPictureURLs()){
+				Assert.isTrue(urlValidator.isValid(url), "org.hibernate.validator.constraints.URL.message");
+			}
+		}
 
 		if (a.getId() == 0) {
 			Newspaper newspaper = a.getNewspaper();
