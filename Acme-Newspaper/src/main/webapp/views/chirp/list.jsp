@@ -20,7 +20,36 @@
 <security:authorize access="hasRole('USER')">
 <acme:action code="master.page.create"  url="chirp/user/create.do"/>
 </security:authorize>
-<display:table pagesize="5" class="displaytag" keepStatus="true"
+
+<br/>
+<table id ="myTable" data-page-length='5'>
+ <thead>
+        <tr>
+            <th><spring:message code="master.page.user"/></th>
+            <th><spring:message code="master.page.moment"/></th>
+            <th><spring:message code="master.page.title"/></th>
+            <th><spring:message code="master.page.description"/></th>
+            <security:authorize access="hasRole('ADMIN')">
+            <th><spring:message code="master.page.delete"/></th>
+            </security:authorize>
+        </tr>
+        </thead>
+         <tbody>
+         <jstl:forEach items="${chirps}" var="chirp">
+        <tr>
+            <td><a href="user/display.do?userId=${chirp.user.id }"><b><jstl:out value="${chirp.user.name } ${chirp.user.surname }"/></b></a> <i><jstl:out value="@${chirp.user.userAccount.username }"/></i></td>
+            <td>${chirp.moment}</td>
+            <td>${chirp.title}</td>
+            <td>${chirp.description}</td>
+            <security:authorize access="hasRole('ADMIN')">
+            <acme:action code="master.page.delete"  url="chirp/administrator/delete.do?chirpId=${chirp.id}"/>
+            </security:authorize>
+        </tr>
+        </jstl:forEach>
+   		 </tbody>
+</table>
+
+<%-- <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="chirps" requestURI="${requestURI}" id="chirp">
 	<spring:message code="master.page.user" var="publisherH" />
 	<display:column title="${publisherH}" >
@@ -42,5 +71,5 @@
 	</display:column>
 	</security:authorize>
 
-</display:table>
+</display:table> --%>
 

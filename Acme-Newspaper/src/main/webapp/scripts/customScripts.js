@@ -2,6 +2,11 @@ $(document).ready(function() {
 	$('#dateInput').tooltip();
 	$('#vatInput').tooltip();
 	$('#myInput').trigger('focus');
+	
+	$('#myTable').DataTable({
+		"lengthMenu": [ 5,10,15 ],
+		 "width": "50%"
+	});
 });
 
 // PHONE QUESTION
