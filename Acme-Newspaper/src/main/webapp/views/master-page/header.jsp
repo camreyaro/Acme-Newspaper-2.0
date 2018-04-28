@@ -45,6 +45,7 @@
 					<li><a href="newspaper/user/avaibleList.do"><spring:message code="newspaper.avaibleList" /></a></li>
 					<li><a href="newspaper/user/list.do"><spring:message code="master.page.my" /> <spring:message code="master.page.newspaper" />s</a></li>
 					<li><a href="newspaper/article/user/myList.do"><spring:message code="article.myList" /></a></li>
+					<li><a href="volumen/user/myList.do"><spring:message code="volumen.menu.user"></spring:message></a></li>
 				</ul>
 			</li>
 		</security:authorize>

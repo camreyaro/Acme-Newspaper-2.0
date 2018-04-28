@@ -4,7 +4,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -69,8 +68,11 @@ public class SuscriptionVolumenController extends AbstractController {
 				this.suscriptionVolumenService.save(suscriptionVolumen);
 				res = new ModelAndView("redirect:myList.do");
 			} catch (final Throwable oops) {
-				res = this.createCreateModelAndView(suscriptionVolumen, oops.getMessage());
-				final String s = ExceptionUtils.getStackTrace(oops);
+				String msg = oops.getMessage();
+				if (!msg.equals("suscriptionVolumen.alreadySubscribed.error") && !msg.equals("suscriptionVolumen.edit.error	") && !msg.equals("suscriptionVolumen.volumen.noExist.error") && !msg.equals("message.error.creditcard"))
+					msg = "error.commit";
+				res = this.createCreateModelAndView(suscriptionVolumen, msg);
+
 			}
 
 		return res;

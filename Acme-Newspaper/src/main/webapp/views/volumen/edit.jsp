@@ -20,7 +20,7 @@
 	<acme:textbox code="volumen.price" path="price"/>
 	
 	<acme:submit name="save" code="master.page.save"/>
-	<acme:cancel url="volumen/myList.do" code="master.page.cancel"/>
+	<acme:cancel url="volumen/user/myList.do" code="master.page.cancel"/>
 
 </form:form>
 

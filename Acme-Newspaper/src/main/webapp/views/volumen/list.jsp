@@ -34,13 +34,7 @@
 		<a href="volumen/newspaper/list.do?volumenId=${row.id}"><spring:message code="master.page.newspapers"></spring:message></a>
 	</display:column>
 	
-	
-	<jstl:if test="${requestURI== 'volumen/myList.do'}" >
-		<spring:message code="master.page.edit" var="editHeader"/>
-		<display:column title="${actionHeader }" >
-			<a href="volumen/edit.do?volumenId=${row.id}"><spring:message code="master.page.newspapers"></spring:message></a>
-		</display:column>
-	</jstl:if>
+
 	
 	<security:authorize access="hasRole('CUSTOMER')">
 			<jstl:if test="${requestURI!= 'suscriptionVolumen/myList.do'}" >
@@ -54,3 +48,10 @@
 	
 
 </display:table>
+
+<jstl:if test="${requestURI== 'volumen/user/myList.do'}" >
+		
+		<acme:cancel url="volumen/user/edit.do" code="master.page.create"/>
+	</jstl:if>
+
+

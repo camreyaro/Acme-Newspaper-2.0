@@ -57,8 +57,9 @@ public class VolumenService {
 	}
 
 	public Volumen save(final Volumen v) {
-		//El editor tiene que ser el que lo creó
+		//El creador es el logeado
 		Assert.isTrue(LoginService.getPrincipal().equals(v.getUser().getUserAccount()), "volumen.creator.error");
+		Assert.isTrue(v.getId() == 0, "volumen.edit.error");
 
 		return this.volumenRepository.save(v);
 
@@ -93,33 +94,28 @@ public class VolumenService {
 	}
 
 	public Volumen reconstruct(final Volumen volumen, final BindingResult binding) {
-		final Volumen res;
+
 		final Volumen original = this.volumenRepository.findOne(volumen.getId());
 
 		if (volumen.getId() == 0) {
-			res = new Volumen();
+
 			final LocalDate date = new LocalDate();
 
 			//dfault properties
-			res.setUser((User) this.actorService.findByPrincipal());
-			res.setYear(date.getYear());
-			res.setNewspapers(new ArrayList<Newspaper>());
-
-			//editable properties
-			res.setDescription(volumen.getDescription());
-			res.setTitle(volumen.getTitle());
+			volumen.setUser((User) this.actorService.findByPrincipal());
+			volumen.setYear(date.getYear());
+			volumen.setNewspapers(new ArrayList<Newspaper>());
 
 		} else {
-			res = volumen;
 
-			res.setUser(original.getUser());
-			res.setYear(original.getYear());
-			res.setNewspapers(original.getNewspapers());
+			volumen.setUser(original.getUser());
+			volumen.setYear(original.getYear());
+			volumen.setNewspapers(original.getNewspapers());
 		}
 
-		this.validator.validate(res, binding);
+		this.validator.validate(volumen, binding);
 
-		return res;
+		return volumen;
 
 	}
 

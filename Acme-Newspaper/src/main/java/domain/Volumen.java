@@ -57,7 +57,7 @@ public class Volumen extends DomainEntity {
 		this.year = year;
 	}
 	@NotNull
-	@DecimalMin("0.0")
+	@DecimalMin("0.01")
 	public Double getPrice() {
 		return this.price;
 	}
