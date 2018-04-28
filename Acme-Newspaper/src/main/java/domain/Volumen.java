@@ -13,6 +13,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.SafeHtml;
 
 @Entity
 @Access(AccessType.PROPERTY)
@@ -29,6 +30,7 @@ public class Volumen extends DomainEntity {
 	private Collection<Newspaper>	newspapers;
 
 
+	@SafeHtml
 	@NotBlank
 	public String getTitle() {
 		return this.title;
@@ -37,6 +39,7 @@ public class Volumen extends DomainEntity {
 	public void setTitle(final String title) {
 		this.title = title;
 	}
+	@SafeHtml
 	@NotBlank
 	public String getDescription() {
 		return this.description;

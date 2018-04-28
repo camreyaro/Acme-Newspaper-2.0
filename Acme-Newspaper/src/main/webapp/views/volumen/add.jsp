@@ -10,3 +10,22 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 
+<form:form action="volumen/user/add.do" modelAttribute="newsToVolForm">
+
+	<form:hidden path="newspaper"/>
+	
+	<jstl:if test="${volumens!=null && volumens.size()>0 }">
+		<form:select path="volumen">
+			<form:options items="volumens" itemLabel="title" itemValue="id" />
+		</form:select>
+		<acme:submit name="save" code="master.page.save"/>
+	</jstl:if>
+	
+	<jstl:if test="${volumens==null || volumens.size()==0 }">
+		<spring:message code="volumen.noVolumens1"></spring:message><a href="volumen/user/create.do"><spring:message code="volumen.noVolumens2"></spring:message></a>?
+	</jstl:if>
+	
+	<acme:cancel url="volumen/user/myList.do" code="master.page.cancel"/>
+
+</form:form>
+
