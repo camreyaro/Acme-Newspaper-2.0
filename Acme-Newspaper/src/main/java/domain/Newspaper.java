@@ -147,13 +147,4 @@ public class Newspaper extends DomainEntity {
 		this.publisher = publisher;
 	}
 
-	@Transient
-	public Boolean isCreator(){
-		Boolean res = false;
-		try{
-			if(LoginService.getPrincipal().getUsername().equals(this.publisher.getUserAccount().getUsername()))
-				res =true;
-		}catch(Throwable oppos){}
-		return res;
-	}
 }

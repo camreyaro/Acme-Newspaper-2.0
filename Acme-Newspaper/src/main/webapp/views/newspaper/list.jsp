@@ -30,7 +30,7 @@
 			<acme:action code="newspaper.createArticle"  url="newspaper/article/user/create.do?newspaperId=${row.id}"/>
 		</jstl:if>
 		
-		<jstl:if test="${row.isCreator()}">
+		<jstl:if test="${row.publisher.id == actor.id}">
 			<acme:action url="newspaper/display.do?newspaperId=${row.id}" code="master.page.view"/>
 		</jstl:if>
 	</display:column>
