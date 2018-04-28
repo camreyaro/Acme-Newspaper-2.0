@@ -29,6 +29,10 @@
 		<jstl:if test="${!row.published}"> 
 			<acme:action code="newspaper.createArticle"  url="newspaper/article/user/create.do?newspaperId=${row.id}"/>
 		</jstl:if>
+		
+		<jstl:if test="${row.isCreator()}">
+			<acme:action url="newspaper/display.do?newspaperId=${row.id}" code="master.page.view"/>
+		</jstl:if>
 	</display:column>
 	
 	<spring:message code="master.page.picture" var="pictureUrlH" />

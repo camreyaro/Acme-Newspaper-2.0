@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,8 @@ import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import security.LoginService;
 
 @Entity
 @Indexed
@@ -144,4 +147,13 @@ public class Newspaper extends DomainEntity {
 		this.publisher = publisher;
 	}
 
+	@Transient
+	public Boolean isCreator(){
+		Boolean res = false;
+		try{
+			if(LoginService.getPrincipal().getUsername().equals(this.publisher.getUserAccount().getUsername()))
+				res =true;
+		}catch(Throwable oppos){}
+		return res;
+	}
 }
