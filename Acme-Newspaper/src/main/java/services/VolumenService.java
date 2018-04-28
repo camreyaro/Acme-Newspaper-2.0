@@ -45,6 +45,10 @@ public class VolumenService {
 		return this.volumenRepository.findOne(id);
 	}
 
+	public Collection<Volumen> findAll() {
+		return this.volumenRepository.findAll();
+	}
+
 	public void delete(final Volumen v) {
 		Assert.notNull(v.getId());
 		Assert.isTrue(v.getId() > 0);

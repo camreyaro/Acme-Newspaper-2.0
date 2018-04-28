@@ -8,13 +8,13 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 
-<display:table name="volumens" id="row" requestURI="${requestURI}">
+<display:table name="volumens" id="row" requestURI="${requestURI}" pagesize="5">
 	
 	<spring:message code="volumen.creator" var="creatorHeader"/>
 	<display:column title="${creatorHeader }" >
-		<a href="user/display.do?userId=${row.customer.id}">
-			<jstl:out value="${row.customer.name }"></jstl:out>
-			<jstl:out value="${row.customer.surname }"></jstl:out>
+		<a href="user/display.do?userId=${row.user.id}">
+			<jstl:out value="${row.user.name }"></jstl:out>
+			<jstl:out value="${row.user.surname }"></jstl:out>
 		</a>
 	</display:column>
 	
@@ -25,7 +25,7 @@
 	<display:column property="description" title="${descriptionHeader }" />
 	
 	<jstl:if test="${requestURI!= 'suscriptionVolumen/myList.do'}" >
-		<spring:message code="volumen.price" var="pricHeader"/>
+		<spring:message code="volumen.price" var="priceHeader"/>
 		<display:column property="price" title="${priceHeader }" />
 	</jstl:if>
 	

@@ -28,8 +28,7 @@
 		<bean class="converters.AgentToStringConverter" />
 		<bean class="converters.StringToAgentConverter" />
 		
-		<bean class="converters.AdvertisementToStringConverter" />
-		<bean class="converters.StringToAdvertisementConverter" />
+
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->

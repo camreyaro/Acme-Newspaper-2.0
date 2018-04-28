@@ -144,6 +144,7 @@
 		
 		<!-- ANGEL P -->
 		<security:intercept-url pattern="/volumen/list.do" access="permitAll" /> 
+		<security:intercept-url pattern="/volumen/newspaper/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/volumen/myList.do" access="hasRole('USER')" /> 
 		
 		<!-- END ANGL P -->	
