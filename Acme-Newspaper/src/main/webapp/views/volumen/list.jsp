@@ -42,5 +42,15 @@
 		</display:column>
 	</jstl:if>
 	
+	<security:authorize access="hasRole('CUSTOMER')">
+			<jstl:if test="${requestURI!= 'suscriptionVolumen/myList.do'}" >
+		<spring:message code="volumen.suscribe" var="suscribeHeader"/>
+		<display:column title="${suscribeHeader }" >
+			<a href="suscriptionVolumen/create.do?volumenId=${row.id}"><spring:message code="volumen.suscribe"></spring:message></a>
+		</display:column>
+	</jstl:if>
+	
+	</security:authorize>
+	
 
 </display:table>

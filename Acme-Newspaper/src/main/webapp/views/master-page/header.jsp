@@ -27,7 +27,12 @@
 					<li><a href="newspaper/search.do"><spring:message code="master.page.newspaper.search" /></a></li>
 					<li><a href="newspaper/article/search.do"><spring:message code="article.search" /></a></li>
 					<li><a href="newspaper/list.do"><spring:message code="master.page.newspaper" />s</a></li>
-					<li><a href="volumen/list.do"><spring:message code="master.page.volumens" /></a></li>
+					<security:authorize access="!hasRole('CUSTOMER')">
+						<li><a href="volumen/list.do"><spring:message code="master.page.volumens" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('CUSTOMER')">
+						<li><a href="volumen/list.do"><spring:message code="master.page.noSusVolumens" /></a></li>
+					</security:authorize>
 				</ul>
 			</li>
 		<li><a href="user/list.do"  class="fNiv"><spring:message code="master.page.listUser" /></a></li>
@@ -67,14 +72,15 @@
 			</li>
 		</security:authorize>
 		
-		<%-- <security:authorize access="hasRole('CUSTOMER')">
+		<security:authorize access="hasRole('CUSTOMER')">
 			<li><a class="fNiv"><spring:message	code="master.page.customer" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="suscriptionVolumen/myList.do"><spring:message code="master.page.my.suscription.volumen" /></a></li>
 								
 				</ul>
 			</li>
-		</security:authorize> --%>
+		</security:authorize> 
 		
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
