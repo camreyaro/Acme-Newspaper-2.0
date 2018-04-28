@@ -91,7 +91,8 @@ public class ArticleService {
 		Article saved;
 		
 		if(a.getPictureURLs() != null){
-			UrlValidator urlValidator = new UrlValidator();
+			
+			UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
 			
 			for(String url : a.getPictureURLs()){
 				Assert.isTrue(urlValidator.isValid(url), "org.hibernate.validator.constraints.URL.message");
