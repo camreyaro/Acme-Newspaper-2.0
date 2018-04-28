@@ -65,3 +65,13 @@ ${ratioSuscribersPerPrivateNewspapersVsCustomers}</br>
 <b><spring:message code="admin.avgRatioPublicVsPrivateNewspapers"/></b></br>
 ${avgRatioPublicVsPrivateNewspapers}</br>
 
+
+<!-- 2.0 -->
+
+
+<!-- LVL B -->
+
+<b><spring:message code="admin.avgNewsPerVol"/></b><br>
+${avgNewsPerVol}
+<b><spring:message code="admin.ratioSusVolVsSus"/></b><br>
+${ratioSusVolVsSus}
