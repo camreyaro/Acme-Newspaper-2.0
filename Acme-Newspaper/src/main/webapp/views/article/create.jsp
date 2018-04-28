@@ -33,6 +33,6 @@
 	<br>		
 
 	<acme:submit code="master.page.save"  name="save"/>
-	<acme:cancel code="master.page.return" url="/newspaper/list.do" />
+	<acme:cancel code="master.page.return" url="/newspaper/user/avaibleList.do" />
 	
 </form:form>
