@@ -34,7 +34,7 @@ public class CreditCard {
 		return this.number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(final String number) {
 		this.number = number;
 	}
 
@@ -44,7 +44,7 @@ public class CreditCard {
 		return this.holderName;
 	}
 
-	public void setHolderName(String holderName) {
+	public void setHolderName(final String holderName) {
 		this.holderName = holderName;
 	}
 
@@ -54,7 +54,7 @@ public class CreditCard {
 		return this.cvvCode;
 	}
 
-	public void setCvvCode(Integer cvvCode) {
+	public void setCvvCode(final Integer cvvCode) {
 		this.cvvCode = cvvCode;
 	}
 
@@ -63,24 +63,27 @@ public class CreditCard {
 		return this.brandName;
 	}
 
-	public void setBrandName(String brandName) {
+	public void setBrandName(final String brandName) {
 		this.brandName = brandName;
 	}
 
+	@NotNull
 	@Range(min = 1, max = 12)
 	public Integer getExpirationMonth() {
 		return this.expirationMonth;
 	}
 
-	public void setExpirationMonth(Integer expirationMonth) {
+	public void setExpirationMonth(final Integer expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
+
+	@NotNull
 	@Range(min = 1950, max = 3000)
 	public Integer getExpirationYear() {
 		return this.expirationYear;
 	}
 
-	public void setExpirationYear(Integer expirationYear) {
+	public void setExpirationYear(final Integer expirationYear) {
 		this.expirationYear = expirationYear;
 	}
 
