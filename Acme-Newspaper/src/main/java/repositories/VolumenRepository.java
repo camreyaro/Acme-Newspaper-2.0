@@ -36,4 +36,7 @@ public interface VolumenRepository extends JpaRepository<Volumen, Integer> {
 
 	@Query("select 1.0*avg(v.newspapers.size) from Volumen v")
 	Double avgOfNewspaperPerVolumen();
+
+	@Query("select v from Volumen v where v.user.id=?1 AND (select n from Newspaper n where n.id=?2) not member of v.newspapers")
+	Collection<Volumen> getAvailaleVolumens(Integer userId, Integer newspaperId);
 }

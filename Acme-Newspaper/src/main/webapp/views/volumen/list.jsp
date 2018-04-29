@@ -10,13 +10,15 @@
 
 <display:table name="volumens" id="row" requestURI="${requestURI}" pagesize="5">
 	
-	<spring:message code="volumen.creator" var="creatorHeader"/>
-	<display:column title="${creatorHeader }" >
-		<a href="user/display.do?userId=${row.user.id}">
-			<jstl:out value="${row.user.name }"></jstl:out>
-			<jstl:out value="${row.user.surname }"></jstl:out>
-		</a>
-	</display:column>
+	<jstl:if test="${requestURI!='volumen/user/myList.do' }">
+		<spring:message code="volumen.creator" var="creatorHeader"/>
+		<display:column title="${creatorHeader }" >
+			<a href="user/display.do?userId=${row.user.id}">
+				<jstl:out value="${row.user.name }"></jstl:out>
+				<jstl:out value="${row.user.surname }"></jstl:out>
+			</a>
+		</display:column>
+	</jstl:if>
 	
 	<spring:message code="volumen.title" var="titleHeader"/>
 	<display:column property="title" title="${titleHeader }" />

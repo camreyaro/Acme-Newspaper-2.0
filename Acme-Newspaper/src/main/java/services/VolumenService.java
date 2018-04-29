@@ -149,6 +149,10 @@ public class VolumenService {
 		return this.volumenRepository.getVolumensNotSuscribedByCustomer(this.actorService.findByPrincipal().getId());
 	}
 
+	public Collection<Volumen> getMyAvailableVolumes(final Integer newsaperId) {
+		return this.volumenRepository.getAvailaleVolumens(this.actorService.findByPrincipal().getId(), newsaperId);
+	}
+
 	//Dashboard
 
 	public Double avgNewsPerVol() {

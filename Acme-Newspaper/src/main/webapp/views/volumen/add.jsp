@@ -16,13 +16,14 @@
 	
 	<jstl:if test="${volumens!=null && volumens.size()>0 }">
 		<form:select path="volumen">
-			<form:options items="volumens" itemLabel="title" itemValue="id" />
+			<form:options items="${volumens}" itemLabel="title" itemValue="id" />
 		</form:select>
+		<form:errors path="volumen" cssClass="error"></form:errors>
 		<acme:submit name="save" code="master.page.save"/>
 	</jstl:if>
 	
 	<jstl:if test="${volumens==null || volumens.size()==0 }">
-		<spring:message code="volumen.noVolumens1"></spring:message><a href="volumen/user/create.do"><spring:message code="volumen.noVolumens2"></spring:message></a>?
+		<spring:message code="volumen.noVolumens1"></spring:message> <a href="volumen/user/edit.do"><spring:message code="volumen.noVolumens2"></spring:message></a>?<br>
 	</jstl:if>
 	
 	

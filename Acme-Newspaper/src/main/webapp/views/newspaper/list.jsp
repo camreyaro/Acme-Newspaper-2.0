@@ -58,12 +58,12 @@
 	
 	<security:authorize access="hasRole('USER')">
 		<display:column title="Volumen">
-			<a href="volumen/newspaper/add.do?newspaperId=${row.id}"><spring:message code="volumen.add"></spring:message></a>
+			<a href="volumen/user/add.do?newspaperId=${row.id}"><spring:message code="volumen.add"></spring:message></a>
 		</display:column>
 		<jstl:if test="${creator}">
 		
 			<display:column title="${volumen.title}">
-			<a href="volumen/newspaper/remove.do?newspaperId=${row.id}&volumenId=${volumen.id}" style="color:red;"><spring:message code="volumen.remove"></spring:message></a>
+			<a href="volumen/user/remove.do?newspaperId=${row.id}&volumenId=${volumen.id}" style="color:red;"><spring:message code="volumen.remove"></spring:message></a>
 			</display:column>
 		
 		</jstl:if>
@@ -73,5 +73,7 @@
 	
 </display:table>
 <security:authorize access="hasRole('USER')">
-<acme:action code="master.page.create"  url="newspaper/user/create.do"/>
+	<jstl:if test="${requestURI!='volumen/newspaper/list.do' }">
+		<acme:action code="master.page.create"  url="newspaper/user/create.do"/>
+	</jstl:if>
 </security:authorize>

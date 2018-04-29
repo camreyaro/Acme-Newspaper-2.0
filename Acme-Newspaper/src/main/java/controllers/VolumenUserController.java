@@ -8,17 +8,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.NewspaperService;
 import services.VolumenService;
+import domain.Actor;
+import domain.Newspaper;
 import domain.Volumen;
+import forms.NewsToVolForm;
 
 @Controller
 @RequestMapping("/volumen/user")
 public class VolumenUserController extends AbstractController {
 
 	@Autowired
-	private VolumenService	volumenService;
+	private VolumenService		volumenService;
+	@Autowired
+	private NewspaperService	newspaperService;
+	@Autowired
+	private ActorService		actorService;
 
 
 	@RequestMapping("/myList")
@@ -65,6 +75,101 @@ public class VolumenUserController extends AbstractController {
 
 		return res;
 	}
+	@RequestMapping("/add")
+	public ModelAndView add(@RequestParam final Integer newspaperId) {
+		final ModelAndView res;
+		final NewsToVolForm form = new NewsToVolForm();
+		final Collection<Volumen> volumens = this.volumenService.getMyAvailableVolumes(newspaperId);
+		final Newspaper n = this.newspaperService.findOne(newspaperId);
+
+		form.setNewspaper(n);
+
+		res = new ModelAndView("volumen/add");
+		res.addObject("newsToVolForm", form);
+		res.addObject("volumens", volumens);
+
+		return res;
+
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(final NewsToVolForm newsToVolForm, final BindingResult binding) {
+		ModelAndView res;
+
+		if (binding.hasErrors())
+			res = this.createAdd(newsToVolForm);
+		else
+			try {
+				this.volumenService.addNewspaper(newsToVolForm.getVolumen(), newsToVolForm.getNewspaper());
+				res = new ModelAndView("redirect:myList.do");
+			} catch (final Throwable oops) {
+				String msg = oops.getMessage();
+
+				if (!msg.equals("volumen.newspaper.published.error") && !msg.equals("volumen.creator.error") && !msg.equals("volumen.contained.newspaper.error"))
+					msg = "error.commit";
+
+				res = this.createAdd(newsToVolForm, msg);
+
+			}
+
+		return res;
+	}
+
+	@RequestMapping("/remove")
+	public ModelAndView remove(@RequestParam final Integer newspaperId, @RequestParam final Integer volumenId) {
+		ModelAndView res;
+		final Volumen v = this.volumenService.findOne(volumenId);
+		try {
+			final Newspaper n = this.newspaperService.findOne(newspaperId);
+			this.volumenService.removeNewspaper(v, n);
+			res = this.createRemoveModelAndView(v);
+		} catch (final Throwable oops) {
+			res = this.createRemoveModelAndView(v);
+			String msg = oops.getMessage();
+
+			if (!msg.equals("volumen.uncontained.newspaper.error") && !msg.equals("volumen.creator.error"))
+				msg = "error.commit";
+
+			res.addObject("message", msg);
+		}
+
+		return res;
+
+	}
+	protected ModelAndView createRemoveModelAndView(final Volumen volumen) {
+		final ModelAndView res;
+		Boolean creator = false;
+		final Collection<Newspaper> newspapers = this.volumenService.getAllNewspaper(volumen.getId());
+		final Actor actor = this.actorService.findByPrincipal();
+
+		if (actor.equals(volumen.getUser()))
+			creator = true;
+
+		res = new ModelAndView("newspaper/list");
+
+		res.addObject("newspapers", newspapers);
+		res.addObject("requestURI", "volumen/newspaper/list.do");
+		res.addObject("creator", creator);
+		res.addObject("volumen", volumen);
+
+		return res;
+	}
+	protected ModelAndView createAdd(final NewsToVolForm newsToVolForm) {
+		return this.createAdd(newsToVolForm, null);
+	}
+	protected ModelAndView createAdd(final NewsToVolForm newsToVolForm, final String msg) {
+		final ModelAndView res;
+		final Collection<Volumen> volumens = this.volumenService.getMyAvailableVolumes(newsToVolForm.getNewspaper().getId());
+
+		res = new ModelAndView("volumen/add");
+		res.addObject("newsToVolForm", newsToVolForm);
+		res.addObject("volumens", volumens);
+		res.addObject("message", msg);
+
+		return res;
+
+	}
+
 	protected ModelAndView createEditModelAndView(final Volumen volumen) {
 		return this.createEditModelAndView(volumen, null);
 	}
