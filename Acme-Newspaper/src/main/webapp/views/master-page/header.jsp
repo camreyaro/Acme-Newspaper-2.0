@@ -54,6 +54,7 @@
 			<li><a class="fNiv"><spring:message	code="master.page.agent" /></a>
 				<ul>
 					<li class="arrow"></li>
+					<li><a href="advertisement/agent/list.do"><spring:message code="master.page.my" /> <spring:message code="master.page.advertisement" />s</a></li>
 					<li><a href="newspaper/advertisement/agent/list.do"><spring:message code="master.page.newspaperAdv" /></a></li>
 				</ul>
 			</li>

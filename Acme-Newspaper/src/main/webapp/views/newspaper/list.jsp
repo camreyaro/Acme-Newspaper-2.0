@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="3" class="displaytag" keepStatus="true"
+<display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="newspapers" requestURI="${requestURI}" id="row">
 	
 	<spring:message code="master.page.actions" var="actionsH" />

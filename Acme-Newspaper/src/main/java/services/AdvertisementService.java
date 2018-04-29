@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,16 +128,24 @@ public class AdvertisementService {
 		this.advertisementRepository.saveAndFlush(advertisement);
 	}
 
+	public Collection<Advertisement> findAdvertisementsByAgent(int agentId) {
+		return this.advertisementRepository.findAdvertisementsByAgent(agentId);
+	}
+
 	public Collection<Newspaper> findAdvertisedNewspapers(int agentId) {
-		return this.findAdvertisedNewspapers(agentId);
+		return this.advertisementRepository.findAdvertisedNewspapers(agentId);
 	}
 
 	public Collection<Newspaper> findNotAdvertisedNewspapers(int agentId) {
-		return this.findNotAdvertisedNewspapers(agentId);
+		return this.advertisementRepository.findNotAdvertisedNewspapers(agentId);
 	}
 
 	public Advertisement findRandomAdvertisementByNewspaperId(int newspaperId) {
-		return this.findRandomAdvertisementByNewspaperId(newspaperId);
+		ArrayList<Advertisement> randAdvs = this.advertisementRepository.findRandomAdvertisementByNewspaperId(newspaperId);
+		if (randAdvs.size() > 0)
+			return randAdvs.get(0);
+		else
+			return null;
 	}
 
 }

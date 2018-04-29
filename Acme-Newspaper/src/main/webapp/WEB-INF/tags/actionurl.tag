@@ -26,6 +26,4 @@
 
 
 <%-- Definition --%>
-<a href="${url}">
-<spring:message code="${code}"/>
-</a>
+<a href="${url}"><spring:message code="${code}"/></a>

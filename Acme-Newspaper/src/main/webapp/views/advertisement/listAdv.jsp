@@ -17,7 +17,6 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<spring:message code="newspaper.haveAdv"/>
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="advertisements" requestURI="${requestURI}" id="row">
 	
@@ -42,7 +41,7 @@
 	<spring:message code="master.page.price" var="priceH" />
 	<display:column property="price" title="${priceH}" />
 	
-	<spring:message code="master.page.creditCard" var="creditCard" />
+	<spring:message code="master.page.creditcard" var="creditCard" />
 	<display:column property="creditCard.number" title="${creditCard}" />
 	
 </display:table>

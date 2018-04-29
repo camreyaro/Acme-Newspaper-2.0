@@ -92,9 +92,8 @@ public class ArticleController extends AbstractController {
 
 		Collection<String> susURLs = this.articleService.getURLsDeUnArticleId(id);
 
-		Advertisement advertisement = null;
+		Advertisement advertisement;
 		advertisement = this.advertisementService.findRandomAdvertisementByNewspaperId(a.getNewspaper().getId());
-		res.addObject("advertisement", advertisement);
 
 		if (a.getNewspaper().getPublicNp() && a.getNewspaper().getPublished())
 			esPublico = true;
@@ -120,6 +119,7 @@ public class ArticleController extends AbstractController {
 				res.addObject("canEdit", canEdit);
 				res.addObject("seeFU", seeFU);
 				res.addObject("susURLs", susURLs);
+				res.addObject("advertisement", advertisement);
 				return res;
 			} else
 				res = new ModelAndView("welcome/index");
@@ -132,6 +132,7 @@ public class ArticleController extends AbstractController {
 			res.addObject("canEdit", canEdit);
 			res.addObject("seeFU", seeFU);
 			res.addObject("susURLs", susURLs);
+			res.addObject("advertisement", advertisement);
 			return res;
 		}
 		return res;
@@ -280,9 +281,8 @@ public class ArticleController extends AbstractController {
 				//res.addObject("articled", rend.getId());
 			} catch (Throwable oops) {
 				String messageCode = "article.commit.error";
-				if(oops.getMessage().contains("org.hibernate.validator.constraints.URL.message")){
+				if (oops.getMessage().contains("org.hibernate.validator.constraints.URL.message"))
 					messageCode = "org.hibernate.validator.constraints.URL.message";
-				}
 				res = this.createCreateModelAndView(art, messageCode);
 
 			}

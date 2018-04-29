@@ -95,6 +95,8 @@
 		<security:intercept-url pattern="/newspaper/advertisement/agent/save.do" access="hasRole('AGENT')" />
 		<security:intercept-url pattern="/newspaper/advertisement/administrator/delete.do" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/newspaper/advertisement/administrator/list.do" access="hasRole('ADMIN')" />
+		
+		<security:intercept-url pattern="/advertisement/agent/list.do" access="hasRole('AGENT')" />
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->

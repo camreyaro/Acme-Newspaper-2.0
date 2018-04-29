@@ -23,7 +23,7 @@
 	
 	<spring:message code="master.page.actions" var="actionsH" />
 	<display:column title="${actionsH}">
-	<acme:actionurl url="newspaper/display.do?newspaperId=${row.id}" code="master.page.view"/>
+	<acme:actionurl url="newspaper/display.do?newspaperId=${row.id}" code="master.page.view"/>&nbsp;|&nbsp;
 	<acme:actionurl url="newspaper/advertisement/agent/create.do?newspaperId=${row.id}" code="advertisement.place"/>
 	</display:column>
 	
@@ -52,11 +52,11 @@
 
 <spring:message code="newspaper.notHaveAdv"/>
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="newspapersWithAdv" requestURI="${requestURI}" id="rou">
+	name="newspapersWithNoAdv" requestURI="${requestURI}" id="rou">
 	
 	<spring:message code="master.page.actions" var="actionsH" />
 	<display:column title="${actionsH}">
-	<acme:actionurl url="newspaper/display.do?newspaperId=${rou.id}" code="master.page.view"/>
+	<acme:actionurl url="newspaper/display.do?newspaperId=${rou.id}" code="master.page.view"/>&nbsp;|&nbsp;
 	<acme:actionurl url="newspaper/advertisement/agent/create.do?newspaperId=${rou.id}" code="advertisement.place"/>
 	</display:column>
 	

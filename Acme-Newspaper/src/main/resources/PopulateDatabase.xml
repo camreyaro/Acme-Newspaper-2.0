@@ -1173,11 +1173,13 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	
 	<!-- ADVERTISMENT -->
 	
-	<!-- 
+	 
 	<bean id="advertisement1" class="domain.Advertisement">
 	<property name="title" value="Burguer King"/>
 	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
 	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
+	<property name="price" value="400"/>
+	<property name="creditCard" ref="creditCard1"/>
 	<property name="agent" ref="agent1"/>
 	<property name="newspaper" ref="newspaper2"/>
 	</bean>
@@ -1186,6 +1188,8 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="title" value="Burguer King"/>
 	<property name="urlBanner" value="http://bk-emea-prd.s3.amazonaws.com/sites/burgerking.es/files/BANNER_HOME_1000X550.jpg"/>
 	<property name="urlTargetPage" value="http://www.burgerking.es/"/>
+	<property name="price" value="400"/>
+	<property name="creditCard" ref="creditCard1"/>
 	<property name="agent" ref="agent1"/>
 	<property name="newspaper" ref="newspaper7"/>
 	</bean>
@@ -1194,10 +1198,12 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="title" value="Tele Pizza"/>
 	<property name="urlBanner" value="https://descuentos.reaj.com/wp-content/uploads/2015/10/logo_telepizza.jpg"/>
 	<property name="urlTargetPage" value="https://www.telepizza.es/"/>
+	<property name="price" value="300"/>
+	<property name="creditCard" ref="creditCard2"/>
 	<property name="agent" ref="agent1"/>
 	<property name="newspaper" ref="newspaper2"/>
 	</bean>
-	-->
+	
 	<!-- FOLDERS PARA USER 1 -->
 	<bean id="folderU1.1" class="domain.Folder">
 		<property name="name" value="Carpeta creada 2" />

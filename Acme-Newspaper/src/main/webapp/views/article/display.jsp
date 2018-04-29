@@ -34,9 +34,13 @@
 </ul>
 
 <jstl:if test="${advertisement != null }">
-<br/>
-<a href="${advertisement.urlTargetPage}" target="_blank"><img src="${advertisement.urlBanner}" alt="${advertisement.title}"/></a>
+<p>
+<b><spring:message code="master.page.advertisement"/>:</b><br/>
+<a href="${advertisement.urlTargetPage}" target="_blank"><img src="${advertisement.urlBanner}" width="300px" height="auto" alt="${advertisement.title}"/></a>
+</p>
 </jstl:if>
+
+
 
 <jstl:if test="${seeFU}">
 	<acme:action code="article.followups"  url="newspaper/article/followup/list.do?articleId=${article.id}"/>

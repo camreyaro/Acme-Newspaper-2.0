@@ -51,7 +51,7 @@ public class AgentService {
 		authorities = new ArrayList<>();
 		auth = new Authority();
 
-		auth.setAuthority("CUSTOMER");
+		auth.setAuthority("AGENT");
 		authorities.add(auth);
 		userAccount.setAuthorities(authorities);
 		agent.setUserAccount(userAccount);
@@ -119,7 +119,7 @@ public class AgentService {
 		authorities = new ArrayList<>();
 		auth = new Authority();
 
-		auth.setAuthority("CUSTOMER");
+		auth.setAuthority("AGENT");
 		authorities.add(auth);
 		userAccount.setAuthorities(authorities);
 		agent.setUserAccount(userAccount);

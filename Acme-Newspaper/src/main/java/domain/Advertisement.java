@@ -52,7 +52,7 @@ public class Advertisement extends DomainEntity {
 
 	@URL
 	@NotBlank
-	@Pattern(regexp = ".(jpg|jpeg|gif|png)", message = "(jpg, jpeg, gif, png)")
+	@Pattern(regexp = ".+.(jpg|jpeg|gif|png)", message = "(jpg, jpeg, gif, png)")
 	public String getUrlBanner() {
 		return this.urlBanner;
 	}
