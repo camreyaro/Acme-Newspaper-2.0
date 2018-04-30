@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.AdvertisementRepository;
@@ -71,6 +72,7 @@ public class AdvertisementService {
 
 	public void save(Advertisement advertisement) {
 		Assert.isTrue(LoginService.getPrincipal().equals(advertisement.getAgent().getUserAccount()), "error.commit.owner");
+		Assert.isTrue(advertisement.getNewspaper().getPublished(), "error.commit.published");
 		Assert.isTrue(advertisement.getCreditCard().validCreditCardDate(), "message.error.creditcardMonth");
 		this.advertisementRepository.save(advertisement);
 	}
@@ -92,36 +94,21 @@ public class AdvertisementService {
 		this.advertisementRepository.delete(advertisement);
 	}
 
-	/*
-	 * public Advertisement reconstruct(AdvertisementForm form) {
-	 * 
-	 * Advertisement result = (Advertisement) this.actorService.findByUserAccountUsername(form.getUserName());
-	 * 
-	 * result.setEmailAddress(form.getEmailAddress());
-	 * result.setName(form.getName());
-	 * result.setSurname(form.getSurname());
-	 * result.setPhoneNumber(form.getPhoneNumber());
-	 * result.setPostalAddress(form.getPostalAddress());
-	 * 
-	 * return result;
-	 * 
-	 * }
-	 * 
-	 * public Advertisement reconstruct(Advertisement advertisement, BindingResult binding) {
-	 * 
-	 * UserAccount userAccount;
-	 * Collection<Authority> authorities;
-	 * Authority auth;
-	 * 
-	 * advertisement.setId(0);
-	 * advertisement.setVersion(0);
-	 * 
-	 * this.validator.validate(advertisement, binding);
-	 * 
-	 * return advertisement;
-	 * 
-	 * }
-	 */
+	public Advertisement reconstruct(final Advertisement advertisement, final BindingResult binding) {
+		Advertisement res;
+		final Advertisement original = this.advertisementRepository.findOne(advertisement.getId());
+
+		if (advertisement.getId() == 0)
+			res = advertisement;
+		else {
+			res = advertisement;
+			res.setAgent(original.getAgent());
+			res.setNewspaper(original.getNewspaper());
+		}
+
+		this.validator.validate(res, binding);
+		return res;
+	}
 
 	//--------------Others
 	public void saveAndFlush(Advertisement advertisement) {

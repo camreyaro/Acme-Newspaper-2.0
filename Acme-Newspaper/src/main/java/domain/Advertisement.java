@@ -71,7 +71,8 @@ public class Advertisement extends DomainEntity {
 		this.urlTargetPage = urlTargetPage;
 	}
 
-	@DecimalMin("0.0")
+	@NotNull
+	@DecimalMin("0.1")
 	public Double getPrice() {
 		return this.price;
 	}

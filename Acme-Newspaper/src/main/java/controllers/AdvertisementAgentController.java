@@ -1,11 +1,11 @@
 
 package controllers;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,23 +14,17 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.ActorService;
 import services.AdvertisementService;
-import services.ArticleService;
 import services.NewspaperService;
-import services.SuscriptionService;
 import domain.Advertisement;
 import domain.Agent;
-import domain.Article;
 import domain.Newspaper;
 
 @Controller()
-@RequestMapping("/advertisement/agent")
+@RequestMapping("/")
 public class AdvertisementAgentController extends AbstractController {
 
 	@Autowired
 	private NewspaperService		newspaperService;
-
-	@Autowired
-	private SuscriptionService		suscriptionService;
 
 	@Autowired
 	private AdvertisementService	advertisementService;
@@ -38,12 +32,9 @@ public class AdvertisementAgentController extends AbstractController {
 	@Autowired
 	private ActorService			actorService;
 
-	@Autowired
-	private ArticleService			articleService;
-
 
 	// Listing ----------------------------------------------------------------
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "advertisement/agent/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Advertisement> advertisements;
@@ -57,77 +48,103 @@ public class AdvertisementAgentController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping("/administrator/delete")
-	public ModelAndView deleteNewspaper(@RequestParam(value = "newspaperId", required = true) int newspaperId) {
+	@RequestMapping(value = "newspaper/advertisement/agent/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam(value = "newspaperId", required = true) String newspaperId) {
 		ModelAndView result;
 		Newspaper newspaper;
-
-		newspaper = this.newspaperService.findOne(newspaperId);
-
-		try {
-			this.newspaperService.delete(newspaper);
-		} catch (Throwable o) {
-			return new ModelAndView("redirect:/newspaper/display.do?newspaperId=" + newspaperId);
-		}
-
-		result = new ModelAndView("redirect:/newspaper/list.do");
-
-		return result;
-	}
-
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam(value = "newspaperId", required = true) String newspaperId) {
-		ModelAndView result;
-		Newspaper newspaper;
-		Collection<Article> articles = new ArrayList<Article>();
-		Integer id;
-		Boolean owner, suscribe;
-		Boolean esAdmin = false;
+		Advertisement advertisement;
 
 		try {
-			esAdmin = LoginService.getPrincipal().isAuthority("ADMIN");
-		} catch (Throwable oops) {
-		}
-
-		try {
-			id = Integer.valueOf(newspaperId);
+			Integer id = Integer.parseInt(newspaperId);
 			newspaper = this.newspaperService.findOne(id);
-			articles = this.articleService.getArticlesOfNewspaperId(newspaper.getId());
-		} catch (Throwable o) { //peta en el caso de que meta una id no valida, redireccionamos a lista de newspaper
+			if (!newspaper.getPublished())
+				throw new Throwable();
+			advertisement = this.advertisementService.create(newspaper);
+		} catch (Throwable oops) {
 			return new ModelAndView("redirect:list.do");
 		}
+		result = new ModelAndView("advertisement/agent/edit");
+		result.addObject("advertisement", advertisement);
 
-		try {
-			owner = newspaper.getPublisher().getUserAccount().equals(LoginService.getPrincipal()); //si peta porque es noLogueado
-			suscribe = this.suscriptionService.isCustomerSuscribe(newspaperId);
-		} catch (Throwable o) { //Si no esta logueado, este try peta y por lo tanto el user no es owner ni suscrito.
-			owner = false;
-			suscribe = false;
-		}
-
-		if (!esAdmin && !owner && !newspaper.getPublished()) //si intenta acceder a un periodico no valido
-			return new ModelAndView("redirect:list.do");
-
-		result = new ModelAndView("newspaper/display");
-		result.addObject("articles", articles);
-		result.addObject("newspaper", newspaper);
-		result.addObject("owner", owner);
-		result.addObject("notSavedArticles", this.newspaperService.findNotSavedArticlesByNewspaper(id));
-		result.addObject("suscribe", suscribe);
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(Newspaper newspaper) {
-		return this.createEditModelAndView(newspaper, null);
+	@RequestMapping(value = "advertisement/agent/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam(value = "advertisementId", required = true) String advertisementId) {
+		ModelAndView result;
+		Advertisement advertisement;
+
+		try {
+			Integer id = Integer.parseInt(advertisementId);
+			advertisement = this.advertisementService.findOne(id);
+			if (!advertisement.getAgent().getUserAccount().equals(LoginService.getPrincipal()))
+				throw new Throwable();
+		} catch (Throwable oops) {
+			return new ModelAndView("redirect:list.do");
+		}
+		result = new ModelAndView("advertisement/agent/edit");
+		result.addObject("advertisement", advertisement);
+
+		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(Newspaper newspaper, String messageCode) {
+	/*
+	 * @RequestMapping("/administrator/delete")
+	 * public ModelAndView deleteNewspaper(@RequestParam(value = "newspaperId", required = true) int newspaperId) {
+	 * ModelAndView result;
+	 * Newspaper newspaper;
+	 * 
+	 * newspaper = this.newspaperService.findOne(newspaperId);
+	 * 
+	 * try {
+	 * this.newspaperService.delete(newspaper);
+	 * } catch (Throwable o) {
+	 * return new ModelAndView("redirect:/newspaper/display.do?newspaperId=" + newspaperId);
+	 * }
+	 * 
+	 * result = new ModelAndView("redirect:/newspaper/list.do");
+	 * 
+	 * return result;
+	 * }
+	 */
+
+	@RequestMapping(value = "advertisement/agent/save", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(Advertisement advertisement, BindingResult binding) {
 		ModelAndView result;
 
-		result = new ModelAndView("newspaper/user/edit");
-		result.addObject("newspaper", newspaper);
+		advertisement = this.advertisementService.reconstruct(advertisement, binding);
+		if (binding.hasErrors())
+			result = this.createEditModelAndView(advertisement);
+		else
+			try {
+				this.advertisementService.save(advertisement);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				System.out.println(oops);
+				result = this.createEditModelAndView(advertisement, this.getCommitOrJavaError(oops.getMessage()));
+			}
+		return result;
+	}
+	protected ModelAndView createEditModelAndView(Advertisement advertisement) {
+		return this.createEditModelAndView(advertisement, null);
+	}
+
+	protected ModelAndView createEditModelAndView(Advertisement advertisement, String messageCode) {
+		ModelAndView result;
+
+		result = new ModelAndView("advertisement/agent/edit");
+		result.addObject("advertisement", advertisement);
 		result.addObject("message", messageCode);
 
 		return result;
+	}
+
+	//Este metodo simplemente checkea si el oops.getMessage() es un error de un Assert definido en el Service o un error de Java.
+	@SuppressWarnings("null")
+	protected String getCommitOrJavaError(String oops) {
+		if (oops != null || oops.length() < 35)
+			return oops;
+		else
+			return "error.commit";
 	}
 }

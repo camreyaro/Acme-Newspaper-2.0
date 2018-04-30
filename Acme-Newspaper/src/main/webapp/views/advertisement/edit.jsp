@@ -17,17 +17,19 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-	<form:form action="newspaper/advertisement/agent/save.do" modelAttribute="advertisement">
+	<form:form action="advertisement/agent/save.do" modelAttribute="advertisement">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="creditCard.brandName" id="brand"/>
 	
+	<jstl:if test="${advertisement.id == 0 }">
 	<form:hidden path="newspaper" />
 	<form:hidden path="agent" />
+	</jstl:if>
 
 	<acme:textbox code="master.page.title" path="title"/>
-	<acme:textbox code="master.page.description" path="urlBanner"/>
-	<acme:textbox code="master.page.picture" path="urlTargetPage"/>
+	<acme:textbox code="master.page.picture" path="urlBanner" />
+	<acme:textbox code="master.page.url" path="urlTargetPage"/>
 	<acme:textbox code="master.page.price" path="price"/>
 	<p/>
 	<acme:icon-textbox code="creditCard.number" path="creditCard.number" extra="GetCreditCard(this.value)"/>

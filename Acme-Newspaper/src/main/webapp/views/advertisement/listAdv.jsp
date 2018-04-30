@@ -22,7 +22,7 @@
 	
 	<spring:message code="master.page.actions" var="actionsH" />
 	<display:column title="${actionsH}">
-	<acme:actionurl url="advertisement/aget/edit.do?advertisementId=${row.id}" code="master.page.edit"/>
+	<acme:actionurl url="advertisement/agent/edit.do?advertisementId=${row.id}" code="master.page.edit"/>
 	</display:column>
 	
 	<spring:message code="master.page.picture" var="pictureUrlH" />
