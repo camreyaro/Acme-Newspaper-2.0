@@ -33,7 +33,7 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	@Query("select a from Article a where a.newspaper.publicNp = 0 and a.newspaper.published = 1 and a.creator.id = ?1 and a.newspaper not in (select s.newspaper from Suscription s where s.customer.id =?2) and a.newspaper not in(select distinct(p) from SuscriptionVolumen sv join sv.volumen.newspapers p where sv.customer.id=?2 )")
 	Collection<Article> getPrivatePublishedNotSuscribedArticlesByUserId(int userId, int customerId);
 
-	@Query("select a from Article a where a.newspaper.published = 1 AND (a.title LIKE concat(concat('%',?1),'%') OR a.body LIKE concat(concat('%',?1),'%') OR a.summary LIKE concat(concat('%',?1),'%')) AND  ( (a.newspaper.publicNP=1) OR (a.newspaper.publicNp= 0 AND  (a.newspaper in (select s.newspaper from Suscription s where s.customer.id =?2)))  )")
+	@Query("select a from Article a where a.newspaper.published = 1 AND (a.title LIKE concat(concat('%',?1),'%') OR a.body LIKE concat(concat('%',?1),'%') OR a.summary LIKE concat(concat('%',?1),'%')) AND  ( (a.newspaper.publicNp=1) OR (a.newspaper.publicNp= 0 AND  (a.newspaper in (select s.newspaper from Suscription s where s.customer.id =?2)))  )")
 	Collection<Article> findSuscriptedArticlesByKeyword(String keyword, int actorId);
 	
 	
