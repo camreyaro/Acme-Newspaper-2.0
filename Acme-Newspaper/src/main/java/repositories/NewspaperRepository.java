@@ -76,6 +76,9 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	Page<Newspaper> getPublishedNewspapersPaginate(Pageable p);
 	
 	@Query("select n from Newspaper n where n.published=1 and (n.title LIKE concat(concat('%',?1),'%') or n.description LIKE concat(concat('%',?1),'%'))")
-	Page<Newspaper> findByKeywordPaginate(Pageable p, String keyword);
+	Page<Newspaper> findByKeywordPaginate(String keyword, Pageable p);
+	
+	@Query("select n from User u join u.newspapers n where u.id=?1")
+	Page<Newspaper> findAllByUserPaginate(int userId, Pageable p);
 
 }

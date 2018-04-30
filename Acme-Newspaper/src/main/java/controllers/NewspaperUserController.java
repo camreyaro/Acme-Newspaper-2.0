@@ -4,6 +4,7 @@ package controllers;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,17 +31,28 @@ public class NewspaperUserController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
+		Page<Newspaper> pageObject;
+		
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 5;
 
 		User user = (User) this.actorService.findByPrincipal();
-		newspapers = this.newspaperService.findAllByUser(user.getId());
+		
+		pageObject = newspaperService.findAllByUserPaginate(pageNumber, pageSize, user.getId());
+		newspapers = pageObject.getContent();
 
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", newspapers);
 		result.addObject("requestURI", "newspaper/user/list.do");
 		result.addObject("actor", user);
+		result.addObject("pageNumber", pageNumber);
+		result.addObject("pageSize", pageSize);
+		result.addObject("totalPages", pageObject.getTotalPages());
 		return result;
 	}
 

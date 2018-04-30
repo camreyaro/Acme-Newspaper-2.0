@@ -3,6 +3,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -39,4 +41,14 @@ public interface VolumenRepository extends JpaRepository<Volumen, Integer> {
 
 	@Query("select v from Volumen v where v.user.id=?1 AND (select n from Newspaper n where n.id=?2) not member of v.newspapers")
 	Collection<Volumen> getAvailaleVolumens(Integer userId, Integer newspaperId);
+	
+	//Paginated repository
+	@Query("select v from Volumen v where v not in (select sv.volumen from SuscriptionVolumen sv where sv.customer.id=?1) ")
+	Page<Volumen> getVolumensNotSuscribedByCustomerPaginate(Integer customerId, Pageable p);
+	
+	@Query("select v from Volumen v")
+	Page<Volumen> findAllPaginate(Pageable p);
+	
+	@Query("select v from Volumen v where v.user.id=?1")
+	Page<Volumen> getVolumensByUserPaginate(Integer userId, Pageable p);
 }

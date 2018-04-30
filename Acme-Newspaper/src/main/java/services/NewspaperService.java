@@ -279,7 +279,13 @@ public class NewspaperService {
 	public Page<Newspaper> getNewspapersByKeywordPaginate(final Integer pageNumber,
 			final Integer pageSize, String keyword) {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
-		return this.newspaperRepository.findByKeywordPaginate(request, keyword);
+		return this.newspaperRepository.findByKeywordPaginate(keyword, request);
+	}
+	
+	public Page<Newspaper> findAllByUserPaginate(final Integer pageNumber,
+			final Integer pageSize, final int userId) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.newspaperRepository.findAllByUserPaginate(userId, request);
 	}
 
 }

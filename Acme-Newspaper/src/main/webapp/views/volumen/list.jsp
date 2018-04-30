@@ -7,8 +7,31 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<spring:message code="pagination.showing1" />
+<jstl:out value="${pageSize}" />
+<spring:message code="pagination.showing2" />
+.
+<spring:message code="pagination.currentPage" />
+:
+<jstl:out value="${pageNumber}" />
+.
+<br/>
+<jstl:forEach var="number" begin ="1" end="${totalPages}">
+<jstl:if test="${number eq pageNumber}">
+<jstl:out value="${number}"/>
+</jstl:if>
+<jstl:if test="${number ne pageNumber}">
+<jstl:if test="${myList eq false}">
+<a class="links" href="volumen/list.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+<jstl:if test="${myList eq true}">
+<a class="links" href="volumen/user/myList.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+</jstl:if>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</jstl:forEach>
 
-<display:table name="volumens" id="row" requestURI="${requestURI}" pagesize="5">
+<display:table name="volumens" id="row" requestURI="${requestURI}" pagesize="${pageSize}">
 	
 	<jstl:if test="${requestURI!='volumen/user/myList.do' }">
 		<spring:message code="volumen.creator" var="creatorHeader"/>

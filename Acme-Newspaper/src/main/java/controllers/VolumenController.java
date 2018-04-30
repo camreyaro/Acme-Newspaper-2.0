@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,23 +29,37 @@ public class VolumenController extends AbstractController {
 
 
 	@RequestMapping("/list")
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		final ModelAndView res;
 		Collection<Volumen> volumens = new ArrayList<Volumen>();
+		Page<Volumen> pageObject;
+		
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 5;
 
 		try {
-			if (LoginService.getPrincipal().isAuthority("CUSTOMER"))
-				volumens = this.volumenService.getMyNoSuscribedVolumens();
-			else
-				volumens = this.volumenService.findAll();
+			if (LoginService.getPrincipal().isAuthority("CUSTOMER")){
+				pageObject = this.volumenService.getMyNoSuscribedVolumensPaginate(pageNumber, pageSize);
+				volumens = pageObject.getContent();
+			
+			}else{
+				pageObject = this.volumenService.findAllPaginate(pageNumber, pageSize);
+				volumens = pageObject.getContent();
+			}
 
 		} catch (final Throwable oops) {
-			volumens = this.volumenService.findAll();
+			pageObject = this.volumenService.findAllPaginate(pageNumber, pageSize);
+			volumens = pageObject.getContent();
 		}
 
 		res = new ModelAndView("volumen/list");
 		res.addObject("requestURI", "volumen/list.do");
 		res.addObject("volumens", volumens);
+		res.addObject("pageNumber", pageNumber);
+		res.addObject("pageSize", pageSize);
+		res.addObject("totalPages", pageObject.getTotalPages());
 
 		return res;
 

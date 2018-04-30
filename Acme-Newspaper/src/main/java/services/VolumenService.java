@@ -6,6 +6,8 @@ import java.util.Collection;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -157,5 +159,24 @@ public class VolumenService {
 
 	public Double avgNewsPerVol() {
 		return this.volumenRepository.avgOfNewspaperPerVolumen();
+	}
+	
+	//Paginated repository
+	public Page<Volumen> getMyNoSuscribedVolumensPaginate(final Integer pageNumber,
+			final Integer pageSize) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.volumenRepository.getVolumensNotSuscribedByCustomerPaginate(this.actorService.findByPrincipal().getId(), request);
+	}
+	
+	public Page<Volumen> findAllPaginate(final Integer pageNumber,
+			final Integer pageSize) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.volumenRepository.findAllPaginate(request);
+	}
+	
+	public Page<Volumen> getMyCreatedVolumensPaginate(final Integer pageNumber,
+			final Integer pageSize) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.volumenRepository.getVolumensByUserPaginate(this.actorService.findByPrincipal().getId(), request);
 	}
 }
