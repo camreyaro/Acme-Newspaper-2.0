@@ -70,8 +70,9 @@
 </display:table>
 
 <jstl:if test="${requestURI== 'volumen/user/myList.do'}" >
-		
+		<spring:message code="volumen.find"></spring:message> <a href="newspaper/list.do"><spring:message code="volumen.here"></spring:message></a><br>
 		<acme:cancel url="volumen/user/edit.do" code="master.page.create"/>
+		
 	</jstl:if>
 
 
