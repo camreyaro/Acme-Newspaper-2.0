@@ -3,7 +3,16 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +26,7 @@ import domain.Advertisement;
 import domain.Agent;
 import domain.CreditCard;
 import domain.Newspaper;
+import domain.SpamWord;
 
 @Service
 @Transactional
@@ -29,6 +39,9 @@ public class AdvertisementService {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private SpamWordService			spamWordService;
 
 	@Autowired
 	private Validator				validator;
@@ -51,34 +64,16 @@ public class AdvertisementService {
 		return advertisement;
 	}
 
-	/*
-	 * public void saveFromCreate(Advertisement advertisement) {
-	 * Assert.isTrue(this.actorService.findByUserAccountUsername(advertisement.getUserAccount().getUsername()) == null, "advertisement.duplicated.username");
-	 * 
-	 * Md5PasswordEncoder encoder;
-	 * String hash;
-	 * 
-	 * encoder = new Md5PasswordEncoder();
-	 * hash = encoder.encodePassword(advertisement.getUserAccount().getPassword(), null);
-	 * 
-	 * advertisement.getUserAccount().setPassword(hash);
-	 * 
-	 * advertisement.setConfirmMoment(new Date(System.currentTimeMillis()));
-	 * 
-	 * this.advertisementRepository.save(advertisement);
-	 * 
-	 * }
-	 */
-
 	public void save(Advertisement advertisement) {
 		Assert.isTrue(LoginService.getPrincipal().equals(advertisement.getAgent().getUserAccount()), "error.commit.owner");
 		Assert.isTrue(advertisement.getNewspaper().getPublished(), "error.commit.published");
 		Assert.isTrue(advertisement.getCreditCard().validCreditCardDate(), "message.error.creditcardMonth");
 		this.advertisementRepository.save(advertisement);
 	}
+
 	public Advertisement findOne(int advertisementId) {
 		Advertisement advertisement = this.advertisementRepository.findOne(advertisementId);
-		Assert.notNull(advertisement);
+		Assert.notNull(advertisement, "error.commit.null");
 		return advertisement;
 	}
 
@@ -93,6 +88,34 @@ public class AdvertisementService {
 		Assert.isTrue(LoginService.getPrincipal().isAuthority("ADMIN"), "error.commit.permission");
 		this.advertisementRepository.delete(advertisement);
 	}
+
+	public Collection<Advertisement> getAdvertisementWithSpamWords() {
+
+		final EntityManagerFactory factory = Persistence.createEntityManagerFactory("Acme-Newspaper");
+
+		final EntityManager em = factory.createEntityManager();
+		final FullTextEntityManager fullTextEntityManager = org.hibernate.search.jpa.Search.getFullTextEntityManager(em);
+		em.getTransaction().begin();
+
+		String regexp = "";
+		for (final SpamWord sp : this.spamWordService.findAll())
+			regexp += sp.getWord() + "|";
+
+		final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Advertisement.class).get();
+		final org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("title", "urlBanner", "urlTargetPage").ignoreFieldBridge().matching(regexp).createQuery();
+
+		final javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Advertisement.class);
+
+		final List result = jpaQuery.getResultList();
+		final Set<Advertisement> cc = new HashSet<>(result);
+
+		em.getTransaction().commit();
+		em.close();
+
+		return cc;
+	}
+
+	// Reconstruct  -------------------------
 
 	public Advertisement reconstruct(final Advertisement advertisement, final BindingResult binding) {
 		Advertisement res;

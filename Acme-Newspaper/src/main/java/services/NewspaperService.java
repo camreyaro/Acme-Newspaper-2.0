@@ -176,7 +176,7 @@ public class NewspaperService {
 		for (final SpamWord sp : this.spamWordService.findAll())
 			regexp += sp.getWord() + "|";
 
-		final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Article.class).get();
+		final QueryBuilder qb = fullTextEntityManager.getSearchFactory().buildQueryBuilder().forEntity(Newspaper.class).get();
 		final org.apache.lucene.search.Query luceneQuery = qb.keyword().onFields("title", "description", "pictureURLs").ignoreFieldBridge().matching(regexp).createQuery();
 
 		final javax.persistence.Query jpaQuery = fullTextEntityManager.createFullTextQuery(luceneQuery, Newspaper.class);

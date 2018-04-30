@@ -1204,6 +1204,16 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 	<property name="newspaper" ref="newspaper2"/>
 	</bean>
 	
+	<bean id="advertisement4" class="domain.Advertisement">
+	<property name="title" value="Pfize viagra"/>
+	<property name="urlBanner" value="http://s3images.coroflot.com/user_files/individual_files/original_383520_lpW0kMXMZrO4yOtbVb7ZxOSY8.jpg"/>
+	<property name="urlTargetPage" value="https://www.pfizer.es/#viagra"/>
+	<property name="price" value="300"/>
+	<property name="creditCard" ref="creditCard2"/>
+	<property name="agent" ref="agent1"/>
+	<property name="newspaper" ref="newspaper7"/>
+	</bean>
+	
 	<!-- FOLDERS PARA USER 1 -->
 	<bean id="folderU1.1" class="domain.Folder">
 		<property name="name" value="Carpeta creada 2" />

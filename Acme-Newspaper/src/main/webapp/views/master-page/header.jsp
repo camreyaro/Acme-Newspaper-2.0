@@ -68,6 +68,7 @@
 					<li><a href="newspaper/article/administrator/spamArticlesList.do"><spring:message code="admin.spamArticlesList" /></a></li>
 					<li><a href="newspaper/administrator/spamNewspapersList.do"><spring:message code="admin.spamNewspapersList" /></a></li>
 					<li><a href="chirp/administrator/spamChirpsList.do"><spring:message code="admin.spamChirpsList"/></a></li>
+					<li><a href="advertisement/administrator/spamAdvertisementsList.do"><spring:message code="admin.spamAdvertisementsList" /></a></li>
 					<li><a href="administrator/dashboard.do">Dashboard</a></li>
 					<li><a href="legaltext/index.do"><spring:message code="master.page.terms" /></a></li>
 				</ul>
