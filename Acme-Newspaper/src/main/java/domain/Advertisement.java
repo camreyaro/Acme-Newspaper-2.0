@@ -12,7 +12,10 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.search.annotations.Analyze;
+import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Store;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
@@ -44,6 +47,7 @@ public class Advertisement extends DomainEntity {
 
 	@NotBlank
 	@Length(max = 200)
+	@Field(index = org.hibernate.search.annotations.Index.YES, analyze = Analyze.YES, store = Store.NO)
 	public String getTitle() {
 		return this.title;
 	}
@@ -55,6 +59,7 @@ public class Advertisement extends DomainEntity {
 	@URL
 	@NotBlank
 	@Pattern(regexp = ".+.(jpg|jpeg|gif|png)", message = "(jpg, jpeg, gif, png)")
+	@Field(index = org.hibernate.search.annotations.Index.YES, analyze = Analyze.YES, store = Store.NO)
 	public String getUrlBanner() {
 		return this.urlBanner;
 	}
@@ -65,6 +70,7 @@ public class Advertisement extends DomainEntity {
 
 	@URL
 	@NotBlank
+	@Field(index = org.hibernate.search.annotations.Index.YES, analyze = Analyze.YES, store = Store.NO)
 	public String getUrlTargetPage() {
 		return this.urlTargetPage;
 	}

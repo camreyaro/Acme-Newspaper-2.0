@@ -21,7 +21,7 @@ import domain.Newspaper;
 
 @Controller()
 @RequestMapping("/")
-public class AdvertisementAgentController extends AbstractController {
+public class AdvertisementController extends AbstractController {
 
 	@Autowired
 	private NewspaperService		newspaperService;
@@ -88,26 +88,6 @@ public class AdvertisementAgentController extends AbstractController {
 		return result;
 	}
 
-	/*
-	 * @RequestMapping("/administrator/delete")
-	 * public ModelAndView deleteNewspaper(@RequestParam(value = "newspaperId", required = true) int newspaperId) {
-	 * ModelAndView result;
-	 * Newspaper newspaper;
-	 * 
-	 * newspaper = this.newspaperService.findOne(newspaperId);
-	 * 
-	 * try {
-	 * this.newspaperService.delete(newspaper);
-	 * } catch (Throwable o) {
-	 * return new ModelAndView("redirect:/newspaper/display.do?newspaperId=" + newspaperId);
-	 * }
-	 * 
-	 * result = new ModelAndView("redirect:/newspaper/list.do");
-	 * 
-	 * return result;
-	 * }
-	 */
-
 	@RequestMapping(value = "advertisement/agent/save", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Advertisement advertisement, BindingResult binding) {
 		ModelAndView result;
@@ -126,6 +106,8 @@ public class AdvertisementAgentController extends AbstractController {
 		return result;
 	}
 
+	//Administrator ---------------------
+
 	@RequestMapping("advertisement/administrator/spamAdvertisementsList")
 	public ModelAndView spamNewspapersList() {
 		ModelAndView result;
@@ -138,6 +120,25 @@ public class AdvertisementAgentController extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping("advertisement/administrator/delete")
+	public ModelAndView deleteNewspaper(@RequestParam(value = "advertisementId", required = true) int advertisementId) {
+		ModelAndView result;
+		Advertisement advertisement;
+
+		try {
+			advertisement = this.advertisementService.findOne(advertisementId);
+			this.advertisementService.delete(advertisement);
+		} catch (Throwable o) {
+			result = new ModelAndView("redirect:spamAdvertisementsList.do");
+		}
+
+		result = new ModelAndView("redirect:spamAdvertisementsList.do");
+
+		return result;
+	}
+
+	//Others   ----------------------
 
 	protected ModelAndView createEditModelAndView(Advertisement advertisement) {
 		return this.createEditModelAndView(advertisement, null);

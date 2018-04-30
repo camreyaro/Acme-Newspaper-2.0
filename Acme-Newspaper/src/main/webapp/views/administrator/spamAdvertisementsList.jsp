@@ -20,11 +20,15 @@
 <display:table pagesize="5" class="displaytag" keepStatus="true"
 	name="spamAds" requestURI="advertisement/administrator/spamAdvertisementsList.do" id="row">
 
-	<spring:message code="master.page.newspaper" var="titleH" />
-	<display:column property="title" title="${titleH}" />
-	<spring:message code="master.page.view" var="viewL" />
-	<display:column title="${viweL}">
-	<a href="newspaper/display.do?newspaperId=${row.id}"><spring:message code="master.page.view"/></a><br/>
+	<spring:message code="master.page.advertisement" var="titleH" />
+	<display:column title="${titleH}">
+	<a href="${row.urlTargetPage}">
+	<img src="${row.urlBanner}" height="30px" width="auto" alt="${row.title}"/></a>
+	<jstl:out value="${row.title}"/> 
+	</display:column>
+	<spring:message code="master.page.actions" var="actionsH" />
+	<display:column title="${actionsH}">
+	<a href="advertisement/administrator/delete.do?advertisementId=${row.id}"><spring:message code="master.page.delete"/></a><br/>
 	</display:column>
 	
 </display:table>
