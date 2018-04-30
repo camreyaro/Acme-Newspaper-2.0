@@ -242,19 +242,20 @@ public class ArticleController extends AbstractController {
 			articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
 
 			try {
-				this.suscriptionService.isCustomerSuscribe("00");
 				Actor a = this.actorService.findByPrincipal();
-				if (LoginService.getPrincipal().isAuthority("CUSTOMER"))
+				if (LoginService.getPrincipal().isAuthority("CUSTOMER")){
+					System.out.println(keyword);
+					System.out.println(a.getId());
 					articles = this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId());
 				
 //				totalPages = Math.ceil((this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId()).size() / (double) pageSize));
 //				articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
-				else
+				}else{
 //					articles = this.articleService.findPublicArticlesByKeyword(keyword);
 				
 				totalPages = Math.ceil((this.articleService.findPublicArticlesByKeyword(keyword).size() / (double) pageSize));
 				articles = this.articleService.findPublicArticlesByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
-				
+				}
 
 			} catch (Throwable oops) {
 

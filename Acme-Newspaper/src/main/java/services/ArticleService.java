@@ -210,7 +210,7 @@ public class ArticleService {
 	}
 	
 	public Collection<Article> findSuscriptedArticlesByKeyword(String keyword, int actorId){
-		return new ArrayList<Article>();
+		return this.articleRepository.findSuscriptedArticlesByKeyword(keyword, actorId);
 	}
 
 	public Collection<String> getURLsDeUnArticleId(Integer id) {
