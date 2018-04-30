@@ -34,6 +34,9 @@ public class VolumenServiceTest extends AbstractTest {
 				"user1", "hola", "buenas tardes", null, "save", null, null
 			}, //Crear un article (positivo del save)
 			{
+				"user1", null, "buenas tardes", IllegalArgumentException.class, "save", null, null
+			}, //No puedes crearlo sin nombre
+			{
 				"user1", "hola", "buenas tardes", IllegalArgumentException.class, "save", "volumen1", null
 			}, //Los volumenes solo se pueden crear no editar (negativo del save)
 			{
@@ -43,8 +46,14 @@ public class VolumenServiceTest extends AbstractTest {
 				"user1", "hola", "buenas tardes", IllegalArgumentException.class, "add", "volumen1", "newspaper8"
 			},// No se le puede añadir un periódico que ya tenga
 			{
+				"user1", "hola", "buenas tardes", IllegalArgumentException.class, "add", "volumen1", "newspaper1"
+			},//No se puede añadir un periodico no publicado
+			{
 				"user1", "hola", "buenas tardes", IllegalArgumentException.class, "remove", "volumen1", "newspaper2"
 			}, // No tiene ese periodico (error)
+			{
+				"user2", "hola", "buenas tardes", IllegalArgumentException.class, "remove", "volumen1", "newspaper8"
+			},// No eres el dueño de ese volumen
 			{
 				"user1", "hola", "buenas tardes", null, "remove", "volumen1", "newspaper8"
 			}
