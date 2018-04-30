@@ -31,10 +31,6 @@
 <display:table pagesize="${pageSize}" class="displaytag"  keepStatus="true"
 	name="articles" requestURI="${requestURI}" id="row">
 	
-	<spring:message code="master.page.picture" var="pictureUrlH" />
-	<display:column title="${pictureUrlH}">
-		<img src="${row.pictureURLs}" height="30px" width="auto" alt="${row.title}"/>
-	</display:column>
 
 	<spring:message code="master.page.title" var="titleH" />
 	<display:column title="${titleH}">

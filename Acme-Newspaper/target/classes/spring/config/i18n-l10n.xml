@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- 
+ * i18n-l10n.xml
+ *
+ * Copyright (C) 2017 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd 
+	">
+
+	<util:list id="messages">
+		<value>/views/master-page/messages</value>
+		<value>/views/misc/messages</value>
+		<value>/views/security/messages</value>		
+		<value>/views/welcome/messages</value>
+		
+		<value>/views/administrator/messages</value>
+		<value>/views/customer/messages</value>
+		<value>/views/profile/messages</value>
+		
+		<!-- SERGIO -->
+		<value>/views/newspaper/messages</value>
+		<value>/views/chirp/messages</value>
+		<value>/views/agent/messages</value>
+		<value>/views/advertisement/messages</value>
+		<!-- END SERGIO -->
+		
+		<!-- ANGEL -->
+		<value>/views/customer/messages</value>
+		<value>/views/suscription/messages</value>
+		
+		 
+		<value>/views/folder/messages</value>
+		<value>/views/message/messages</value>
+		
+		<!-- END ANGEL -->
+		
+		<!-- CARLOS -->
+		<value>/views/article/messages</value>
+		<value>/views/followUp/messages</value>
+		<!-- END CARLOS -->
+		
+		<!-- CAMILA -->
+		<value>/views/administrator/messages</value>
+		<!-- END CAMILA -->
+		
+		<!-- ISMAEL -->
+		<value>/views/user/messages</value>
+		<!-- END ISMAEL -->	
+		
+		<!-- ANGEL P -->
+		<value>/views/suscriptionVolumen/messages</value>
+		<value>/views/volumen/messages</value>
+		
+		<!-- END ANGEL  P-->
+			
+	</util:list>
+
+</beans>
