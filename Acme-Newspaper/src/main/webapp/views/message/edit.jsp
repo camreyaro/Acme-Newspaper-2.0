@@ -62,7 +62,7 @@
 			<form:option value="0" label="----"/>
 			<form:options items="${recipients }"
 						itemValue="id"
-						itemLabel="name"/>
+						itemLabel="userAccount.username"/>
 		</form:select>
 		<br/>
 		
