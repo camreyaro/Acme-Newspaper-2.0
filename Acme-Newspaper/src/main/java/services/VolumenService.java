@@ -185,4 +185,10 @@ public class VolumenService {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 		return this.volumenRepository.getVolumensByCustomerPaginate(this.actorService.findByPrincipal().getId(), request);
 	}
+	
+	public Page<Newspaper> getAllNewspaperPaginate(final Integer pageNumber,
+			final Integer pageSize, final Integer id) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.volumenRepository.getAllNewspaper(id, request);
+	}
 }

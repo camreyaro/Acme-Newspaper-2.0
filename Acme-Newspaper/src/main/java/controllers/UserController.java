@@ -63,8 +63,8 @@ public class UserController extends AbstractController {
 				userId = this.actorService.findByPrincipal().getId();
 			
 			}catch(Throwable oops){
-				result = new ModelAndView("user/list");
-				result.addObject("users", this.userService.findAll());
+				result = list(null,null);
+//				result.addObject("users", this.userService.findAll());
 				return result;
 			}
 		

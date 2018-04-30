@@ -66,11 +66,18 @@ public class VolumenController extends AbstractController {
 	}
 
 	@RequestMapping("newspaper/list")
-	public ModelAndView newspaperList(@RequestParam final Integer volumenId) {
+	public ModelAndView newspaperList(@RequestParam final Integer volumenId, 
+			@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		final ModelAndView res;
 		Boolean creator = false;
 		final Volumen volumen = this.volumenService.findOne(volumenId);
 		final Collection<Newspaper> newspapers = this.volumenService.getAllNewspaper(volumenId);
+		Double totalPages = 0.;
+
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 5;
 
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
@@ -88,6 +95,9 @@ public class VolumenController extends AbstractController {
 		res.addObject("requestURI", "volumen/newspaper/list.do");
 		res.addObject("creator", creator);
 		res.addObject("volumen", volumen);
+		res.addObject("pageNumber", pageNumber);
+		res.addObject("pageSize", pageSize);
+		res.addObject("totalPages", totalPages);
 
 		return res;
 
