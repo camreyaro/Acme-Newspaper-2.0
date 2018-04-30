@@ -118,6 +118,8 @@
 						<li><a href="agent/display.do"><spring:message code="master.page.agent.display" /></a></li>
 						<li><a href="agent/edit.do"><spring:message code="master.page.agent.edit" /></a></li>	
 					</security:authorize>
+					<li><a href="folder/list.do"><spring:message code="master.page.folder" /></a></li>						
+					<li><a href="message/create.do?all=0"><spring:message code="master.page.sendMessage" /></a></li>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>

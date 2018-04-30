@@ -101,8 +101,18 @@
 		<tiles:insertAttribute name="body" />	
 		<jstl:if test="${message != null}">
 			<br />
+		<jstl:choose >
+			<jstl:when test="${requestURI.equals('message/create.do?all=0') || requestURI.equals('message/create.do?all=1')}">
+				<jstl:if test="${othermessage != null}">
+					<br />
+					<span class="othermessage"><spring:message code="${othermessage}" /></span>
+				</jstl:if>
+			</jstl:when>
+		<jstl:otherwise>
 			<span class="message"><spring:message code="${message}" /></span>
-		</jstl:if>	
+		</jstl:otherwise>
+		</jstl:choose>
+		</jstl:if>
 	</div>
 	<div>
 		<tiles:insertAttribute name="footer" />

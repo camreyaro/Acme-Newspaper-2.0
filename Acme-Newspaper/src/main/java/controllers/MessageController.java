@@ -4,8 +4,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
@@ -151,6 +149,7 @@ public class MessageController extends AbstractController {
 		final String admin = "ADMIN";
 		final Collection<Authority> au = this.actorService.findByPrincipal().getUserAccount().getAuthorities();
 		message = this.messageService.create();
+		System.out.println("Mensaje creado folder: " + message.getFolder());
 
 		boolean a = false;
 		for (final Authority au2 : au)
@@ -184,10 +183,12 @@ public class MessageController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Message mes, final BindingResult binding, final String priority) {
+	public ModelAndView save(final Message mes, final BindingResult binding, final String priority) {
 		ModelAndView result;
 		Priority prioridad;
 		Message message;
+		System.out.println("Folder: + " + mes.getFolder());
+		System.out.println("Spam: + " + mes.getSpam());
 
 		if (priority == "LOW")
 			prioridad = Priority.LOW;
@@ -198,10 +199,13 @@ public class MessageController extends AbstractController {
 
 		mes.setPriority(prioridad);
 		message = this.messageService.reconstruct(mes, binding);
+		System.out.println("Folder tras reconstruct: + " + message.getFolder());
+		System.out.println("Folder tras reconstruct: + " + message.getFolder());
 
-		if (binding.hasErrors())
+		if (binding.hasErrors()) {
 			result = this.createEditModelAndView(message);
-		else
+			System.out.println("Binding: + " + binding.getAllErrors());
+		} else
 			try {
 				Assert.notNull(message.getRecipient());
 				if (message.getId() != 0)

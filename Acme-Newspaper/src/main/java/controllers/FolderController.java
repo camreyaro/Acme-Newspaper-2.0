@@ -91,7 +91,6 @@ public class FolderController extends AbstractController {
 		ModelAndView result;
 		Folder folder;
 		folder = this.folderService.reconstruct(fol, binding);
-
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(folder);
 		else
@@ -99,7 +98,6 @@ public class FolderController extends AbstractController {
 				if (folder.getId() != 0)
 					this.folderService.save(folder);
 				else if (folder.getParent() == null)
-					//					System.out.println(folder.getParent());
 					this.folderService.createForUserRaiz(folder.getName());
 				else
 					this.folderService.createForUser(folder.getName(), folder.getParent().getName());

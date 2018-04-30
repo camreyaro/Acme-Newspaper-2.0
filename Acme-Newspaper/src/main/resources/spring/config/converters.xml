@@ -43,6 +43,9 @@
 		
 		<bean class="converters.MessageToStringConverter" />
 		<bean class="converters.StringToMessageConverter" />
+		
+		<bean class="converters.ActorToStringConverter" />
+		<bean class="converters.StringToActorConverter" />
 		<!-- END ANGEL -->
 		
 		<!-- CARLOS -->

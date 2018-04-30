@@ -17,7 +17,6 @@ import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
 import domain.Folder;
-import domain.Message;
 
 @Service
 @Transactional
@@ -116,10 +115,12 @@ public class FolderService {
 	}
 
 	public Folder createForUserRaiz(final String nombre) {
+		System.out.println("Entra al save ");
+
 		Folder folder;
 		Actor actor;
 		Folder result;
-		final Collection<Message> messages = new ArrayList<Message>(); //Inicializamos tambien las listas aunque esten vacias
+		//final Collection<Message> messages = new ArrayList<Message>(); //Inicializamos tambien las listas aunque esten vacias
 		actor = this.actorService.findByPrincipal();
 		Collection<Folder> folders = new ArrayList<Folder>();
 		folders = this.folderRepository.findAll();
@@ -129,6 +130,7 @@ public class FolderService {
 		Assert.isTrue(nombre != "notificationbox");
 		Assert.isTrue(nombre != "trashbox");
 		Assert.isTrue(nombre != "inspamboxbox");
+		System.out.println("Pasamos los assert ");
 
 		for (final Folder f : folders)
 			Assert.isTrue(f.getName() != nombre);
@@ -139,7 +141,8 @@ public class FolderService {
 		//folder.setMessages(messages);
 		folder.setPredefined(false);
 		folder.setChildren(new ArrayList<Folder>());
-
+		System.out.println("Empezamos los sysout ");
+		System.out.println(folder);
 		result = this.save(folder);
 
 		return result;
@@ -189,7 +192,7 @@ public class FolderService {
 
 	public Folder save(final Folder folder) {
 		Folder result;
-		final Actor actor;
+		//final Actor actor;
 		//actor = this.actorService.findByPrincipal();
 		result = this.folderRepository.save(folder);
 		//actor.getFolder().add(result);
@@ -281,7 +284,7 @@ public class FolderService {
 		return this.folderRepository.CountSystemFoldersByActor(id);
 	}
 
-	public Folder reconstruct(Folder s, BindingResult binding) {
+	public Folder reconstruct(final Folder s, final BindingResult binding) {
 		Folder result;
 
 		if (s.getId() == 0) {

@@ -124,6 +124,7 @@ public class MessageService {
 		 */
 		//			System.out.println("Yano puedo mas " + folder.getName());
 		//message.setFolder(folder);
+		System.out.println("Folder: + " + folder.getName());
 		message.setFolder(folder);
 		result = this.messageRepository.save(message);
 		/*
@@ -307,6 +308,12 @@ public class MessageService {
 		if (s.getId() == 0) {
 			result = s;
 			result.setSender(this.actorService.findByPrincipal());
+			result.setFolder(this.folderService.findFolderByActor(this.actorService.findByPrincipal().getUserAccount().getUsername(), "inbox"));
+			System.out.println("Folder de rescontrurct: " + result.getFolder());
+			result.setDate(new Date(System.currentTimeMillis() - 1000));
+			result.setPriority(Priority.NEUTRAL);
+			result.setSpam(false);
+
 		} else {
 			result = this.findOne(s.getId());
 			Assert.notNull(result);

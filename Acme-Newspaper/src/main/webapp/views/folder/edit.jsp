@@ -27,7 +27,6 @@
 		<form:hidden path="predefined"/>
 		<form:hidden path="children"/>
 		<form:hidden path="parent"/>
-		<form:hidden path="messages"/>
 		<form:hidden path="actor"/>
 
 		
@@ -51,7 +50,6 @@
 		<form:hidden path="predefined"/>
 		<form:hidden path="children"/>
 		<form:hidden path="actor"/>
-		<form:hidden path="messages"/>
 		
 
 		
