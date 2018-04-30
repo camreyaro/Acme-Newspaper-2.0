@@ -49,7 +49,6 @@ public class VolumenUserController extends AbstractController {
 		res.addObject("pageNumber", pageNumber);
 		res.addObject("pageSize", pageSize);
 		res.addObject("totalPages", pageObject.getTotalPages());
-		res.addObject("myList",true);
 		res.addObject("requestURI", "volumen/user/myList.do");
 
 		return res;

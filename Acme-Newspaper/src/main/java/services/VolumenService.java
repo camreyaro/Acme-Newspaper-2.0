@@ -179,4 +179,10 @@ public class VolumenService {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 		return this.volumenRepository.getVolumensByUserPaginate(this.actorService.findByPrincipal().getId(), request);
 	}
+	
+	public Page<Volumen> getMyVolumensPaginate(final Integer pageNumber,
+			final Integer pageSize) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.volumenRepository.getVolumensByCustomerPaginate(this.actorService.findByPrincipal().getId(), request);
+	}
 }

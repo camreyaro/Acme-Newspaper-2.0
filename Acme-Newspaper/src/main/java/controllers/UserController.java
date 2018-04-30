@@ -7,6 +7,7 @@ import java.util.Collection;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import domain.Actor;
 import domain.Article;
 import domain.Chirp;
 import domain.User;
+import domain.Volumen;
 import forms.UserForm;
 
 @Controller
@@ -121,13 +123,22 @@ public class UserController extends AbstractController {
 	
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView result;
-		Collection<User> users;
+		Page<User> pageObject;
+		
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 5;
+		
+		pageObject = userService.findAllPaginate(pageNumber, pageSize);
 
-		users = this.userService.findAll();
 		result = new ModelAndView("user/list");
-		result.addObject("users", users);
+		result.addObject("users", pageObject.getContent());
+		result.addObject("totalPages", pageObject.getTotalPages());
+		result.addObject("pageNumber", pageNumber);
+		result.addObject("pageSize", pageSize);
 
 		return result;
 	}

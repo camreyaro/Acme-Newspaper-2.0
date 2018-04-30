@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,14 +29,23 @@ public class SuscriptionVolumenController extends AbstractController {
 
 
 	@RequestMapping("/myList")
-	public ModelAndView myList() {
+	public ModelAndView myList(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize){
 		final ModelAndView res;
-		final Collection<Volumen> volumens = this.volumenService.getMyVolumens();
+		Page<Volumen> pageObject;
+		
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 5;
 
 		res = new ModelAndView("volumen/list");
+		pageObject = this.volumenService.getMyVolumensPaginate(pageNumber, pageSize);
 
 		res.addObject("requestURI", "suscriptionVolumen/myList.do");
-		res.addObject("volumens", volumens);
+		res.addObject("volumens", pageObject.getContent());
+		res.addObject("pageNumber", pageNumber);
+		res.addObject("pageSize", pageSize);
+		res.addObject("totalPages", pageObject.getTotalPages());
 
 		return res;
 	}

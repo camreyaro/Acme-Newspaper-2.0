@@ -8,9 +8,28 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
+<spring:message code="pagination.showing1" />
+<jstl:out value="${pageSize}" />
+<spring:message code="pagination.showing2" />
+.
+<spring:message code="pagination.currentPage" />
+:
+<jstl:out value="${pageNumber}" />
+.
+<br/>
+<jstl:forEach var="number" begin ="1" end="${totalPages}">
+<jstl:if test="${number eq pageNumber}">
+<jstl:out value="${number}"/>
+</jstl:if>
+<jstl:if test="${number ne pageNumber}">
+<a class="links" href="user/list.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</jstl:forEach>
+
 <!-- Listing grid -->
 
-<display:table pagesize="3" class="displaytag" keepStatus="true"
+<display:table pagesize="${pageSize}" class="displaytag" keepStatus="true"
 	name="users" requestURI="user/list.do" id="row">
 
 	<spring:message code="user.name" var="nameHeader" />

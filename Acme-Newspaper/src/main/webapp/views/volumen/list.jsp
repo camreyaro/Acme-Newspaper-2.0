@@ -21,12 +21,7 @@
 <jstl:out value="${number}"/>
 </jstl:if>
 <jstl:if test="${number ne pageNumber}">
-<jstl:if test="${myList eq false}">
-<a class="links" href="volumen/list.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
-</jstl:if>
-<jstl:if test="${myList eq true}">
-<a class="links" href="volumen/user/myList.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
-</jstl:if>
+<a class="links" href="${requestURI}?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
 </jstl:if>
 &nbsp;&nbsp;&nbsp;&nbsp;
 </jstl:forEach>

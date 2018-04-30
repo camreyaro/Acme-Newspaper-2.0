@@ -3,6 +3,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -38,6 +40,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	//C7
 	@Query("select 1.0*(select count(distinct a.creator) from Article a)/count(u) from User u")
 	Double ratioArticlesCreated();
+	
+	@Query("select u from User u")
+	Page<User> findAllPaginate(Pageable p);
 
 	//B5
 //	@Query("")
