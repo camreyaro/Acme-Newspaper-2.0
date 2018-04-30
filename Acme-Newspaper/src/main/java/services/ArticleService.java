@@ -16,6 +16,8 @@ import org.apache.commons.validator.routines.UrlValidator;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -234,6 +236,31 @@ public class ArticleService {
 
 	public Collection<Article> getArticlesOfNewspaperId(int id) {
 		return this.articleRepository.getArticlesOfNewspaperId(id);
+	}
+	
+	//Paginated repository
+	public Page<Article> getArticlesByUserIdPaginate(final Integer pageNumber,
+			final Integer pageSize, int id) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.articleRepository.getAllArticlesByUserIdPaginate(id, request);
+	}
+	
+	public Page<Article> findAllValidAndPublicPaginate(final Integer pageNumber,
+			final Integer pageSize){
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.articleRepository.findAllValidAndPublicPaginate(request);
+	}
+	
+	public Page<Article> findAdminByKeywordPaginate(final Integer pageNumber,
+			final Integer pageSize, String s) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.articleRepository.findAdminByKeywordPaginate(s, request);
+	}
+	
+	public Page<Article> findPublicArticlesByKeywordPaginate(final Integer pageNumber,
+			final Integer pageSize, String keyword){
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.articleRepository.findAllValidAndPublicByKeyword(keyword, request);
 	}
 
 }

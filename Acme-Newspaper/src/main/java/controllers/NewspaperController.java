@@ -44,18 +44,39 @@ public class NewspaperController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(value = "keyword", required = false) @Nullable String keyword) {
+	public ModelAndView list(@RequestParam(value = "keyword", required = false) @Nullable String keyword,
+			@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView result;
-		Collection<Newspaper> newspapers;
+		Collection<Newspaper> newspapers = new ArrayList<>();
+		Double totalPages = 0.;
 
-		if (keyword == null || keyword == "" || keyword.length() < 2)
-			newspapers = this.newspaperService.findAllPublished();
-		else
-			newspapers = this.newspaperService.findNewspapersByKeyword(keyword);
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 5;
+		
+//		totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) pageSize));
+
+		if (keyword == null || keyword == "" || keyword.length() < 2){
+			newspapers = this.newspaperService.getPublishedNewspapersPaginate(pageNumber, pageSize).getContent();
+			totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) pageSize));
+		}else{
+			newspapers = this.newspaperService.getNewspapersByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
+			totalPages = Math.ceil((this.newspaperService.findNewspapersByKeyword(keyword).size() / (double) pageSize));
+		}
+		
+//		if(newspapers.size() == 0){
+//			pageSize = 0;
+//			totalPages = 0.;
+//		}
 
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", newspapers);
 		result.addObject("requestURI", "newspaper/list.do");
+		result.addObject("pageNumber", pageNumber);
+		result.addObject("pageSize", pageSize);
+		result.addObject("totalPages", totalPages);
+		result.addObject("keyword", keyword);
 		return result;
 	}
 

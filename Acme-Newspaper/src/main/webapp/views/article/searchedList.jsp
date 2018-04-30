@@ -6,9 +6,29 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
+
+
 <acme:searchbox action="newspaper/article/searchedList.do"/>
 
-<display:table pagesize="4" class="displaytag"  keepStatus="true"
+<spring:message code="pagination.showing1" />
+<jstl:out value="${pageSize}" />
+<spring:message code="pagination.showing2" />
+.
+<spring:message code="pagination.currentPage" />
+:
+<jstl:out value="${pageNumber}" />
+.
+<br/>
+<jstl:forEach var="number" begin ="1" end="${totalPages}">
+<jstl:if test="${number eq pageNumber}">
+<jstl:out value="${number}"/></jstl:if>
+<jstl:if test="${number ne pageNumber}">
+<a class="links" href="newspaper/article/searchedList.do?pageNumber=<jstl:out value="${number}"/>&keyword=<jstl:out value="${keyword}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</jstl:forEach>
+
+<display:table pagesize="${pageSize}" class="displaytag"  keepStatus="true"
 	name="articles" requestURI="${requestURI}" id="row">
 	
 	<spring:message code="master.page.picture" var="pictureUrlH" />

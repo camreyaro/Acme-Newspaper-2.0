@@ -15,6 +15,8 @@ import javax.persistence.Persistence;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -265,6 +267,19 @@ public class NewspaperService {
 
 		return result;
 
+	}
+	
+	//Paginated repository
+	public Page<Newspaper> getPublishedNewspapersPaginate(final Integer pageNumber,
+			final Integer pageSize) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.newspaperRepository.getPublishedNewspapersPaginate(request);
+	}
+	
+	public Page<Newspaper> getNewspapersByKeywordPaginate(final Integer pageNumber,
+			final Integer pageSize, String keyword) {
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.newspaperRepository.findByKeywordPaginate(request, keyword);
 	}
 
 }

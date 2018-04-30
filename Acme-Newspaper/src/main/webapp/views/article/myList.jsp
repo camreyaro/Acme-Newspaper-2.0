@@ -7,7 +7,26 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" class="displaytag"  keepStatus="true"
+<spring:message code="pagination.showing1" />
+<jstl:out value="${pageSize}" />
+<spring:message code="pagination.showing2" />
+.
+<spring:message code="pagination.currentPage" />
+:
+<jstl:out value="${pageNumber}" />
+.
+<br/>
+<jstl:forEach var="number" begin ="1" end="${totalPages}">
+<jstl:if test="${number eq pageNumber}">
+<a class="current links" href="newspaper/article/user/myList.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+<jstl:if test="${number ne pageNumber}">
+<a class="links" href="newspaper/article/user/myList.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</jstl:forEach>
+
+<display:table pagesize="${pageSize}" class="displaytag"  keepStatus="true"
 	name="articles" requestURI="/newspaper/article/user/myList.do" id="row">
 	
 	<%-- <spring:message code="master.page.picture" var="pictureUrlH" />

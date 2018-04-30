@@ -3,10 +3,13 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import domain.Article;
+import domain.Newspaper;
 
 public interface ArticleRepository extends JpaRepository<Article, Integer> {
 
@@ -62,5 +65,21 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	// B2,B3
 	// @Query("select 1.0*(select count(f) from FollowUp f)/count(a) from Article a where datediff(week,a.newspaper.publicationDate,CURRENT_DATE) <= 7")
 	// Double avgFollowUpsPerArticleOneWeekAfterPublicationDate();
+	
+	//Paginated repository
+	@Query("select a from Article a where a.creator.id=?1")
+	Page<Article> getAllArticlesByUserIdPaginate(int id, Pageable p);
+	
+	@Query("select a from Article a where a.newspaper.published=1 AND (a.newspaper.publicNp=1)")
+	Page<Article> findAllValidAndPublicPaginate(Pageable p);
+	
+	@Query("select a from Article a where (a.saved=1 and a.title LIKE concat(concat('%',?1),'%') OR a.body LIKE concat(concat('%',?1),'%') OR a.summary LIKE concat(concat('%',?1),'%')))")
+	Page<Article> findAdminByKeywordPaginate(String s, Pageable p);
+	
+	@Query("select a from Article a where a.newspaper.published=1 AND (a.newspaper.publicNp=1) AND(a.title LIKE concat(concat('%',?1),'%') OR a.body LIKE concat(concat('%',?1),'%') OR a.summary LIKE concat(concat('%',?1),'%'))")
+	Page<Article> findAllValidAndPublicByKeyword(String keyword, Pageable p);
+	
+//	@Query("select n from Newspaper n where n.published=1 and (n.title LIKE concat(concat('%',?1),'%') or n.description LIKE concat(concat('%',?1),'%'))")
+//	Page<Article> findByKeywordPaginate(Pageable p, String keyword);
 
 }

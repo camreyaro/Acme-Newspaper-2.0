@@ -181,13 +181,23 @@ public class ArticleController extends AbstractController {
 	}
 
 	@RequestMapping("/user/myList")
-	public ModelAndView myList() {
+	public ModelAndView myList(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView res;
+		Double totalPages = 0.;
 
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 4;
+		
 		Actor a = this.actorService.findByPrincipal();
-		Collection<Article> articles = this.articleService.articlesByUserId(a.getId());
+		totalPages = Math.ceil((this.articleService.articlesByUserId(a.getId()).size() / (double) pageSize));
+		Collection<Article> articles = this.articleService.getArticlesByUserIdPaginate(pageNumber, pageSize, a.getId()).getContent();
 		res = new ModelAndView("newspaper/article/user/myList");
 		res.addObject("articles", articles);
+		res.addObject("pageNumber", pageNumber);
+		res.addObject("pageSize", pageSize);
+		res.addObject("totalPages", totalPages);
 
 		return res;
 
@@ -202,10 +212,17 @@ public class ArticleController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/searchedList", method = RequestMethod.GET)
-	public ModelAndView searchedList(@RequestParam(value = "keyword", required = false) @Nullable String keyword) {
+	public ModelAndView searchedList(@RequestParam(value = "keyword", required = false) @Nullable String keyword,
+			@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView result;
 		Collection<Article> articles;
 		Boolean esAdmin = false;
+		Double totalPages = 0.;
+
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 4;
 
 		try {
 
@@ -213,30 +230,48 @@ public class ArticleController extends AbstractController {
 		} catch (Throwable oops) {
 		}
 
-		if (keyword == null || keyword == "" || keyword.length() < 2)
-			articles = this.articleService.findAllValidAndPublic();
-		else {
+		if (keyword == null || keyword == "" || keyword.length() < 2){
+			totalPages = Math.ceil((this.articleService.findAllValidAndPublic().size() / (double) pageSize));
+			articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
+		}else {
 
 			if (esAdmin)
 				articles = this.articleService.findAdminByKeyword(keyword);
+			
+			totalPages = Math.ceil((this.articleService.findAdminByKeyword(keyword).size() / (double) pageSize));
+			articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
 
 			try {
 				this.suscriptionService.isCustomerSuscribe("00");
 				Actor a = this.actorService.findByPrincipal();
 				if (LoginService.getPrincipal().isAuthority("CUSTOMER"))
 					articles = this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId());
+				
+//				totalPages = Math.ceil((this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId()).size() / (double) pageSize));
+//				articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
 				else
-					articles = this.articleService.findPublicArticlesByKeyword(keyword);
+//					articles = this.articleService.findPublicArticlesByKeyword(keyword);
+				
+				totalPages = Math.ceil((this.articleService.findPublicArticlesByKeyword(keyword).size() / (double) pageSize));
+				articles = this.articleService.findPublicArticlesByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
+				
 
 			} catch (Throwable oops) {
 
 				articles = this.articleService.findPublicArticlesByKeyword(keyword);
+				
+				totalPages = Math.ceil((this.articleService.findPublicArticlesByKeyword(keyword).size() / (double) pageSize));
+				articles = this.articleService.findPublicArticlesByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
 			}
 		}
 
 		result = new ModelAndView("newspaper/article/searchedList");
 		result.addObject("articles", articles);
 		result.addObject("requestURI", "newspaper/article/searchedList.do");
+		result.addObject("pageNumber", pageNumber);
+		result.addObject("pageSize", pageSize);
+		result.addObject("totalPages", totalPages);
+		result.addObject("keyword", keyword);
 		return result;
 	}
 

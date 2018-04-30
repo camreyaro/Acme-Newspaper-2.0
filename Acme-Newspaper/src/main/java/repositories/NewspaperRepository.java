@@ -3,6 +3,8 @@ package repositories;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -68,5 +70,12 @@ public interface NewspaperRepository extends JpaRepository<Newspaper, Integer> {
 	// A5
 	@Query("select count(n1)*1.0/(select count(n2)*1.0 * (select count(u) from User u where u.newspapers is not empty) from Newspaper n2 where n2.publicNp = true) from Newspaper n1 where n1.publicNp = true")
 	Double avgRatioPublicVsPrivateNewspapers();
+	
+	//Paginated repository
+	@Query("select n from Newspaper n where n.published=1")
+	Page<Newspaper> getPublishedNewspapersPaginate(Pageable p);
+	
+	@Query("select n from Newspaper n where n.published=1 and (n.title LIKE concat(concat('%',?1),'%') or n.description LIKE concat(concat('%',?1),'%'))")
+	Page<Newspaper> findByKeywordPaginate(Pageable p, String keyword);
 
 }
