@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
@@ -30,16 +31,28 @@ public class ChirpUserController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView result;
 		Collection<Chirp> chirps = new ArrayList<>();
+		Double totalPages = 0.;
+
+		if (pageNumber == null)
+			pageNumber = 1;
+		if (pageSize == null)
+			pageSize = 5;
 
 		User user = (User) this.actorService.findByPrincipal();
-		chirps.addAll(this.chirpService.findFollowingChirpsByUserId(user.getId()));
-
+		
+		chirps.addAll(this.chirpService.findFollowingChirpsByUserIdPaginate(pageNumber, pageSize, user.getId()).getContent());
+		
+		totalPages = Math.ceil((this.chirpService.findFollowingChirpsByUserId(user.getId()).size() / (double) pageSize));
+		
 		result = new ModelAndView("chirp/user/list");
 		result.addObject("chirps", chirps);
 		result.addObject("requestURI", "chirp/user/list.do");
+		result.addObject("pageNumber", pageNumber);
+		result.addObject("pageSize", pageSize);
+		result.addObject("totalPages", totalPages);
 		return result;
 	}
 

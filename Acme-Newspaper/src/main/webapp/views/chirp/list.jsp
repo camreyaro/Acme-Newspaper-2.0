@@ -22,6 +22,26 @@
 </security:authorize>
 
 <br/>
+
+<spring:message code="pagination.showing1" />
+<jstl:out value="${pageSize}" />
+<spring:message code="pagination.showing2" />
+.
+<spring:message code="pagination.currentPage" />
+:
+<jstl:out value="${pageNumber}" />
+.
+<br/>
+<jstl:forEach var="number" begin ="1" end="${totalPages}">
+<jstl:if test="${number eq pageNumber}">
+<jstl:out value="${number}"/>
+</jstl:if>
+<jstl:if test="${number ne pageNumber}">
+<a class="links" href="chirp/user/list.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+&nbsp;&nbsp;&nbsp;&nbsp;
+</jstl:forEach>
+
 <table id ="myTable" data-page-length='5'>
  <thead>
         <tr>

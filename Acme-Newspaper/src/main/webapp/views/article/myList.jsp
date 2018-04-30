@@ -18,7 +18,7 @@
 <br/>
 <jstl:forEach var="number" begin ="1" end="${totalPages}">
 <jstl:if test="${number eq pageNumber}">
-<a class="current links" href="newspaper/article/user/myList.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>
+<jstl:out value="${number}"/>
 </jstl:if>
 <jstl:if test="${number ne pageNumber}">
 <a class="links" href="newspaper/article/user/myList.do?pageNumber=<jstl:out value="${number}"/>"><jstl:out value="${number}"/></a>

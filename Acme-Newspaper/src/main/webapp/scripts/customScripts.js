@@ -5,7 +5,7 @@ $(document).ready(function() {
 	
 	$('#myTable').DataTable({
 		"lengthMenu": [ 5,10,15 ],
-		 "width": "50%"
+		 "paging": false
 	});
 });
 
