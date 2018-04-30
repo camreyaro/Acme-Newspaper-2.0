@@ -125,6 +125,20 @@ public class AdvertisementAgentController extends AbstractController {
 			}
 		return result;
 	}
+
+	@RequestMapping("advertisement/administrator/spamAdvertisementsList")
+	public ModelAndView spamNewspapersList() {
+		ModelAndView result;
+		Collection<Advertisement> spamAds;
+
+		spamAds = this.advertisementService.getAdvertisementWithSpamWords();
+
+		result = new ModelAndView("administrator/spamAdvertisementsList");
+		result.addObject("spamAds", spamAds);
+
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(Advertisement advertisement) {
 		return this.createEditModelAndView(advertisement, null);
 	}

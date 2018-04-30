@@ -36,6 +36,11 @@
 		<put-attribute name="body" value="/views/administrator/spamNewspapersList.jsp" />
 	</definition>
 	
+	<definition name="administrator/spamAdvertisementsList" extends="master.page">	
+		<put-attribute name="title" value="Lista de anuncios spam" />
+		<put-attribute name="body" value="/views/administrator/spamAdvertisementsList.jsp" />
+	</definition>
+	
 	<definition name="administrator/spamChirpsList" extends="master.page">	
 		<put-attribute name="title" value="Lista de chirps spam" />
 		<put-attribute name="body" value="/views/administrator/spamChirpsList.jsp" />

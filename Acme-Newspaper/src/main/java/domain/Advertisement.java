@@ -12,14 +12,16 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.search.annotations.Indexed;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
 @Entity
+@Indexed
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
-	@Index(columnList = "newspaper_id"), @Index(columnList = "agent_id")
+	@Index(columnList = "title"), @Index(columnList = "agent_id"), @Index(columnList = "newspaper_id")
 })
 public class Advertisement extends DomainEntity {
 

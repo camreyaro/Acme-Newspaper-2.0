@@ -98,6 +98,8 @@
 		<security:intercept-url pattern="/advertisement/agent/save.do" access="hasRole('AGENT')" />
 		<security:intercept-url pattern="/advertisement/agent/edit.do" access="hasRole('AGENT')" />
 		<security:intercept-url pattern="/advertisement/agent/list.do" access="hasRole('AGENT')" />
+		
+		<security:intercept-url pattern="/advertisement/administrator/spamAdvertisementsList.do" access="hasRole('ADMIN')" /> 
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->

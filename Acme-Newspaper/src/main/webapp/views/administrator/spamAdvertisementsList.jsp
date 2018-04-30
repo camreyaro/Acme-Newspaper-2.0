@@ -18,12 +18,12 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="spamNews" requestURI="newspaper/administrator/spamNewspapersList.do" id="row">
+	name="spamAds" requestURI="advertisement/administrator/spamAdvertisementsList.do" id="row">
 
 	<spring:message code="master.page.newspaper" var="titleH" />
 	<display:column property="title" title="${titleH}" />
-	<spring:message code="master.page.view" var="titleL" />
-	<display:column title="${titleL}">
+	<spring:message code="master.page.view" var="viewL" />
+	<display:column title="${viweL}">
 	<a href="newspaper/display.do?newspaperId=${row.id}"><spring:message code="master.page.view"/></a><br/>
 	</display:column>
 	
