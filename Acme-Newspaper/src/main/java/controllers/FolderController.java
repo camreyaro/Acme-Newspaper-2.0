@@ -84,6 +84,7 @@ public class FolderController extends AbstractController {
 		Folder folder;
 
 		folder = this.folderService.findOne(folderId);
+		System.out.println("soy el /edit: " + folder.getParent());
 		Assert.notNull(folder);
 		result = this.createEditModelAndView(folder);
 
@@ -95,19 +96,23 @@ public class FolderController extends AbstractController {
 		ModelAndView result;
 		Folder folder;
 		folder = this.folderService.reconstruct(fol, binding);
-
+		System.out.println("id: " + folder.getId());
+		System.out.println("id2: " + fol.getId());
+		System.out.println("Aquiiiii: " + folder.getParent().getName());
 		if (!folder.getActor().equals(this.actorService.findByPrincipal()))
 			result = new ModelAndView("redirect:list.do");
 		else if (binding.hasErrors())
 			result = this.createEditModelAndView(folder);
 		else
 			try {
-				if (folder.getId() != 0)
+				if (folder.getId() != 0) {
+					folder.setParent(this.folderService.findOne(folder.getId()).getParent());
 					this.folderService.save(folder);
-				else if (folder.getParent() == null)
-					this.folderService.createForUserRaiz(folder.getName());
-				else
+				} else if (folder.getParent().getId() > 0) {
 					this.folderService.createForUser(folder.getName(), folder.getParent().getName());
+					System.out.println("Estoy en la shit");
+				} else if (folder.getParent() == null)
+					this.folderService.createForUserRaiz(folder.getName());
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
@@ -118,7 +123,6 @@ public class FolderController extends AbstractController {
 			}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Folder folder, final BindingResult binding) {
 		ModelAndView result;
@@ -131,6 +135,7 @@ public class FolderController extends AbstractController {
 			if (oops.getMessage().contains("message.error"))
 				errorMessage = oops.getMessage();
 			result = this.createEditModelAndView(folder, errorMessage);
+			System.out.println("Error: " + oops.getMessage());
 		}
 		return result;
 	}
@@ -151,19 +156,12 @@ public class FolderController extends AbstractController {
 		Collection<Message> messages;
 		final Collection<Folder> parents = this.folderService.findRaizFolders();
 
-		if (folder.getActor() == null) {
-			actor = null;
-			children = null;
-			parent = null;
-			messages = null;
-		} else {
-			actor = folder.getActor();
-			children = folder.getChildren();
-			parent = folder.getParent();
-			messages = this.messageService.findMessageByFolder(folder.getId());
-			;
-		}
-		folder.setParent(null);
+		actor = folder.getActor();
+		children = folder.getChildren();
+		parent = folder.getParent();
+		messages = this.messageService.findMessageByFolder(folder.getId());
+
+		folder.setParent(parent);
 		result = new ModelAndView("folder/edit");
 		result.addObject("folder", folder);
 		result.addObject("actor", actor);
@@ -192,23 +190,18 @@ public class FolderController extends AbstractController {
 		Collection<Message> messages;
 		final Collection<Folder> parents = this.folderService.findRaizFolders();
 
-		if (folder.getActor() == null) {
-			actor = null;
-			children = null;
-			parent = null;
-			messages = null;
-		} else {
-			actor = folder.getActor();
-			children = folder.getChildren();
-			parent = folder.getParent();
-			messages = this.messageService.findMessageByFolder(folder.getId());
-		}
+		actor = this.actorService.findByPrincipal();
+		children = folder.getChildren();
+		parent = this.folderService.findOne(folderId);
+		messages = this.messageService.findMessageByFolder(folder.getId());
+
 		folder.setParent(this.folderService.findOne(folderId));
+		System.out.println("Parent de la carpeta: " + folder.getParent());
+
 		result = new ModelAndView("folder/edit");
 		result.addObject("folder", folder);
 		result.addObject("actor", actor);
 		result.addObject("children", children);
-		result.addObject("parent", parent);
 		result.addObject("messages", messages);
 		result.addObject("parents", parents);
 

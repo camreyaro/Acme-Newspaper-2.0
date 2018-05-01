@@ -86,11 +86,9 @@ public class FolderService {
 		folders = this.folderRepository.findAll();
 		final Folder parent;
 
-		if (padre.equals(null))
-			parent = null;
-		//			System.out.println(parent);
-		else
-			parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
+		parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
+		System.out.println("En sus muertos, aqui estoy: " + parent.getName());
+		System.out.println("Nombre del padre: " + padre);
 
 		Assert.isTrue(!nombre.equals("inbox"));
 		Assert.isTrue(!nombre.equals("outbox"));
@@ -108,6 +106,7 @@ public class FolderService {
 		folder.setPredefined(false);
 		folder.setChildren(new ArrayList<Folder>());
 		folder.setParent(parent);
+		System.out.println("El parent que le ponemos: " + folder.getParent().getName());
 
 		result = this.save(folder);
 
@@ -273,15 +272,20 @@ public class FolderService {
 	public Folder reconstruct(final Folder s, final BindingResult binding) {
 		Folder result;
 		final Actor actor = this.actorService.findByPrincipal();
+
 		if (s.getId() == 0) {
 			result = s;
 			result.setParent(s.getParent());
 			result.setActor(actor);
+
 		} else {
 			result = this.findOne(s.getId());
 			Assert.notNull(result);
 			result.setName(s.getName());
 		}
+
+		System.out.println("el paarent: " + result.getParent());
+
 		this.validator.validate(result, binding);
 
 		return result;
