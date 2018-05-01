@@ -70,10 +70,8 @@ public class FolderController extends AbstractController {
 
 		if (folderId == 0)
 			result = this.createEditModelAndView(folder);
-		else {
-			System.out.println("Entramos aqui");
+		else
 			result = this.createEditModelAndViewList(folder, folderId);
-		}
 		return result;
 	}
 
@@ -86,7 +84,10 @@ public class FolderController extends AbstractController {
 		folder = this.folderService.findOne(folderId);
 		System.out.println("soy el /edit: " + folder.getParent());
 		Assert.notNull(folder);
-		result = this.createEditModelAndView(folder);
+		if (folder.getParent() == null)
+			result = this.createEditModelAndView(folder);
+		else
+			result = this.createEditModelAndViewList(folder, folder.getParent().getId());
 
 		return result;
 	}
@@ -96,9 +97,7 @@ public class FolderController extends AbstractController {
 		ModelAndView result;
 		Folder folder;
 		folder = this.folderService.reconstruct(fol, binding);
-		System.out.println("id: " + folder.getId());
-		System.out.println("id2: " + fol.getId());
-		System.out.println("Aquiiiii: " + folder.getParent().getName());
+		System.out.println("EStamos aqui, vamos a ver el parent: " + folder.getParent());
 		if (!folder.getActor().equals(this.actorService.findByPrincipal()))
 			result = new ModelAndView("redirect:list.do");
 		else if (binding.hasErrors())
@@ -108,7 +107,7 @@ public class FolderController extends AbstractController {
 				if (folder.getId() != 0) {
 					folder.setParent(this.folderService.findOne(folder.getId()).getParent());
 					this.folderService.save(folder);
-				} else if (folder.getParent().getId() > 0) {
+				} else if (folder.getParent() != null) {
 					this.folderService.createForUser(folder.getName(), folder.getParent().getName());
 					System.out.println("Estoy en la shit");
 				} else if (folder.getParent() == null)
@@ -158,7 +157,7 @@ public class FolderController extends AbstractController {
 
 		actor = folder.getActor();
 		children = folder.getChildren();
-		parent = folder.getParent();
+		parent = null;
 		messages = this.messageService.findMessageByFolder(folder.getId());
 
 		folder.setParent(parent);
