@@ -25,4 +25,15 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
 
 	@Query("select ads from Advertisement ads where  ads.newspaper in (select a.newspaper from Article a where a.newspaper.id=?1) order by rand()")
 	ArrayList<Advertisement> findRandomAdvertisementByNewspaperId(int newspaperId);
+
+	//Dashboard
+
+	//Si hay 10 newspapers, 3 con publi, 7 sin publi, sería ¿3/7 ó 3/10?
+	@Query("select 1.0*(" + "select count(n) from Newspaper n where n in (select a.newspaper from Advertisement a))" + "/" + "count(n2) from Newspaper n2 where n2 not in (select a.newspaper from Advertisement a)")
+	Double ratioNewspaperWithAdsVsWithoutAds();
+
+	//Calculamos todos los advertisements, en el servicio cogemos lo que tienen spamwords con el método getAdvertisementsWithSpamWords().size() que soporta regexp.
+	@Query("select 1.0*count(a) from Advertisement a")
+	Double rationAdsWithSpamwords();
+
 }

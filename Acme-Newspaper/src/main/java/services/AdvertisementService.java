@@ -158,4 +158,13 @@ public class AdvertisementService {
 			return null;
 	}
 
+	//Dashboard
+	public Double ratioNewspaperWithAdsVsWithoutAds() {
+		return this.advertisementRepository.ratioNewspaperWithAdsVsWithoutAds();
+	}
+
+	public Double rationAdsWithSpamwords() {
+		return 1.0 * (this.getAdvertisementWithSpamWords().size() / this.advertisementRepository.rationAdsWithSpamwords());
+	}
+
 }

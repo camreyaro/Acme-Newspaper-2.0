@@ -68,10 +68,16 @@ ${avgRatioPublicVsPrivateNewspapers}</br>
 
 <!-- 2.0 -->
 
+<!-- LVL C -->
+
+<b><spring:message code="admin.ratioNewspaperWithAdsVsWithoutAds"/></b></br>
+${ratioNewspaperWithAdsVsWithoutAds}</br>
+<b><spring:message code="admin.rationAdsWithSpamwords"/></b></br>
+${rationAdsWithSpamwords}</br>
 
 <!-- LVL B -->
 
-<b><spring:message code="admin.avgNewsPerVol"/></b><br>
-${avgNewsPerVol}
-<b><spring:message code="admin.ratioSusVolVsSus"/></b><br>
-${ratioSusVolVsSus}
+<b><spring:message code="admin.avgNewsPerVol"/></b></br>
+${avgNewsPerVol}</br>
+<b><spring:message code="admin.ratioSusVolVsSus"/></b></br>
+${ratioSusVolVsSus}</br>

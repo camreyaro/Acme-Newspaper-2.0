@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AdvertisementService;
 import services.ArticleService;
 import services.ChirpService;
 import services.FollowUpService;
@@ -44,6 +45,8 @@ public class AdministratorController extends AbstractController {
 	private VolumenService				volumenService;
 	@Autowired
 	private SuscriptionVolumenService	suscriptionVolumenService;
+	@Autowired
+	private AdvertisementService		advertisementService;
 
 
 	// Constructors -----------------------------------------------------------
@@ -86,6 +89,10 @@ public class AdministratorController extends AbstractController {
 
 		//2.0
 
+		//C
+		result.addObject("ratioNewspaperWithAdsVsWithoutAds", this.advertisementService.ratioNewspaperWithAdsVsWithoutAds());
+		result.addObject("rationAdsWithSpamwords", this.advertisementService.rationAdsWithSpamwords());
+
 		//B
 
 		result.addObject("ratioSusVolVsSus", this.suscriptionVolumenService.ratioSV());
@@ -93,5 +100,4 @@ public class AdministratorController extends AbstractController {
 
 		return result;
 	}
-
 }
