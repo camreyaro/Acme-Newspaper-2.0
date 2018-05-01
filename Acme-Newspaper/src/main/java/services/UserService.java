@@ -20,7 +20,6 @@ import security.Authority;
 import security.UserAccount;
 import domain.Newspaper;
 import domain.User;
-import domain.Volumen;
 import forms.UserForm;
 
 @Service
@@ -35,6 +34,10 @@ public class UserService {
 	// Supporting services ----------------------------------------------------
 	@Autowired
 	private ActorService	actorService;
+
+	@Autowired
+	private FolderService	folderService;
+
 	@Autowired
 	private Validator		validator;
 
@@ -68,7 +71,14 @@ public class UserService {
 		return user;
 	}
 
-	public void saveFromCreate(User user) {
+	public User save2(final User user) {
+		User result;
+		result = this.userRepository.save(user);
+		return result;
+	}
+
+	public void saveFromCreate(final User user) {
+		User result;
 		Assert.isTrue(this.actorService.findByUserAccountUsername(user.getUserAccount().getUsername()) == null, "user.duplicated.username");
 
 		Md5PasswordEncoder encoder;
@@ -81,31 +91,31 @@ public class UserService {
 
 		user.setConfirmMoment(new Date(System.currentTimeMillis()));
 
-		this.userRepository.save(user);
+		result = this.save2(user);
 
+		this.folderService.createSystemFolders(result);
 	}
-
-	public void save(User user) {
+	public void save(final User user) {
 		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().equals(user.getUserAccount()), "customer.another.customer");
 		this.userRepository.save(user);
 	}
 
-	public User findOne(int userId) {
+	public User findOne(final int userId) {
 		Assert.notNull(userId);
-		User user = this.userRepository.findOne(userId);
+		final User user = this.userRepository.findOne(userId);
 
 		return user;
 	}
 
 	public Collection<User> findAll() {
-		Collection<User> users = this.userRepository.findAll();
+		final Collection<User> users = this.userRepository.findAll();
 
 		return users;
 	}
 
-	public User reconstruct(UserForm form) {
+	public User reconstruct(final UserForm form) {
 
-		User result = (User) this.actorService.findByUserAccountUsername(form.getUsername());
+		final User result = (User) this.actorService.findByUserAccountUsername(form.getUsername());
 
 		result.setEmailAddress(form.getEmailAddress());
 		result.setName(form.getName());
@@ -117,7 +127,7 @@ public class UserService {
 
 	}
 
-	public User reconstruct(User user, BindingResult binding) {
+	public User reconstruct(final User user, final BindingResult binding) {
 
 		UserAccount userAccount;
 		Collection<Newspaper> newspapers;
@@ -147,34 +157,34 @@ public class UserService {
 
 	}
 
-	public void saveAndFlush(User user) {
+	public void saveAndFlush(final User user) {
 		this.userRepository.saveAndFlush(user);
 	}
 
 	// RED SOCIAL
-	public void follow(int userId) {
-		User user = this.findOne(userId);
+	public void follow(final int userId) {
+		final User user = this.findOne(userId);
 
-		Collection<User> myFollowings = new ArrayList<>();
-		User me = (User) this.actorService.findByPrincipal();
+		final Collection<User> myFollowings = new ArrayList<>();
+		final User me = (User) this.actorService.findByPrincipal();
 		myFollowings.addAll(me.getFollowing());
 		if (!myFollowings.contains(user))
 			myFollowings.add(user);
 		me.setFollowing(myFollowings);
 		this.save(me);
 	}
-	public void unfollow(int userId) {
-		User user = this.findOne(userId);
+	public void unfollow(final int userId) {
+		final User user = this.findOne(userId);
 
-		Collection<User> myFollowings = new ArrayList<>();
-		User me = (User) this.actorService.findByPrincipal();
+		final Collection<User> myFollowings = new ArrayList<>();
+		final User me = (User) this.actorService.findByPrincipal();
 		myFollowings.addAll(me.getFollowing());
 		if (myFollowings.contains(user))
 			myFollowings.remove(user);
 		me.setFollowing(myFollowings);
 		this.save(me);
 	}
-	public Collection<User> getFollowers(int userId) {
+	public Collection<User> getFollowers(final int userId) {
 		return this.userRepository.getFollowers(userId);
 	}
 
@@ -203,9 +213,8 @@ public class UserService {
 	public Double ratioArticlesCreated() {
 		return this.userRepository.ratioArticlesCreated();
 	}
-	
-	public Page<User> findAllPaginate(final Integer pageNumber,
-			final Integer pageSize) {
+
+	public Page<User> findAllPaginate(final Integer pageNumber, final Integer pageSize) {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 		return this.userRepository.findAllPaginate(request);
 	}

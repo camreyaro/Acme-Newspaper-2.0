@@ -33,6 +33,9 @@ public class AgentService {
 	private ActorService	actorService;
 
 	@Autowired
+	private FolderService	folderService;
+
+	@Autowired
 	private Validator		validator;
 
 
@@ -59,8 +62,14 @@ public class AgentService {
 
 		return agent;
 	}
+	public Agent save2(final Agent agent) {
+		Agent result;
+		result = this.agentRepository.save(agent);
+		return result;
+	}
 
-	public void saveFromCreate(Agent agent) {
+	public void saveFromCreate(final Agent agent) {
+		Agent result;
 		Assert.isTrue(this.actorService.findByUserAccountUsername(agent.getUserAccount().getUsername()) == null, "agent.duplicated.username");
 
 		Md5PasswordEncoder encoder;
@@ -73,31 +82,31 @@ public class AgentService {
 
 		agent.setConfirmMoment(new Date(System.currentTimeMillis()));
 
-		this.agentRepository.save(agent);
+		result = this.save2(agent);
+		this.folderService.createSystemFolders(result);
 
 	}
-
-	public void save(Agent agent) {
+	public void save(final Agent agent) {
 		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getId() == agent.getUserAccount().getId(), "agent.another.agent");
 		this.agentRepository.save(agent);
 	}
 
-	public Agent findOne(int agentId) {
+	public Agent findOne(final int agentId) {
 		Assert.notNull(agentId);
-		Agent user = this.agentRepository.findOne(agentId);
+		final Agent user = this.agentRepository.findOne(agentId);
 
 		return user;
 	}
 
 	public Collection<Agent> findAll() {
-		Collection<Agent> agents = this.agentRepository.findAll();
+		final Collection<Agent> agents = this.agentRepository.findAll();
 
 		return agents;
 	}
 
-	public Agent reconstruct(AgentForm form) {
+	public Agent reconstruct(final AgentForm form) {
 
-		Agent result = (Agent) this.actorService.findByUserAccountUsername(form.getUserName());
+		final Agent result = (Agent) this.actorService.findByUserAccountUsername(form.getUserName());
 
 		result.setEmailAddress(form.getEmailAddress());
 		result.setName(form.getName());
@@ -109,7 +118,7 @@ public class AgentService {
 
 	}
 
-	public Agent reconstruct(Agent agent, BindingResult binding) {
+	public Agent reconstruct(final Agent agent, final BindingResult binding) {
 
 		UserAccount userAccount;
 		Collection<Authority> authorities;
@@ -135,14 +144,14 @@ public class AgentService {
 
 	//--------------Others
 
-	public Actor findByUserAccountUsername(String username) {
+	public Actor findByUserAccountUsername(final String username) {
 		Assert.notNull(username);
-		Agent agent = (Agent) this.actorService.findByUserAccountUsername(username);
+		final Agent agent = (Agent) this.actorService.findByUserAccountUsername(username);
 
 		return agent;
 	}
 
-	public void saveAndFlush(Agent agent) {
+	public void saveAndFlush(final Agent agent) {
 		this.agentRepository.saveAndFlush(agent);
 	}
 

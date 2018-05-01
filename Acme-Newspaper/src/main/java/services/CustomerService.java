@@ -36,6 +36,9 @@ public class CustomerService {
 	private SuscriptionService	suscriptionService;
 
 	@Autowired
+	private FolderService		folderService;
+
+	@Autowired
 	private Validator			validator;
 
 
@@ -62,8 +65,14 @@ public class CustomerService {
 
 		return customer;
 	}
+	public Customer save2(final Customer customer) {
+		Customer result;
+		result = this.customerRepository.save(customer);
+		return result;
+	}
 
-	public void saveFromCreate(Customer customer) {
+	public void saveFromCreate(final Customer customer) {
+		Customer result;
 		Assert.isTrue(this.actorService.findByUserAccountUsername(customer.getUserAccount().getUsername()) == null, "customer.duplicated.username");
 
 		Md5PasswordEncoder encoder;
@@ -76,31 +85,35 @@ public class CustomerService {
 
 		customer.setConfirmMoment(new Date(System.currentTimeMillis()));
 
-		this.customerRepository.save(customer);
+		//this.customerRepository.save(customer);
+
+		result = this.save2(customer);
+
+		this.folderService.createSystemFolders(result);
 
 	}
 
-	public void save(Customer customer) {
+	public void save(final Customer customer) {
 		Assert.isTrue(this.actorService.findByPrincipal().getUserAccount().getId() == customer.getUserAccount().getId(), "customer.another.customer");
 		this.customerRepository.save(customer);
 	}
 
-	public Customer findOne(int customerId) {
+	public Customer findOne(final int customerId) {
 		Assert.notNull(customerId);
-		Customer user = this.customerRepository.findOne(customerId);
+		final Customer user = this.customerRepository.findOne(customerId);
 
 		return user;
 	}
 
 	public Collection<Customer> findAll() {
-		Collection<Customer> customers = this.customerRepository.findAll();
+		final Collection<Customer> customers = this.customerRepository.findAll();
 
 		return customers;
 	}
 
-	public Customer reconstruct(CustomerForm form) {
+	public Customer reconstruct(final CustomerForm form) {
 
-		Customer result = (Customer) this.actorService.findByUserAccountUsername(form.getUserName());
+		final Customer result = (Customer) this.actorService.findByUserAccountUsername(form.getUserName());
 
 		result.setEmailAddress(form.getEmailAddress());
 		result.setName(form.getName());
@@ -112,7 +125,7 @@ public class CustomerService {
 
 	}
 
-	public Customer reconstruct(Customer customer, BindingResult binding) {
+	public Customer reconstruct(final Customer customer, final BindingResult binding) {
 
 		UserAccount userAccount;
 		Collection<Authority> authorities;
@@ -138,14 +151,14 @@ public class CustomerService {
 
 	//--------------Others
 
-	public Actor findByUserAccountUsername(String username) {
+	public Actor findByUserAccountUsername(final String username) {
 		Assert.notNull(username);
-		Customer customer = (Customer) this.actorService.findByUserAccountUsername(username);
+		final Customer customer = (Customer) this.actorService.findByUserAccountUsername(username);
 
 		return customer;
 	}
 
-	public void saveAndFlush(Customer customer) {
+	public void saveAndFlush(final Customer customer) {
 		this.customerRepository.saveAndFlush(customer);
 	}
 

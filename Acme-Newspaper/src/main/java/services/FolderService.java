@@ -150,6 +150,7 @@ public class FolderService {
 
 	public Folder createForUser2(final String nombre, final Actor actor) {
 		Folder folder;
+		Folder result;
 		//final Collection<Message> messages = new ArrayList<Message>(); //Inicializamos tambien las listas aunque esten vacias
 
 		folder = new Folder();
@@ -159,9 +160,9 @@ public class FolderService {
 		folder.setPredefined(true);
 		folder.setChildren(new ArrayList<Folder>());
 
-		folder = this.saveSystem(folder, actor);
-
-		return folder;
+		//result = this.saveSystem(folder, actor);
+		result = this.folderRepository.save(folder);
+		return result;
 	}
 
 	public Collection<Folder> findAll() {
