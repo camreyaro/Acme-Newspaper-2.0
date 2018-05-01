@@ -309,9 +309,8 @@ public class MessageService {
 			result = s;
 			result.setSender(this.actorService.findByPrincipal());
 			result.setFolder(this.folderService.findFolderByActor(this.actorService.findByPrincipal().getUserAccount().getUsername(), "inbox"));
-			System.out.println("Folder de rescontrurct: " + result.getFolder());
-			result.setDate(new Date(System.currentTimeMillis() - 1000));
-			result.setPriority(Priority.NEUTRAL);
+			result.setDate(s.getDate());
+			result.setPriority(s.getPriority());
 			result.setSpam(false);
 
 		} else {
