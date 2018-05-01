@@ -262,5 +262,11 @@ public class ArticleService {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 		return this.articleRepository.findAllValidAndPublicByKeyword(keyword, request);
 	}
+	
+	public Page<Article> findSuscriptedArticlesByKeywordPaginate(final Integer pageNumber,
+			final Integer pageSize,String keyword, int actorId){
+		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
+		return this.articleRepository.findSuscriptedArticlesByKeywordPaginate(keyword, actorId, request);
+	}
 
 }

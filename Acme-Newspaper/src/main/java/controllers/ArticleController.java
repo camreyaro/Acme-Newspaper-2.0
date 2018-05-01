@@ -246,9 +246,9 @@ public class ArticleController extends AbstractController {
 				if (LoginService.getPrincipal().isAuthority("CUSTOMER")){
 					System.out.println(keyword);
 					System.out.println(a.getId());
-					articles = this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId());
+					articles = this.articleService.findSuscriptedArticlesByKeywordPaginate(pageNumber, pageSize, keyword, a.getId()).getContent();
 				
-//				totalPages = Math.ceil((this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId()).size() / (double) pageSize));
+				totalPages = Math.ceil((this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId()).size() / (double) pageSize));
 //				articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
 				}else{
 //					articles = this.articleService.findPublicArticlesByKeyword(keyword);

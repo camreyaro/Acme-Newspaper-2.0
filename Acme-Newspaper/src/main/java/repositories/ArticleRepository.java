@@ -83,6 +83,9 @@ public interface ArticleRepository extends JpaRepository<Article, Integer> {
 	@Query("select a from Article a where a.newspaper.published=1 AND (a.newspaper.publicNp=1) AND(a.title LIKE concat(concat('%',?1),'%') OR a.body LIKE concat(concat('%',?1),'%') OR a.summary LIKE concat(concat('%',?1),'%'))")
 	Page<Article> findAllValidAndPublicByKeyword(String keyword, Pageable p);
 	
+	@Query("select a from Article a where a.newspaper.published = 1 AND (a.title LIKE concat(concat('%',?1),'%') OR a.body LIKE concat(concat('%',?1),'%') OR a.summary LIKE concat(concat('%',?1),'%')) AND  ( (a.newspaper.publicNp=1) OR (a.newspaper.publicNp= 0 AND  (a.newspaper in (select s.newspaper from Suscription s where s.customer.id =?2)))  )")
+	Page<Article> findSuscriptedArticlesByKeywordPaginate(String keyword, int actorId, Pageable p);
+	
 //	@Query("select n from Newspaper n where n.published=1 and (n.title LIKE concat(concat('%',?1),'%') or n.description LIKE concat(concat('%',?1),'%'))")
 //	Page<Article> findByKeywordPaginate(Pageable p, String keyword);
 
