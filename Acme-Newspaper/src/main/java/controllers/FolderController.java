@@ -91,20 +91,31 @@ public class FolderController extends AbstractController {
 		ModelAndView result;
 		Folder folder;
 		folder = this.folderService.reconstruct(fol, binding);
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(folder);
-		else
-			try {
-				if (folder.getId() != 0)
-					this.folderService.save(folder);
-				else if (folder.getParent() == null)
-					this.folderService.createForUserRaiz(folder.getName());
-				else
-					this.folderService.createForUser(folder.getName(), folder.getParent().getName());
-				result = new ModelAndView("redirect:list.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(folder, "folder.commit.error");
-			}
+		
+		if( !folder.getActor().equals(actorService.findByPrincipal()))
+			result = new ModelAndView("redirect:list.do");
+		
+		else{
+			
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(folder);
+			else
+				try {
+					if (folder.getId() != 0)
+						this.folderService.save(folder);
+					else if (folder.getParent() == null)
+						this.folderService.createForUserRaiz(folder.getName());
+					else
+						this.folderService.createForUser(folder.getName(), folder.getParent().getName());
+					result = new ModelAndView("redirect:list.do");
+				} catch (final Throwable oops) {
+					System.out.println(oops.getMessage());
+					String errorMessage = "folder.commit.error";
+					if (oops.getMessage().contains("message.error"))
+						errorMessage = oops.getMessage();
+					result = this.createEditModelAndView(folder, errorMessage);
+				}
+		}
 		return result;
 	}
 
@@ -116,7 +127,10 @@ public class FolderController extends AbstractController {
 			this.folderService.delete(folder);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(folder, "folder.commit.error");
+			String errorMessage = "folder.commit.error";
+			if (oops.getMessage().contains("message.error"))
+				errorMessage = oops.getMessage();
+			result = this.createEditModelAndView(folder, errorMessage);
 		}
 		return result;
 	}

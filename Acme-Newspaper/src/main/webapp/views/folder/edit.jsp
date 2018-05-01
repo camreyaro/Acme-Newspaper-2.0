@@ -80,8 +80,7 @@
 
 	<jstl:if test="${folder.id != 0}">
 	
-	<input type="submit" name="delete" value="<spring:message code="folder.delete" />"
-	onclick="javascript: return confirm('<spring:message code="audit.create.confirmDelete" />')" />
+	<input type="submit" name="delete" value="<spring:message code="folder.delete" />" />
 	
 	</jstl:if>
 	
