@@ -61,7 +61,10 @@ public class UserController extends AbstractController {
 		if(userId == null)
 			try{
 				userId = this.actorService.findByPrincipal().getId();
-			
+				actor = this.actorService.findOne(userId);
+				articles = this.articleService.getPublishedArticlesByUserId(userId);
+				chirps = this.chirpService.findChirpsByUserId(userId);
+				result = new ModelAndView("user/display");
 			}catch(Throwable oops){
 				result = list(null,null);
 //				result.addObject("users", this.userService.findAll());
@@ -130,7 +133,7 @@ public class UserController extends AbstractController {
 		if (pageNumber == null)
 			pageNumber = 1;
 		if (pageSize == null)
-			pageSize = 5;
+			pageSize = 3;
 		
 		pageObject = userService.findAllPaginate(pageNumber, pageSize);
 
