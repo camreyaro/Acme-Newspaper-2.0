@@ -228,24 +228,8 @@ public class FolderService {
 		return results;
 	}
 	public void delete(final Folder folder) {
-		//Si solo puede borrarlo un tipo de user, iria un assert
 		Assert.isTrue(!folder.getPredefined(), "message.error.predefined");
-		//Actor actor;
-		//actor = this.actorService.findByPrincipal();
 		Assert.isTrue(folder.getChildren().size() == 0, "message.error.children");
-		if (folder.getParent().equals(null)) {
-			final Folder parent = folder.getParent();
-			final Collection<Folder> foldersP = parent.getChildren();
-			foldersP.remove(folder);
-			parent.setChildren(foldersP);
-			this.folderRepository.save(parent);
-		}
-
-		//final Collection<Folder> actorFolders = actor.getFolder();
-		//actorFolders.remove(folder);
-		//actor.setFolder(actorFolders);
-		//this.actorService.save(actor);
-
 		this.folderRepository.delete(folder);
 	}
 
