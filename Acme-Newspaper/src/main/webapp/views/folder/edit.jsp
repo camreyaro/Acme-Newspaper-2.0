@@ -50,6 +50,8 @@
 		<form:hidden path="predefined"/>
 		<form:hidden path="children"/>
 		<form:hidden path="actor"/>
+		<form:hidden path="parent"/>
+		
 		
 
 		
@@ -61,16 +63,7 @@
 		<form:input path="name"/>
 		<form:errors cssClass="error" path="name"/>
 		<br/>
-		
-		<form:label path="parent">
-			<spring:message code="folder.parent"/>
-		</form:label>
-		<form:select id="parent" path="parent">
-			<form:option value="0" label="----"/>
-			<form:options items="${parents }"
-				itemValue="id"
-				itemLabel="name"/>
-		</form:select>
+
 		<br/>
 
 	</jstl:if>

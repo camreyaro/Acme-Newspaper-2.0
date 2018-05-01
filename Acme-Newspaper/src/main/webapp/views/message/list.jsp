@@ -82,7 +82,8 @@
 	<input type="button" name="send" value="<spring:message code="message.send" />" 
 			onclick="javascript: location.replace('message/create.do?all=0')"/>
 
-	
+<input type="button" name="back" value="<spring:message code="folder.create" />" 
+	onclick="javascript: location.replace('folder/create.do?folderId=${folder.id}')"/>
 <security:authorize	access="hasRole('ADMIN')">
 	<input type="button" name="send" value="<spring:message code="message.send.all" />" 
 			onclick="javascript: location.replace('message/create.do?all=1')"/>

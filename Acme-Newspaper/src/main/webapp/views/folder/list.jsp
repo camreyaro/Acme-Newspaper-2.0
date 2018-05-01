@@ -47,4 +47,4 @@
 </security:authorize>
 
 	<input type="button" name="back" value="<spring:message code="folder.create" />" 
-			onclick="javascript: location.replace('folder/create.do')"/>
+			onclick="javascript: location.replace('folder/create.do?folderId=0')"/>

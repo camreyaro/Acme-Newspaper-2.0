@@ -63,13 +63,17 @@ public class FolderController extends AbstractController {
 	//Create ---------------------------------------------------
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int folderId) {
 		ModelAndView result;
 		Folder folder;
-
 		folder = this.folderService.create();
-		result = this.createEditModelAndView(folder);
 
+		if (folderId == 0)
+			result = this.createEditModelAndView(folder);
+		else {
+			System.out.println("Entramos aqui");
+			result = this.createEditModelAndViewList(folder, folderId);
+		}
 		return result;
 	}
 
@@ -91,31 +95,27 @@ public class FolderController extends AbstractController {
 		ModelAndView result;
 		Folder folder;
 		folder = this.folderService.reconstruct(fol, binding);
-		
-		if( !folder.getActor().equals(actorService.findByPrincipal()))
+
+		if (!folder.getActor().equals(this.actorService.findByPrincipal()))
 			result = new ModelAndView("redirect:list.do");
-		
-		else{
-			
-			if (binding.hasErrors())
-				result = this.createEditModelAndView(folder);
-			else
-				try {
-					if (folder.getId() != 0)
-						this.folderService.save(folder);
-					else if (folder.getParent() == null)
-						this.folderService.createForUserRaiz(folder.getName());
-					else
-						this.folderService.createForUser(folder.getName(), folder.getParent().getName());
-					result = new ModelAndView("redirect:list.do");
-				} catch (final Throwable oops) {
-					System.out.println(oops.getMessage());
-					String errorMessage = "folder.commit.error";
-					if (oops.getMessage().contains("message.error"))
-						errorMessage = oops.getMessage();
-					result = this.createEditModelAndView(folder, errorMessage);
-				}
-		}
+		else if (binding.hasErrors())
+			result = this.createEditModelAndView(folder);
+		else
+			try {
+				if (folder.getId() != 0)
+					this.folderService.save(folder);
+				else if (folder.getParent() == null)
+					this.folderService.createForUserRaiz(folder.getName());
+				else
+					this.folderService.createForUser(folder.getName(), folder.getParent().getName());
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+				String errorMessage = "folder.commit.error";
+				if (oops.getMessage().contains("message.error"))
+					errorMessage = oops.getMessage();
+				result = this.createEditModelAndView(folder, errorMessage);
+			}
 		return result;
 	}
 
@@ -149,7 +149,7 @@ public class FolderController extends AbstractController {
 		Collection<Folder> children;
 		Folder parent;
 		Collection<Message> messages;
-		final Collection<Folder> parents = this.folderService.findByUser();
+		final Collection<Folder> parents = this.folderService.findRaizFolders();
 
 		if (folder.getActor() == null) {
 			actor = null;
@@ -163,6 +163,47 @@ public class FolderController extends AbstractController {
 			messages = this.messageService.findMessageByFolder(folder.getId());
 			;
 		}
+		folder.setParent(null);
+		result = new ModelAndView("folder/edit");
+		result.addObject("folder", folder);
+		result.addObject("actor", actor);
+		result.addObject("children", children);
+		result.addObject("parent", parent);
+		result.addObject("messages", messages);
+		result.addObject("parents", parents);
+
+		result.addObject("message", messageCode);
+
+		return result;
+	}
+	protected ModelAndView createEditModelAndViewList(final Folder folder, final int folderId) {
+		ModelAndView result;
+
+		result = this.createEditModelAndViewList(folder, null, folderId);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndViewList(final Folder folder, final String messageCode, final int folderId) {
+		final ModelAndView result;
+		Actor actor;
+		Collection<Folder> children;
+		Folder parent;
+		Collection<Message> messages;
+		final Collection<Folder> parents = this.folderService.findRaizFolders();
+
+		if (folder.getActor() == null) {
+			actor = null;
+			children = null;
+			parent = null;
+			messages = null;
+		} else {
+			actor = folder.getActor();
+			children = folder.getChildren();
+			parent = folder.getParent();
+			messages = this.messageService.findMessageByFolder(folder.getId());
+		}
+		folder.setParent(this.folderService.findOne(folderId));
 		result = new ModelAndView("folder/edit");
 		result.addObject("folder", folder);
 		result.addObject("actor", actor);

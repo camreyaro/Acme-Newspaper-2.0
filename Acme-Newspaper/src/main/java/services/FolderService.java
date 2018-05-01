@@ -194,6 +194,10 @@ public class FolderService {
 		Assert.isTrue(folder.getPredefined() == false);
 		if (folder.getId() > 0)
 			Assert.isTrue(folders.contains(folder));
+		/*
+		 * if (!folder.getParent().equals(null))
+		 * Assert.isTrue(this.findByUser().contains(folder.getParent()));
+		 */
 		result = this.folderRepository.save(folder);
 
 		Assert.notNull(result);
@@ -284,10 +288,11 @@ public class FolderService {
 
 	public Folder reconstruct(final Folder s, final BindingResult binding) {
 		Folder result;
-
+		final Actor actor = this.actorService.findByPrincipal();
 		if (s.getId() == 0) {
 			result = s;
-			result.setActor(this.actorService.findByPrincipal());
+			result.setParent(s.getParent());
+			result.setActor(actor);
 		} else {
 			result = this.findOne(s.getId());
 			Assert.notNull(result);
@@ -297,5 +302,10 @@ public class FolderService {
 
 		return result;
 
+	}
+
+	public Collection<Folder> findRaizFolders() {
+		final Collection<Folder> foldersRaiz = this.folderRepository.findRaizFolders(this.actorService.findByPrincipal().getUserAccount().getId());
+		return foldersRaiz;
 	}
 }

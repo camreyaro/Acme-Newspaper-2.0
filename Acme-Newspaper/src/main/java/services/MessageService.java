@@ -143,7 +143,6 @@ public class MessageService {
 		Message result;
 		actor = this.actorService.findByPrincipal();
 		final Message m = this.messageRepository.findOne(message.getId());
-		//final Folder folderOld = this.folderService.findFolderByActor(actor.getUserAccount().getUsername(), m.getFolder().getName());
 		final Folder folderNew = this.folderService.findFolderByActor(actor.getUserAccount().getUsername(), folderName);
 
 		message.setFolder(folderNew);
