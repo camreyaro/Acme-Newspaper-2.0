@@ -123,17 +123,18 @@ public class MessageService {
 
 	public void delete(final Message message) {
 
-		Actor actor;
-		actor = this.actorService.findByPrincipal();
-
 		final Folder folder = message.getFolder();
 
-		final String userName = actor.getUserAccount().getUsername();
-		if (folder.getName().equals("trashbox"))
-			this.messageRepository.delete(message);
-		else
+		if (folder.getName().equals("trashbox")) {
+			System.out.println("Entra al delete");
+			this.deleteRepo(message);
+
+		} else
 			this.update(message, "trashbox");
 
+	}
+	public void deleteRepo(final Message message) {
+		this.messageRepository.delete(message);
 	}
 
 	public Message update(final Message message, final String folderName) {
@@ -142,18 +143,12 @@ public class MessageService {
 		Message result;
 		actor = this.actorService.findByPrincipal();
 		final Message m = this.messageRepository.findOne(message.getId());
-		final Folder folderOld = this.folderService.findFolderByActor(actor.getUserAccount().getUsername(), m.getFolder().getName());
+		//final Folder folderOld = this.folderService.findFolderByActor(actor.getUserAccount().getUsername(), m.getFolder().getName());
 		final Folder folderNew = this.folderService.findFolderByActor(actor.getUserAccount().getUsername(), folderName);
 
 		message.setFolder(folderNew);
-		result = this.messageRepository.save(message);
 
-		/*
-		 * folderNew.getMessages().add(message);
-		 * this.folderService.save(folderNew);
-		 * folderOld.getMessages().remove(message);
-		 * this.folderService.save(folderOld);
-		 */
+		result = this.saveSave(message);
 
 		return result;
 	}
@@ -265,7 +260,6 @@ public class MessageService {
 
 	public Message reconstruct(final Message s, final BindingResult binding) {
 		Message result;
-
 		if (s.getId() == 0) {
 			result = s;
 			result.setSender(this.actorService.findByPrincipal());

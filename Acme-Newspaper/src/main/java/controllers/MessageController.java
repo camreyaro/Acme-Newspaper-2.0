@@ -185,25 +185,23 @@ public class MessageController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final Message mes, final BindingResult binding, final String priority) {
 		ModelAndView result;
-		Priority prioridad;
 		Message message;
+		if (mes.getId() == 0) {
+			Priority prioridad;
+			if (priority.equals("LOW"))
+				prioridad = Priority.LOW;
+			else if (priority.equals("NEUTRAL"))
+				prioridad = Priority.NEUTRAL;
+			else
+				prioridad = Priority.HIGH;
+			mes.setPriority(prioridad);
+		}
 
-		if (priority.equals("LOW"))
-			prioridad = Priority.LOW;
-		else if (priority.equals("NEUTRAL"))
-			prioridad = Priority.NEUTRAL;
-		else
-			prioridad = Priority.HIGH;
-
-		mes.setPriority(prioridad);
 		message = this.messageService.reconstruct(mes, binding);
-		System.out.println("Folder tras reconstruct: + " + message.getFolder());
-		System.out.println("Folder tras reconstruct: + " + message.getFolder());
 
-		if (binding.hasErrors()) {
+		if (binding.hasErrors())
 			result = this.createEditModelAndView(message);
-			System.out.println("Binding: + " + binding.getAllErrors());
-		} else
+		else
 			try {
 				Assert.notNull(message.getRecipient());
 				if (message.getId() != 0)
@@ -217,7 +215,6 @@ public class MessageController extends AbstractController {
 			}
 		return result;
 	}
-
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAll")
 	public ModelAndView saveAll(final Message mes, final BindingResult binding, final String priority) {
 		ModelAndView result;
@@ -251,13 +248,17 @@ public class MessageController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
 	public ModelAndView delete(final Message message, final BindingResult binding) {
 		ModelAndView result;
+		Message messageR;
+
+		messageR = this.messageService.reconstruct(message, binding);
 
 		try {
-			this.messageService.delete(message);
-			final int folderId = message.getFolder().getId();
+			this.messageService.delete(messageR);
+			final int folderId = messageR.getFolder().getId();
 			result = new ModelAndView("redirect:list.do?folderId=" + folderId);
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(message, "message.commit.error");
+			System.out.println(oops.getMessage());
+			result = this.createEditModelAndView(messageR, "message.commit.error");
 		}
 		return result;
 	}
