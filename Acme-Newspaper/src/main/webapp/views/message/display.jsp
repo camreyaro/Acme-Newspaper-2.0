@@ -31,13 +31,13 @@
 	
 	<fieldset>
 	<legend><spring:message code="message.sender"/></legend>
-	<jstl:out value = "${sender }"/>
+	<jstl:out value = "${sender.userAccount.username }"/>
 	</fieldset>
 	<br/>
 	
 	<fieldset>
 	<legend><spring:message code="message.recipient"/></legend>
-	<jstl:out value = "${recipient }"/>
+	<jstl:out value = "${recipient.userAccount.username }"/>
 	</fieldset>
 	<br/>
 	<fieldset>

@@ -67,10 +67,10 @@
 	<display:column property="subject" title="${subjectHeader}" sortable = "false" />
 	
 		<spring:message code="message.sender" var="senderHeader" />
-	<display:column property="sender" title="${senderHeader}" sortable = "false" />
+	<display:column property="sender.userAccount.username" title="${senderHeader}" sortable = "false" />
 	
 		<spring:message code="message.recipient" var="recipientHeader" />
-	<display:column property="recipient" title="${recipientHeader}" sortable = "false" />
+	<display:column property="recipient.userAccount.username" title="${recipientHeader}" sortable = "false" />
 	
 		<spring:message code="message.priority" var="priorityHeader" />
 	<display:column property="priority" title="${priorityHeader}" sortable = "true" />
