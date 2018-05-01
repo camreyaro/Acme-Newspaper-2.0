@@ -223,7 +223,6 @@ public class MessageController extends AbstractController {
 		ModelAndView result;
 		Priority prioridad;
 		Message message;
-
 		if (priority.equals("LOW"))
 			prioridad = Priority.LOW;
 		else if (priority.equals("NEUTRAL"))
@@ -238,12 +237,13 @@ public class MessageController extends AbstractController {
 			result = this.AllModelAndView(message);
 		else
 			try {
-				this.messageService.sendAllUserUserMessage(message);
+				this.messageService.notificationMail(message);
 
 				final int folderId = this.folderService.findFolderByActor(this.actorService.findByPrincipal().getUserAccount().getUsername(), "outbox").getId();
 
 				result = new ModelAndView("redirect:list.do?folderId=" + folderId);
 			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
 				result = this.AllModelAndView(message, "message.commit.error");
 			}
 		return result;
