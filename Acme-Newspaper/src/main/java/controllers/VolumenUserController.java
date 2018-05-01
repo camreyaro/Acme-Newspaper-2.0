@@ -43,7 +43,7 @@ public class VolumenUserController extends AbstractController {
 			pageSize = 5;
 
 		res = new ModelAndView("volumen/list");
-		pageObject = this.volumenService.getMyNoSuscribedVolumensPaginate(pageNumber, pageSize);
+		pageObject = this.volumenService.getMyCreatedVolumensPaginate(pageNumber, pageSize);
 
 		res.addObject("volumens", pageObject.getContent());
 		res.addObject("pageNumber", pageNumber);
