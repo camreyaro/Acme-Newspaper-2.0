@@ -191,6 +191,7 @@ public class FolderService {
 		Folder result;
 		final Collection<Folder> folders = this.findByUser();
 		Assert.isTrue(folder.getActor().getId() == this.actorService.findByPrincipal().getId(), "message.error.notActor");
+		Assert.isTrue(folder.getPredefined() == false);
 		if (folder.getId() > 0)
 			Assert.isTrue(folders.contains(folder));
 		result = this.folderRepository.save(folder);
