@@ -209,6 +209,7 @@ public class MessageService {
 		actor = this.actorService.findByPrincipal();
 		final Collection<Actor> all = new ArrayList<Actor>(this.actorService.findAll());
 
+		System.out.println("Empezamos a mandar mensajes a todos");
 		for (final Actor x : all) {
 			Message message = new Message();
 
@@ -225,6 +226,7 @@ public class MessageService {
 
 			Assert.notNull(message);
 			m.add(message);
+			this.messageRepository.save(message);
 		}
 
 		final Message outboxMsg = new Message();

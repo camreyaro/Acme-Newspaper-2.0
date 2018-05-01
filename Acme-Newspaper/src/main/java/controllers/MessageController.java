@@ -187,12 +187,10 @@ public class MessageController extends AbstractController {
 		ModelAndView result;
 		Priority prioridad;
 		Message message;
-		System.out.println("Folder: + " + mes.getFolder());
-		System.out.println("Spam: + " + mes.getSpam());
 
-		if (priority == "LOW")
+		if (priority.equals("LOW"))
 			prioridad = Priority.LOW;
-		else if (priority == "NEUTRAL")
+		else if (priority.equals("NEUTRAL"))
 			prioridad = Priority.NEUTRAL;
 		else
 			prioridad = Priority.HIGH;
@@ -226,9 +224,9 @@ public class MessageController extends AbstractController {
 		Priority prioridad;
 		Message message;
 
-		if (priority == "LOW")
+		if (priority.equals("LOW"))
 			prioridad = Priority.LOW;
-		else if (priority == "NEUTRAL")
+		else if (priority.equals("NEUTRAL"))
 			prioridad = Priority.NEUTRAL;
 		else
 			prioridad = Priority.HIGH;
