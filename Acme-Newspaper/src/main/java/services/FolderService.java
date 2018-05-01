@@ -55,14 +55,14 @@ public class FolderService {
 		Collection<Folder> folders = new ArrayList<Folder>();
 		folders = this.folderRepository.findAll();
 
-		Assert.isTrue(nombre != "inbox");
-		Assert.isTrue(nombre != "outbox");
-		Assert.isTrue(nombre != "notificationbox");
-		Assert.isTrue(nombre != "trashbox");
-		Assert.isTrue(nombre != "spambox");
+		Assert.isTrue(!nombre.equals("inbox"));
+		Assert.isTrue(!nombre.equals("outbox"));
+		Assert.isTrue(!nombre.equals("notificationbox"));
+		Assert.isTrue(!nombre.equals("trashbox"));
+		Assert.isTrue(!nombre.equals("inspamboxbox"));
 
 		for (final Folder f : folders)
-			Assert.isTrue(f.getName() != nombre);
+			Assert.isTrue(!f.getName().equals(nombre));
 
 		folder = new Folder();
 		folder.setName(nombre);
@@ -92,14 +92,14 @@ public class FolderService {
 		else
 			parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
 
-		Assert.isTrue(nombre != "inbox");
-		Assert.isTrue(nombre != "outbox");
-		Assert.isTrue(nombre != "notificationbox");
-		Assert.isTrue(nombre != "trashbox");
-		Assert.isTrue(nombre != "inspamboxbox");
+		Assert.isTrue(!nombre.equals("inbox"));
+		Assert.isTrue(!nombre.equals("outbox"));
+		Assert.isTrue(!nombre.equals("notificationbox"));
+		Assert.isTrue(!nombre.equals("trashbox"));
+		Assert.isTrue(!nombre.equals("inspamboxbox"));
 
 		for (final Folder f : folders)
-			Assert.isTrue(f.getName() != nombre);
+			Assert.isTrue(!f.getName().equals(nombre));
 
 		folder = new Folder();
 		folder.setName(nombre);
@@ -125,15 +125,14 @@ public class FolderService {
 		Collection<Folder> folders = new ArrayList<Folder>();
 		folders = this.folderRepository.findAll();
 
-		Assert.isTrue(nombre != "inbox");
-		Assert.isTrue(nombre != "outbox");
-		Assert.isTrue(nombre != "notificationbox");
-		Assert.isTrue(nombre != "trashbox");
-		Assert.isTrue(nombre != "inspamboxbox");
-		System.out.println("Pasamos los assert ");
+		Assert.isTrue(!nombre.equals("inbox"));
+		Assert.isTrue(!nombre.equals("outbox"));
+		Assert.isTrue(!nombre.equals("notificationbox"));
+		Assert.isTrue(!nombre.equals("trashbox"));
+		Assert.isTrue(!nombre.equals("inspamboxbox"));
 
 		for (final Folder f : folders)
-			Assert.isTrue(f.getName() != nombre);
+			Assert.isTrue(!f.getName().equals(nombre));
 
 		folder = new Folder();
 		folder.setName(nombre);
@@ -141,13 +140,10 @@ public class FolderService {
 		//folder.setMessages(messages);
 		folder.setPredefined(false);
 		folder.setChildren(new ArrayList<Folder>());
-		System.out.println("Empezamos los sysout ");
 		System.out.println(folder);
 		result = this.save(folder);
-
 		return result;
 	}
-
 	public Folder createForUser2(final String nombre, final Actor actor) {
 		Folder folder;
 		Folder result;

@@ -110,15 +110,15 @@
 		<security:intercept-url pattern="/suscription/suscribe.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/suscription/mySuscriptions.do" access="hasRole('CUSTOMER')" />
 		
-		<security:intercept-url pattern="/folder/list.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
-		<security:intercept-url pattern="/folder/edit.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
-		<security:intercept-url pattern="/folder/create.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
+		<security:intercept-url pattern="/folder/list.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER') or hasRole('AGENT')"/>
+		<security:intercept-url pattern="/folder/edit.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')or hasRole('AGENT')"/>
+		<security:intercept-url pattern="/folder/create.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')or hasRole('AGENT')"/>
 		
-		<security:intercept-url pattern="/message/list.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
-		<security:intercept-url pattern="/message/edit.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
-		<security:intercept-url pattern="/message/send.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
-		<security:intercept-url pattern="/message/display.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
-		<security:intercept-url pattern="/message/create.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')"/>
+		<security:intercept-url pattern="/message/list.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')or hasRole('AGENT')"/>
+		<security:intercept-url pattern="/message/edit.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')or hasRole('AGENT')"/>
+		<security:intercept-url pattern="/message/send.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')or hasRole('AGENT')"/>
+		<security:intercept-url pattern="/message/display.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')or hasRole('AGENT')"/>
+		<security:intercept-url pattern="/message/create.do" access="hasRole('ADMIN') or hasRole('CUSTOMER') or hasRole('USER')or hasRole('AGENT')"/>
 		
 		<!-- END ANGEL -->
 		
