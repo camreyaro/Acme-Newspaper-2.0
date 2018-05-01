@@ -142,6 +142,18 @@
 		</property>
 	</bean>
 	
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="agent2" />
+		<property name="password" value="b1a4a6b01cc297d4677c4ca6656e14d7" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="AGENT" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<!-- Other domain beans come here -->
 		
 	<!-- USERS-->
@@ -356,6 +368,27 @@
 		<property name="hasConfirmedTerms" value="true" />
 		<property name="confirmMoment" value="20/02/2016 00:00" />
 		<property name="userAccount" ref="userAccount10" />
+		<!-- <property name="folder">
+			<list>
+			<ref bean="folderA1.1"/>
+			<ref bean="folderA1.2"/>
+			<ref bean="folderA1.3"/>
+			<ref bean="folderA1.4"/>
+			<ref bean="folderA1.5"/>
+			<ref bean="folderA1.6"/>
+		</list>
+		</property> -->
+	</bean>
+	
+	<bean id="agent2" class="domain.Agent">
+		<property name="name" value="Rafael" />
+		<property name="surname" value="Macias" />
+		<property name="postalAddress" value="Paseo de las Delicias 24" />
+		<property name="phoneNumber" value="83427833427" />
+		<property name="emailAddress" value="rafa@gmail.com" />
+		<property name="hasConfirmedTerms" value="true" />
+		<property name="confirmMoment" value="20/02/2016 00:00" />
+		<property name="userAccount" ref="userAccount11" />
 		<!-- <property name="folder">
 			<list>
 			<ref bean="folderA1.1"/>

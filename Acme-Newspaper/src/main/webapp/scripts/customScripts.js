@@ -7,6 +7,14 @@ $(document).ready(function() {
 		"lengthMenu": [ 5,10,15 ],
 		 "paging": false
 	});
+	
+	$('#myTablePaginate').DataTable({
+		"lengthMenu": [ 5,10,15 ]
+	});
+	
+	$('#myTablePaginate2').DataTable({
+		"lengthMenu": [ 4,10,15 ]
+	});
 });
 
 // PHONE QUESTION
