@@ -18,7 +18,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="tabooWords" requestURI="tabooWord/list.do" id="row">
+	name="tabooWords" requestURI="administrator/listTabooWords.do" id="row">
 
 	<spring:message code="master.page.spamWord" var="titleH" />
 	<display:column property="word" title="${titleH}" />
