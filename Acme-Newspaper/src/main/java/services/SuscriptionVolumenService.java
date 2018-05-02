@@ -83,8 +83,7 @@ public class SuscriptionVolumenService {
 	}
 
 	public Boolean amSubscribed(final Newspaper n) {
-		final Customer c = (Customer) this.actorService.findByPrincipal();
-		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(n.getId(), c.getId());
+		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(n.getId(), this.actorService.findByPrincipal().getId());
 
 		Boolean res = true;
 		if (sv == null)
@@ -93,8 +92,7 @@ public class SuscriptionVolumenService {
 	}
 
 	public Boolean amSubscribed(final Integer newspaperId) {
-		final Customer c = (Customer) this.actorService.findByPrincipal();
-		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(newspaperId, c.getId());
+		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(newspaperId, this.actorService.findByPrincipal().getId());
 
 		Boolean res = true;
 		if (sv == null)
