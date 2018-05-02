@@ -83,7 +83,7 @@ public class FolderService {
 		//final Collection<Message> messages = new ArrayList<Message>(); //Inicializamos tambien las listas aunque esten vacias
 		actor = this.actorService.findByPrincipal();
 		Collection<Folder> folders = new ArrayList<Folder>();
-		folders = this.folderRepository.findAll();
+		folders = this.folderRepository.findFolderByUser(actor.getUserAccount().getId());
 		final Folder parent;
 
 		parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
@@ -106,9 +106,12 @@ public class FolderService {
 		folder.setPredefined(false);
 		folder.setChildren(new ArrayList<Folder>());
 		folder.setParent(parent);
+		
 		System.out.println("El parent que le ponemos: " + folder.getParent().getName());
 
 		result = this.save(folder);
+		parent.getChildren().add(result);
+		this.save(parent);
 
 		return result;
 	}
@@ -229,6 +232,7 @@ public class FolderService {
 	public void delete(final Folder folder) {
 		Assert.isTrue(!folder.getPredefined(), "message.error.predefined");
 		Assert.isTrue(folder.getChildren().size() == 0, "message.error.children");
+		folder.getParent().getChildren().remove(folder);
 		this.folderRepository.delete(folder);
 	}
 
