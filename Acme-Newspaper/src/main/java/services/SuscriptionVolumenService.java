@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Calendar;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,19 +84,19 @@ public class SuscriptionVolumenService {
 	}
 
 	public Boolean amSubscribed(final Newspaper n) {
-		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(n.getId(), this.actorService.findByPrincipal().getId());
+		final Collection<SuscriptionVolumen> sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(this.actorService.findByPrincipal().getId(), n.getId());
 
 		Boolean res = true;
-		if (sv == null)
+		if (sv == null || sv.size() == 0)
 			res = false;
 		return res;
 	}
 
 	public Boolean amSubscribed(final Integer newspaperId) {
-		final SuscriptionVolumen sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(newspaperId, this.actorService.findByPrincipal().getId());
+		final Collection<SuscriptionVolumen> sv = this.suscriptionVolumenRepository.getSVFromNewspaperAndCustomer(this.actorService.findByPrincipal().getId(), newspaperId);
 
 		Boolean res = true;
-		if (sv == null)
+		if (sv == null || sv.size() == 0)
 			res = false;
 		return res;
 	}
