@@ -568,7 +568,6 @@
 		<property name="body" value="Es rotundamente falso que se haya pretendido por mi parte interferir, modificar o manipular alguna de las actuaciones del proceso. Así de contundente se ha mostrado el rector de la Universidad Rey Juan Carlos de Madrid, Javier Ramos, que ha negado que le diera instrucciones al director del máster de Cifuentes, Enrique Álvarez Conde, para reconstruir el acta del Trabajo de Fin de Máster (TFM). Ramos ha dejado sin coartada a Cifuentes y ha cuestionado que haya defendido dicho trabajo final.En un rueda de prensa en la que ha comparecido para dar explicaciones sobre el máster de la presidenta de la Comunidad de Madrid, Cristina Cifuentes, Ramos ha arremetido contra Álvarez Conde, contra quien emprenderá medidas legales. No voy a permitir que nadie ensucie mi nombre, ha dicho, y ha descargado toda la culpa en sus subordinados al tiempo que apuntaba a la presidenta madrileña." />
 		<property name="pictureURLs" >
 			<list>
-			<value></value>
 			</list>
 		</property>
 		<property name="saved" value="true" />
@@ -588,7 +587,7 @@ La plataforma Masterchain fue desarrollada por el banco central, la Asociación 
 En comentarios entregados hacia finales de 2017, Skorobogatova sugirió que, además de construir una red de pagos en toda la EAEU, Rusia podría considerar participar en el desarrollo de una moneda digital que sirva a la unión como un todo." />
 		<property name="pictureURLs" >
 			<list>
-			<value></value>
+			
 			</list>
 		</property>
 		<property name="saved" value="false" />
@@ -608,7 +607,7 @@ Los fiscales del Departamento de Investigación Criminal de Ciencia y Tecnologí
 Ellos alegan que, durante un mantenimiento de rutina del servidor de la compañía, Mo descubrió que alguien intentó robar criptomonedas de la empresa mediante piratería, pero falló." />
 		<property name="pictureURLs" >
 			<list>
-			<value></value>
+			
 			</list>
 		</property>
 		<property name="saved" value="true" />
@@ -947,7 +946,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 		<property name="text" value="Se descubren nuevas firmas falsificadas"/>
 		<property name="pictureUrls" >
 			<list>
-			<value></value>
+			
 			</list>
 		</property>
 		<property name="article" ref="article4"/>
@@ -959,7 +958,7 @@ El mismo juzgado ha condenado al gobierno de Constantina por vulverar el derecho
 		<property name="text" value="Los heridos en el accidente han sido dados de alta y han regresado a sus casas."/>
 		<property name="pictureUrls" >
 			<list>
-			<value></value>
+			
 			</list>
 		</property>
 		<property name="article" ref="article14"/>
