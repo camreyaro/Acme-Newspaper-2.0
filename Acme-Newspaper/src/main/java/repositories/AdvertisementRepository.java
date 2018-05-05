@@ -25,6 +25,9 @@ public interface AdvertisementRepository extends JpaRepository<Advertisement, In
 
 	@Query("select ads from Advertisement ads where  ads.newspaper in (select a.newspaper from Article a where a.newspaper.id=?1) order by rand()")
 	ArrayList<Advertisement> findRandomAdvertisementByNewspaperId(int newspaperId);
+	
+	@Query("select a from Advertisement a join a.newspaper n where n.id=?1")
+	Collection<Advertisement> getAdvertisementsByNewspaperId(int newspaperId);
 
 	//Dashboard
 

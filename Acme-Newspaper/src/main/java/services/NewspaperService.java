@@ -25,6 +25,7 @@ import org.springframework.validation.Validator;
 
 import repositories.NewspaperRepository;
 import security.LoginService;
+import domain.Advertisement;
 import domain.Article;
 import domain.Newspaper;
 import domain.SpamWord;
@@ -54,6 +55,8 @@ public class NewspaperService {
 	private SuscriptionService	suscriptionService;
 	@Autowired
 	private VolumenService		volumenService;
+	@Autowired
+	private AdvertisementService	advertisementService;
 
 	@Autowired
 	Validator					validator;
@@ -132,7 +135,7 @@ public class NewspaperService {
 		Assert.isTrue(LoginService.getPrincipal().isAuthority("ADMIN"), "error.commit.permission");
 
 		newspaper.getPublisher().getNewspapers().remove(newspaper);
-
+		
 		for (final Article a : new ArrayList<>(newspaper.getArticles())) {
 			newspaper.getArticles().remove(a);
 			this.articleService.delete(a);
@@ -141,8 +144,12 @@ public class NewspaperService {
 		for (final Suscription s : new ArrayList<>(this.suscriptionService.suscriptionByNewspaperId(newspaper.getId())))
 			this.suscriptionService.delete(s.getId());
 
-		for (final Volumen v : this.volumenService.getVolumensOfNewspaper(newspaper.getId()))
+		for (final Volumen v : new ArrayList<>(this.volumenService.getVolumensOfNewspaper(newspaper.getId())))
 			this.volumenService.removeNewspaper(v, newspaper);
+		
+		for (final Advertisement ad : new ArrayList<>(this.advertisementService.getAdvertisementsByNewspaperId(newspaper.getId())))
+			this.advertisementService.delete(ad);
+		
 		this.newspaperRepository.delete(newspaper);
 	}
 

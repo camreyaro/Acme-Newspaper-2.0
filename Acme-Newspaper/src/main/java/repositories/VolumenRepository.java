@@ -24,7 +24,7 @@ public interface VolumenRepository extends JpaRepository<Volumen, Integer> {
 	@Query("select n from Volumen v join v.newspapers n where v.id=?1")
 	Collection<Newspaper> getAllNewspaper(Integer id);
 
-	@Query("select v from Volumen v join v.newspapers n where (select p from Newspaper p where p.id=?1) member of n")
+	@Query("select v from Volumen v where (select p from Newspaper p where p.id=?1) member of v.newspapers")
 	Collection<Volumen> getVolumensOfNewspaper(Integer id);
 
 	@Query("select sv.volumen from SuscriptionVolumen sv where sv.customer.id=?1")

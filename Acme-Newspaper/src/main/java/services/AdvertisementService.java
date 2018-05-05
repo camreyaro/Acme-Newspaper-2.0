@@ -157,6 +157,10 @@ public class AdvertisementService {
 		else
 			return null;
 	}
+	
+	public Collection<Advertisement> getAdvertisementsByNewspaperId(int newspaperId){
+		return this.advertisementRepository.getAdvertisementsByNewspaperId(newspaperId);
+	}
 
 	//Dashboard
 	public Double ratioNewspaperWithAdsVsWithoutAds() {
