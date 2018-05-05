@@ -30,8 +30,11 @@
 <jstl:if test="${number eq pageNumber}">
 <jstl:out value="${number}"/>
 </jstl:if>
-<jstl:if test="${number ne pageNumber}">
+<jstl:if test="${number ne pageNumber && myList eq false}">
 <a class="links" href="newspaper/list.do?pageNumber=<jstl:out value="${number}"/>&keyword=<jstl:out value="${keyword}"/>"><jstl:out value="${number}"/></a>
+</jstl:if>
+<jstl:if test="${number ne pageNumber && myList eq true}">
+<a class="links" href="newspaper/user/list.do?pageNumber=<jstl:out value="${number}"/>&keyword=<jstl:out value="${keyword}"/>"><jstl:out value="${number}"/></a>
 </jstl:if>
 &nbsp;&nbsp;&nbsp;&nbsp;
 </jstl:forEach>
