@@ -83,9 +83,13 @@ public class FollowUpController extends AbstractController{
 				res.addObject("followUps", this.followUpService.getFollowUpsFromArticle(art.getId()));
 				//res.addObject("articled", rend.getId());
 			} catch (Throwable oops) {
-				res = this.createEditModelAndView(foll, "followUp.commit.error");
+				String messageCode = "followUp.commit.error";
+				if (oops.getMessage().contains("org.hibernate.validator.constraints.URL.message"))
+					messageCode = "org.hibernate.validator.constraints.URL.message";
+				res = this.createEditModelAndView(foll, messageCode);
 
-			}
+			}	
+				
 		return res;
 	}
 	

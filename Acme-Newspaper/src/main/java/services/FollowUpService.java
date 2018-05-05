@@ -6,6 +6,7 @@ import java.util.Date;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -65,6 +66,15 @@ public class FollowUpService {
 				.equals(this.actorService.findByPrincipal()));
 
 		FollowUp saved;
+		
+		if(f.getPictureUrls() != null){
+			
+			UrlValidator urlValidator = new UrlValidator(UrlValidator.ALLOW_LOCAL_URLS);
+			
+			for(String url : f.getPictureUrls()){
+				Assert.isTrue(urlValidator.isValid(url), "org.hibernate.validator.constraints.URL.message");
+			}
+		}
 
 		if (f.getId() == 0) {
 
