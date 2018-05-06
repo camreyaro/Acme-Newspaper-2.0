@@ -106,7 +106,7 @@ public class FolderService {
 		folder.setPredefined(false);
 		folder.setChildren(new ArrayList<Folder>());
 		folder.setParent(parent);
-		
+
 		System.out.println("El parent que le ponemos: " + folder.getParent().getName());
 
 		result = this.save(folder);
@@ -232,7 +232,8 @@ public class FolderService {
 	public void delete(final Folder folder) {
 		Assert.isTrue(!folder.getPredefined(), "message.error.predefined");
 		Assert.isTrue(folder.getChildren().size() == 0, "message.error.children");
-		folder.getParent().getChildren().remove(folder);
+		if (folder.getParent() != null)
+			folder.getParent().getChildren().remove(folder);
 		this.folderRepository.delete(folder);
 	}
 

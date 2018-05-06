@@ -82,7 +82,6 @@ public class FolderController extends AbstractController {
 		Folder folder;
 
 		folder = this.folderService.findOne(folderId);
-		System.out.println("soy el /edit: " + folder.getParent());
 		Assert.notNull(folder);
 		if (folder.getParent() == null)
 			result = this.createEditModelAndView(folder);
@@ -97,7 +96,7 @@ public class FolderController extends AbstractController {
 		ModelAndView result;
 		Folder folder;
 		folder = this.folderService.reconstruct(fol, binding);
-		System.out.println("EStamos aqui, vamos a ver el parent: " + folder.getParent());
+
 		if (!folder.getActor().equals(this.actorService.findByPrincipal()))
 			result = new ModelAndView("redirect:list.do");
 		else if (binding.hasErrors())
@@ -109,7 +108,6 @@ public class FolderController extends AbstractController {
 					this.folderService.save(folder);
 				} else if (folder.getParent() != null) {
 					this.folderService.createForUser(folder.getName(), folder.getParent().getName());
-					System.out.println("Estoy en la shit");
 				} else if (folder.getParent() == null)
 					this.folderService.createForUserRaiz(folder.getName());
 				result = new ModelAndView("redirect:list.do");
@@ -123,9 +121,10 @@ public class FolderController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
-	public ModelAndView delete(final Folder folder, final BindingResult binding) {
+	public ModelAndView delete(final Folder fol, final BindingResult binding) {
 		ModelAndView result;
-
+		Folder folder;
+		folder = this.folderService.reconstruct(fol, binding);
 		try {
 			this.folderService.delete(folder);
 			result = new ModelAndView("redirect:list.do");

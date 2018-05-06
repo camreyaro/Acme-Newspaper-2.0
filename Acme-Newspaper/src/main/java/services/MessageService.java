@@ -144,6 +144,8 @@ public class MessageService {
 		actor = this.actorService.findByPrincipal();
 		final Message m = this.messageRepository.findOne(message.getId());
 		final Folder folderNew = this.folderService.findFolderByActor(actor.getUserAccount().getUsername(), folderName);
+		Assert.isTrue(folderNew.getActor().getId() == this.actorService.findByPrincipal().getId(), "message.error.notActor");
+		Assert.isTrue(m.getRecipient().getId() == this.actorService.findByPrincipal().getId(), "message.error.notActor");
 
 		message.setFolder(folderNew);
 
@@ -263,7 +265,7 @@ public class MessageService {
 			result = s;
 			result.setSender(this.actorService.findByPrincipal());
 			result.setFolder(this.folderService.findFolderByActor(this.actorService.findByPrincipal().getUserAccount().getUsername(), "inbox"));
-			result.setDate(s.getDate());
+			result.setDate(new Date(System.currentTimeMillis() - 1000));
 			result.setPriority(s.getPriority());
 			result.setSpam(false);
 
