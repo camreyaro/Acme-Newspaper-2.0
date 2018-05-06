@@ -18,7 +18,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 <acme:searchbox action="suscription/mySuscriptions.do"/>
 
-<display:table pagesize="5" class="displaytag" keepStatus="true"
+<display:table pagesize="5" class="displaytag"
 	name="suscription" requestURI="${requestURI}" id="row">
 	
 	<spring:message code="master.page.actions" var="actionsH" />

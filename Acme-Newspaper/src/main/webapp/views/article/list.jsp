@@ -26,7 +26,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 </jstl:forEach>
 
-<display:table pagesize="${pageSize}" class="displaytag"  keepStatus="true"
+<display:table pagesize="${pageSize}" class="displaytag" 
 	name="articles" requestURI="${requestURI}" id="row">
 
 	<spring:message code="master.page.title" var="titleH" />

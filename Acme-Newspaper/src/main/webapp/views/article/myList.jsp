@@ -26,7 +26,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 </jstl:forEach>
 
-<display:table pagesize="${pageSize}" class="displaytag"  keepStatus="true"
+<display:table pagesize="${pageSize}" class="displaytag"
 	name="articles" requestURI="/newspaper/article/user/myList.do" id="row">
 	
 

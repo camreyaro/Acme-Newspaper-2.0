@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" class="displaytag" keepStatus="true"
+<display:table pagesize="5" class="displaytag"
 	name="tabooWords" requestURI="administrator/listTabooWords.do" id="row">
 
 	<spring:message code="master.page.spamWord" var="titleH" />

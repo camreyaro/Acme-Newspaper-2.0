@@ -39,7 +39,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;
 </jstl:forEach>
 
-<display:table class="displaytag" keepStatus="true" pagesize="${pageSize}"
+<display:table class="displaytag" pagesize="${pageSize}"
 	name="newspapers" id="row">
 	
 	<spring:message code="master.page.actions" var="actionsH" />
@@ -59,7 +59,7 @@
 	
 	<spring:message code="master.page.picture" var="pictureUrlH" />
 	<display:column title="${pictureUrlH}">
-	<img src="${row.pictureUrl}" height="30px" width="auto" alt="${row.title}"/>
+	<img src="<jstl:out value='${row.pictureUrl}'/>" height="30px" width="auto" alt="<jstl:out value='${row.title}'/>"/>
 	</display:column>
 
 	<spring:message code="master.page.title" var="titleH" />
@@ -75,17 +75,17 @@
 	
 	<spring:message code="master.page.user" var="publisherH" />
 	<display:column title="${publisherH}">
-	<a href="user/display.do?userId=${row.publisher.id}">${row.publisher.userAccount.username}</a>
+	<a href="user/display.do?userId=<jstl:out value='${row.publisher.id}'/>"><jstl:out value='${row.publisher.userAccount.username}'/></a>
 	</display:column>
 	
 	<security:authorize access="hasRole('USER')">
 		<display:column title="Volumen">
-			<a href="volumen/user/add.do?newspaperId=${row.id}"><spring:message code="volumen.add"></spring:message></a>
+			<a href="volumen/user/add.do?newspaperId=<jstl:out value='${row.id}'/>"><spring:message code="volumen.add"></spring:message></a>
 		</display:column>
 		<jstl:if test="${creator}">
 		
 			<display:column title="${volumen.title}">
-			<a href="volumen/user/remove.do?newspaperId=${row.id}&volumenId=${volumen.id}" style="color:red;"><spring:message code="volumen.remove"></spring:message></a>
+			<a href="volumen/user/remove.do?newspaperId=<jstl:out value='${row.id}'/>&volumenId=<jstl:out value='${volumen.id}'/>" style="color:red;"><spring:message code="volumen.remove"></spring:message></a>
 			</display:column>
 		
 		</jstl:if>

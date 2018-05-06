@@ -29,7 +29,7 @@
 
 <!-- Listing grid -->
 
-<display:table pagesize="${pageSize}" class="displaytag" keepStatus="true"
+<display:table pagesize="${pageSize}" class="displaytag" 
 	name="users" requestURI="user/list.do" id="row">
 
 	<spring:message code="user.name" var="nameHeader" />

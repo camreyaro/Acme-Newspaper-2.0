@@ -7,7 +7,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" class="displaytag"  keepStatus="true"
+<display:table pagesize="5" class="displaytag" 
 	name="followUps" requestURI="${requestURI}" id="row">
 	
 	<spring:message code="master.page.picture" var="pictureUrlH" />
