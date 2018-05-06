@@ -80,7 +80,7 @@ public class Advertisement extends DomainEntity {
 	}
 
 	@NotNull
-	@DecimalMin("0.1")
+	@DecimalMin("0.0")
 	public Double getPrice() {
 		return this.price;
 	}

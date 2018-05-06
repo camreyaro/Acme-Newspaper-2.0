@@ -88,7 +88,7 @@ public class CreditCard {
 	}
 
 	@Transient
-	//which must not expire during the current month (i remove >= to month comparator to >)
+	//which must not expire during the current month (removed >= month comparator to >)
 	public boolean validCreditCardDate() {
 		if (this.getExpirationYear() > Calendar.getInstance().get(Calendar.YEAR) || (this.getExpirationYear() == Calendar.getInstance().get(Calendar.YEAR) && this.getExpirationMonth() > Calendar.getInstance().get(Calendar.MONTH) + 1))
 			return true;
