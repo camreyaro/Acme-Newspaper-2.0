@@ -76,6 +76,7 @@ public class NewspaperController extends AbstractController {
 		result.addObject("pageNumber", pageNumber);
 		result.addObject("pageSize", pageSize);
 		result.addObject("totalPages", totalPages);
+		result.addObject("myList", false);
 		result.addObject("keyword", keyword);
 		return result;
 	}
