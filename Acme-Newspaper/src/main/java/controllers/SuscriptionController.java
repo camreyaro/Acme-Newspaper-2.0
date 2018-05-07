@@ -4,8 +4,6 @@ package controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -69,7 +67,7 @@ public class SuscriptionController extends AbstractController {
 	// Suscript -----------------------------------------------------------
 
 	@RequestMapping(value = "/suscribe")
-	public ModelAndView register(@RequestParam String newspaperId) {
+	public ModelAndView register(@RequestParam final String newspaperId) {
 		ModelAndView result;
 		Suscription suscription;
 		Newspaper newspaper;
@@ -86,14 +84,14 @@ public class SuscriptionController extends AbstractController {
 				result.addObject("suscription", suscription);
 				result.addObject("newspaperId", suscription.getNewspaper().getId());
 			}
-		} catch (Throwable o) {
+		} catch (final Throwable o) {
 			result = new ModelAndView("redirect:/newspaper/list.do");
 		}
 
 		return result;
 	}
 	@RequestMapping(value = "/suscribe", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveSuscript(@Valid Suscription sus, BindingResult binding) {
+	public ModelAndView saveSuscript(final Suscription sus, final BindingResult binding) {
 		ModelAndView result;
 		Suscription suscription;
 		suscription = this.suscriptionService.reconstruct(sus, binding);
@@ -104,7 +102,7 @@ public class SuscriptionController extends AbstractController {
 				this.suscriptionService.suscribe(suscription);
 				//Esto tengo que cambiar el redirect, cuando sepa la url
 				result = new ModelAndView("redirect:/newspaper/list.do");
-			} catch (Throwable oops) {
+			} catch (final Throwable oops) {
 				String errorMessage = "suscription.suscript.error";
 				if (oops.getMessage().contains("message.error"))
 					errorMessage = oops.getMessage();
@@ -116,7 +114,7 @@ public class SuscriptionController extends AbstractController {
 	}
 	// Ancillary methods ------------------------------------------------------
 
-	protected ModelAndView createEditModelAndView(Suscription suscription) {
+	protected ModelAndView createEditModelAndView(final Suscription suscription) {
 		ModelAndView result;
 
 		result = this.createEditModelAndView(suscription, null);
@@ -124,7 +122,7 @@ public class SuscriptionController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(Suscription suscription, String message) {
+	protected ModelAndView createEditModelAndView(final Suscription suscription, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("suscription/suscribe");
