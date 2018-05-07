@@ -38,7 +38,9 @@
 	name="articles" requestURI="user/display.do" id="row">
 
 	<spring:message code="article.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" />
+	<display:column title="${titleHeader}">
+	<a href="newspaper/article/display.do?articleId=${row.id}"><jstl:out value="${row.title}" /></a>
+	</display:column>
 	
 	<spring:message code="article.moment" var="momentHeader" />
 	<display:column property="moment" title="${momentHeader}" />
@@ -46,11 +48,10 @@
 	<spring:message code="article.newspaper" var="newspaperHeader" />
 	<display:column property="newspaper.title" title="${newspaperHeader}" />
 	
-	<display:column>
-	<a href="newspaper/article/display.do?articleId=${row.id}"><spring:message code="article.details"/></a>
-	</display:column>
+	
 	</display:table>
 	</jstl:if>
+	
 	
 	<security:authorize access="hasRole('USER')">
 	<jstl:if test="${ owner }">
@@ -79,7 +80,9 @@
 	name="privateArticlesSuscribed" requestURI="user/display.do" id="row">
 
 	<spring:message code="article.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" />
+	<display:column title="${titleHeader}">
+	<a href="newspaper/article/display.do?articleId=${row.id}"><jstl:out value="${row.title}"/></a>
+	</display:column>
 	
 	<spring:message code="article.moment" var="momentHeader" />
 	<display:column property="moment" title="${momentHeader}" />
@@ -87,9 +90,7 @@
 	<spring:message code="article.newspaper" var="newspaperHeader" />
 	<display:column property="newspaper.title" title="${newspaperHeader}" />
 	
-	<display:column>
-	<a href="newspaper/article/display.do?articleId=${row.id}"><spring:message code="article.details"/></a>
-	</display:column>
+	
 	</display:table>
 	</jstl:if>
 	
