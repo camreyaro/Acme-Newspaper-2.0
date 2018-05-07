@@ -35,15 +35,15 @@ public class NewspaperUserController extends AbstractController {
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
 		Page<Newspaper> pageObject;
-		
+
 		if (pageNumber == null)
 			pageNumber = 1;
 		if (pageSize == null)
 			pageSize = 5;
 
 		User user = (User) this.actorService.findByPrincipal();
-		
-		pageObject = newspaperService.findAllByUserPaginate(pageNumber, pageSize, user.getId());
+
+		pageObject = this.newspaperService.findAllByUserPaginate(pageNumber, pageSize, user.getId());
 		newspapers = pageObject.getContent();
 
 		result = new ModelAndView("newspaper/list");
@@ -95,7 +95,7 @@ public class NewspaperUserController extends AbstractController {
 			this.newspaperService.publish(newspaper);
 			result = new ModelAndView("redirect:list.do");
 		} catch (Throwable oops) {
-			result = this.createEditModelAndView(newspaper, oops.getMessage());
+			result = this.createEditModelAndView(newspaper, this.getCommitOrJavaError(oops.getMessage()));
 		}
 
 		return result;
@@ -129,8 +129,7 @@ public class NewspaperUserController extends AbstractController {
 				this.newspaperService.save(newspaper);
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
-				System.out.println(oops.getMessage());
-				result = this.createEditModelAndView(newspaper, oops.getMessage());
+				result = this.createEditModelAndView(newspaper, this.getCommitOrJavaError(oops.getMessage()));
 			}
 		return result;
 	}

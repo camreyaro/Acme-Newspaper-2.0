@@ -42,11 +42,11 @@ public class ChirpUserController extends AbstractController {
 			pageSize = 5;
 
 		User user = (User) this.actorService.findByPrincipal();
-		
+
 		chirps.addAll(this.chirpService.findFollowingChirpsByUserIdPaginate(pageNumber, pageSize, user.getId()).getContent());
-		
+
 		totalPages = Math.ceil((this.chirpService.findFollowingChirpsByUserId(user.getId()).size() / (double) pageSize));
-		
+
 		result = new ModelAndView("chirp/user/list");
 		result.addObject("chirps", chirps);
 		result.addObject("requestURI", "chirp/user/list.do");
@@ -83,7 +83,7 @@ public class ChirpUserController extends AbstractController {
 				result = new ModelAndView("redirect:list.do");
 			} catch (Throwable oops) {
 				System.out.println("--------------------------: " + ExceptionUtils.getStackTrace(oops));
-				result = this.createEditModelAndView(chirp, oops.getMessage());
+				result = this.createEditModelAndView(chirp, this.getCommitOrJavaError(oops.getMessage()));
 
 			}
 		return result;
