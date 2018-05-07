@@ -44,8 +44,7 @@ public class NewspaperController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(value = "keyword", required = false) @Nullable String keyword,
-			@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView list(@RequestParam(value = "keyword", required = false) @Nullable String keyword, @RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView result;
 		Collection<Newspaper> newspapers = new ArrayList<>();
 		Double totalPages = 0.;
@@ -54,21 +53,25 @@ public class NewspaperController extends AbstractController {
 			pageNumber = 1;
 		if (pageSize == null)
 			pageSize = 5;
-		
-//		totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) pageSize));
 
-		if (keyword == null || keyword == "" || keyword.length() < 2){
+		//		totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) pageSize));
+
+		if (keyword == null) {
 			newspapers = this.newspaperService.getPublishedNewspapersPaginate(pageNumber, pageSize).getContent();
 			totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) pageSize));
-		}else{
+		} else if (keyword.isEmpty() || keyword.length() < 2) {
+			result = new ModelAndView("newspaper/search");
+			result.addObject("errorSearch", "error.commit.search");
+			return result;
+		} else {
 			newspapers = this.newspaperService.getNewspapersByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
 			totalPages = Math.ceil((this.newspaperService.findNewspapersByKeyword(keyword).size() / (double) pageSize));
 		}
-		
-//		if(newspapers.size() == 0){
-//			pageSize = 0;
-//			totalPages = 0.;
-//		}
+
+		//		if(newspapers.size() == 0){
+		//			pageSize = 0;
+		//			totalPages = 0.;
+		//		}
 
 		result = new ModelAndView("newspaper/list");
 		result.addObject("newspapers", newspapers);
@@ -99,9 +102,10 @@ public class NewspaperController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public ModelAndView search() {
+	public ModelAndView search(@RequestParam(value = "keyword", required = false) @Nullable String errorSearch) {
 		ModelAndView result;
 		result = new ModelAndView("newspaper/search");
+		result.addObject("errorSearch", errorSearch);
 		return result;
 	}
 

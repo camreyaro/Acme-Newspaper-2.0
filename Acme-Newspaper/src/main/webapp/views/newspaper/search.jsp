@@ -17,4 +17,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<p>
 <acme:searchbox action="newspaper/list.do"/>
+<jstl:if test="${ errorSearch != null}">
+<div class="error"><spring:message code="${errorSearch}" /></div>
+</jstl:if>
+</p>
