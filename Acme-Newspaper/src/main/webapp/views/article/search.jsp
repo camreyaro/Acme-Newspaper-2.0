@@ -18,3 +18,6 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <acme:searchbox action="newspaper/article/searchedList.do"/>
+
+<spring:message code="article.search.message"/>
+<b> <jstl:out value="${article.search}" /> </b>

@@ -15,6 +15,7 @@ import java.util.Collection;
 import org.apache.avro.reflect.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,10 +28,12 @@ import services.AdvertisementService;
 import services.ArticleService;
 import services.NewspaperService;
 import services.SuscriptionService;
+import services.UserService;
 import domain.Actor;
 import domain.Advertisement;
 import domain.Article;
 import domain.Newspaper;
+import domain.User;
 
 @Controller
 @RequestMapping("/newspaper/article")
@@ -44,6 +47,9 @@ public class ArticleController extends AbstractController {
 
 	@Autowired
 	ActorService			actorService;
+	
+	@Autowired
+	UserService			userService;
 
 	@Autowired
 	SuscriptionService		suscriptionService;
@@ -99,16 +105,17 @@ public class ArticleController extends AbstractController {
 			esPublico = true;
 
 		try {
-			Actor actor = this.actorService.findByPrincipal();
-
-			if (a.getCreator().getId() == actor.getId())
-				esMio = true;
-
 			if (LoginService.getPrincipal().isAuthority("ADMIN"))
 				esAdmin = true;
-
+			
 			if (LoginService.getPrincipal().isAuthority("CUSTOMER") && a.getNewspaper().getPublished() && this.suscriptionService.isCustomerSuscribe(newspaperId))
-				esCustomer = true;
+				esCustomer= true; seeFU = true;
+			
+			
+			User actual = (User)this.actorService.findByPrincipal();
+
+			if (a.getCreator().getId() == actual.getId())
+				esMio = true; createFU = true;
 
 		} catch (Throwable oops) {
 			if (esMio || esPublico || esAdmin || esCustomer) {
@@ -310,11 +317,12 @@ public class ArticleController extends AbstractController {
 				this.articleService.save(toSave);
 
 				Newspaper newsp = toSave.getNewspaper();
-
-				res = new ModelAndView("newspaper/article/list");
-				res.addObject("articles", newsp.getArticles());
-				res.addObject("newspaperId", newsp.getId());
-				//res.addObject("articled", rend.getId());
+				
+				User user = (User) this.actorService.findByPrincipal();
+				Collection<Article> articles = this.articleService.articlesByUserId(user.getId());
+				
+				res = new ModelAndView("newspaper/article/user/myList");
+				res.addObject("articles", articles);
 			} catch (Throwable oops) {
 				String messageCode = "article.commit.error";
 				if (oops.getMessage().contains("org.hibernate.validator.constraints.URL.message"))
@@ -333,6 +341,12 @@ public class ArticleController extends AbstractController {
 		Integer id = new Integer(articleId);
 		Article a = this.articleService.findOne(id);
 
+		try{ //Si no es el creatod del artículo, redirijo al buscador de artículos.
+			User actual = (User) this.actorService.findByPrincipal();
+			if(a.getCreator().getId()!=(actual.getId()))
+				return new ModelAndView("newspaper/article/search");
+		}catch(Throwable oops){}
+		
 		if (a.getNewspaper().getPublished() || a.getSaved())
 			res = new ModelAndView("welcome/index");
 		else {
@@ -349,21 +363,24 @@ public class ArticleController extends AbstractController {
 	public ModelAndView saveOfEdit(Article article, BindingResult binding) {
 		ModelAndView res;
 		Article art = this.articleService.reconstruct(article, binding);
-
+		
+		User actual = (User) this.actorService.findByPrincipal();
+		Collection<Article> articles = this.articleService.articlesByUserId(actual.getId());
 		if (binding.hasErrors())
 			res = this.createEditModelAndView(art);
 		else
 			try {
-
+				
+				Assert.isTrue(articles.contains(article));
+				
 				Article toSave = art;
-
+	
 				this.articleService.save(toSave);
 
 				Newspaper newsp = toSave.getNewspaper();
 
-				res = new ModelAndView("newspaper/article/list");
-				res.addObject("articles", newsp.getArticles());
-				res.addObject("newspaperId", newsp.getId());
+				res = new ModelAndView("newspaper/article/user/myList");
+				res.addObject("articles", articles);
 				//res.addObject("articled", rend.getId());
 			} catch (Throwable oops) {
 				res = this.createEditModelAndView(art, "article.commit.error");

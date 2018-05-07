@@ -17,6 +17,7 @@ import services.FollowUpService;
 import services.SuscriptionService;
 import domain.Article;
 import domain.FollowUp;
+import domain.User;
 
 @Controller
 @RequestMapping("/newspaper/article/followup")
@@ -78,7 +79,7 @@ public class FollowUpController extends AbstractController{
 
 				Article art = toSave.getArticle();
 				
-				res = new ModelAndView("newspaper/article/followup/list");
+				res = new ModelAndView("redirect:/newspaper/article/followup/list.do");
 				res.addObject("articleId", foll.getArticle().getId() );
 				res.addObject("followUps", this.followUpService.getFollowUpsFromArticle(art.getId()));
 				//res.addObject("articled", rend.getId());
@@ -102,7 +103,8 @@ public class FollowUpController extends AbstractController{
 		Boolean createFU = false;
 		
 		try{
-			createFU = a.getCreator().getId() == this.actorService.findByPrincipal().getId();
+			User actual = (User) this.actorService.findByPrincipal();
+			createFU = a.getCreator().getId() == actual.getId();
 		}catch(Throwable oops){}
 		
 		if (!a.getSaved())
@@ -116,7 +118,7 @@ public class FollowUpController extends AbstractController{
 					res.addObject("articleId", articleId);
 					res.addObject("createFU", createFU);
 				}else{
-					if(this.suscriptionService.isCustomerSuscribe(newspaperId)){
+					if(this.suscriptionService.isCustomerSuscribe(newspaperId) || createFU){
 						Collection<FollowUp> followUps = this.followUpService.getFollowUpsFromArticle(id);
 						res = new ModelAndView("newspaper/article/followup/list");
 						res.addObject("followUps", followUps);

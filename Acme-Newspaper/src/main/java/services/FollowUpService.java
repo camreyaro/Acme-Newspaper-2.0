@@ -16,6 +16,7 @@ import org.springframework.validation.Validator;
 import repositories.FollowUpRepository;
 import domain.Article;
 import domain.FollowUp;
+import domain.User;
 
 @Service
 @Transactional
@@ -62,9 +63,12 @@ public class FollowUpService {
 		Assert.notNull(f.getText());
 		Assert.isTrue(!f.getTitle().isEmpty());
 		Assert.isTrue(!f.getText().isEmpty());
+		
+		
+		User actual = (User) this.actorService.findByPrincipal();
+		
 		Assert.isTrue(f.getArticle().getCreator()
-				.equals(this.actorService.findByPrincipal()));
-
+				.equals(actual));
 		FollowUp saved;
 		
 		if(f.getPictureUrls() != null){

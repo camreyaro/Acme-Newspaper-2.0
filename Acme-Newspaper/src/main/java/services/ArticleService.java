@@ -138,20 +138,18 @@ public class ArticleService {
 	// --- RECONSTRUCT ---
 	public Article reconstruct(Article a, BindingResult binding) {
 		Article result;
-
+		final Article original = this.articleRepository.findOne(a.getId());
+		
 		if (a.getId() == 0) {
 			result = a;
 			result.setCreator((User) this.actorService.findByPrincipal());
+			if(a.getSaved()==null)
+				a.setSaved(false);
 		} else {
-			result = this.articleRepository.findOne(a.getId());
-			Assert.notNull(result);
 			//Aquí van los atributos del formulario
-			result.setTitle(a.getTitle());
-			result.setPictureURLs(a.getPictureURLs());
-			result.setSummary(a.getSummary());
-			result.setBody(a.getBody());
-			result.setSaved(a.getSaved());
-			result.setTitle(a.getTitle());
+			result = a;
+			result.setNewspaper(original.getNewspaper());
+			result.setCreator(original.getCreator());
 		}
 		this.validator.validate(result, binding);
 

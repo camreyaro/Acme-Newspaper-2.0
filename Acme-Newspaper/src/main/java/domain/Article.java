@@ -154,7 +154,7 @@ public class Article extends DomainEntity {
 	
 	@Transient
 	public Boolean canDisplay(){
-		return newspaper.getPublished() && newspaper.getPublicNp() && saved;
+		return newspaper.getPublished() && saved;
 	}
 
 }
