@@ -85,7 +85,7 @@
 		<security:intercept-url pattern="/user/follow.do" access="hasRole('USER')" /> 
 		<security:intercept-url pattern="/user/unfollow.do" access="hasRole('USER')" /> 
 		
-		<security:intercept-url pattern="/agent/register.do" access="permitAll" /> 
+		<security:intercept-url pattern="/agent/register.do" access="isAnonymous()"/> 
 		<security:intercept-url pattern="/agent/edit.do" access="hasRole('AGENT')" />
 		<security:intercept-url pattern="/agent/display.do" access="hasRole('AGENT')" />
 		
@@ -104,7 +104,7 @@
 		<!-- END SERGIO -->
 		
 		<!-- ANGEL -->
-		<security:intercept-url pattern="/customer/register.do" access="permitAll" /> 
+		<security:intercept-url pattern="/customer/register.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/customer/edit.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/customer/display.do" access="hasRole('CUSTOMER')" />
 		<security:intercept-url pattern="/suscription/suscribe.do" access="hasRole('CUSTOMER')" />
@@ -142,7 +142,7 @@
 		<!-- END CAMILA -->
 		
 		<!-- ISMAEL -->
-		<security:intercept-url pattern="/user/register.do" access="permitAll" /> 
+		<security:intercept-url pattern="/user/register.do" access="isAnonymous()" /> 
 		<security:intercept-url pattern="/user/edit.do" access="hasRole('USER')" />
 		<security:intercept-url pattern="/user/display.do" access="permitAll" />
 		<security:intercept-url pattern="/user/list.do" access="permitAll" />  
