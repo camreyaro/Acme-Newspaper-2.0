@@ -92,17 +92,18 @@ public class AdvertisementController extends AbstractController {
 	public ModelAndView save(Advertisement advertisement, BindingResult binding) {
 		ModelAndView result;
 
-		advertisement = this.advertisementService.reconstruct(advertisement, binding);
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(advertisement);
-		else
-			try {
+		try {
+			advertisement = this.advertisementService.reconstruct(advertisement, binding);
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(advertisement);
+			else {
 				this.advertisementService.save(advertisement);
 				result = new ModelAndView("redirect:list.do");
-			} catch (final Throwable oops) {
-				System.out.println(oops);
-				result = this.createEditModelAndView(advertisement, this.getCommitOrJavaError(oops.getMessage()));
 			}
+		} catch (final Throwable oops) {
+			System.out.println(oops);
+			result = this.createEditModelAndView(advertisement, this.getCommitOrJavaError(oops.getMessage()));
+		}
 		return result;
 	}
 

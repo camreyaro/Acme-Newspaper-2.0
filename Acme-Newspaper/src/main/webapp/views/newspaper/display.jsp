@@ -81,7 +81,7 @@
 			<acme:action code="master.page.publish"  url="newspaper/user/publish.do?newspaperId=${newspaper.id}"/>
 		</jstl:if>
 		
-		<%-- <acme:action code="master.page.edit"  url="newspaper/user/edit.do?newspaperId=${newspaper.id}"/> --%>
+		 <acme:action code="master.page.edit"  url="newspaper/user/edit.do?newspaperId=${newspaper.id}"/> 
 	</jstl:if>
 	
 	<!-- DELETE -->

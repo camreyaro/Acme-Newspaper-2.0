@@ -120,17 +120,17 @@ public class NewspaperUserController extends AbstractController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Newspaper newspaper, BindingResult binding) {
 		ModelAndView result;
-
-		newspaper = this.newspaperService.reconstruct(newspaper, binding);
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(newspaper);
-		else
-			try {
+		try {
+			newspaper = this.newspaperService.reconstruct(newspaper, binding);
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(newspaper);
+			else {
 				this.newspaperService.save(newspaper);
 				result = new ModelAndView("redirect:list.do");
-			} catch (Throwable oops) {
-				result = this.createEditModelAndView(newspaper, this.getCommitOrJavaError(oops.getMessage()));
 			}
+		} catch (Throwable oops) {
+			result = this.createEditModelAndView(newspaper, this.getCommitOrJavaError(oops.getMessage()));
+		}
 		return result;
 	}
 

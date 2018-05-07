@@ -31,8 +31,5 @@
 	
 	
 	<acme:submit code="master.page.save"  name="save" />
-	<jstl:if test="${newspaper.id != 0 }">
-	<acme:submit code="master.page.delete"  name="delete" />
-	</jstl:if>
 	<acme:cancel code="master.page.return" url="/newspaper/display.do?newspaperId=${newspaper.id }" />
 </form:form>

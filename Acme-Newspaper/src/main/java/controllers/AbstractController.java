@@ -34,9 +34,8 @@ public class AbstractController {
 	}
 
 	//Este metodo simplemente checkea si el oops.getMessage() es un error de un Assert definido en el Service o un error de Java.
-	@SuppressWarnings("null")
 	public String getCommitOrJavaError(String oops) {
-		if (oops != null || oops.length() < 35)
+		if (oops != null && (oops.startsWith("error.commit") || oops.startsWith("message.error.")))
 			return oops;
 		else
 			return "error.commit";

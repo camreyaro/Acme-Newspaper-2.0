@@ -65,12 +65,12 @@ public class AdvertisementService {
 	}
 
 	public void save(Advertisement advertisement) {
+		Assert.notNull(advertisement.getAgent(), "error.commit");
 		Assert.isTrue(LoginService.getPrincipal().equals(advertisement.getAgent().getUserAccount()), "error.commit.owner");
 		Assert.isTrue(advertisement.getNewspaper().getPublished(), "error.commit.published");
 		Assert.isTrue(advertisement.getCreditCard().validCreditCardDate(), "message.error.creditcardMonth");
 		this.advertisementRepository.save(advertisement);
 	}
-
 	public Advertisement findOne(int advertisementId) {
 		Advertisement advertisement = this.advertisementRepository.findOne(advertisementId);
 		Assert.notNull(advertisement, "error.commit.null");
@@ -119,7 +119,7 @@ public class AdvertisementService {
 
 	public Advertisement reconstruct(final Advertisement advertisement, final BindingResult binding) {
 		Advertisement res;
-		final Advertisement original = this.advertisementRepository.findOne(advertisement.getId());
+		Advertisement original = this.advertisementRepository.findOne(advertisement.getId());
 
 		if (advertisement.getId() == 0)
 			res = advertisement;
@@ -132,7 +132,6 @@ public class AdvertisementService {
 		this.validator.validate(res, binding);
 		return res;
 	}
-
 	//--------------Others
 	public void saveAndFlush(Advertisement advertisement) {
 		this.advertisementRepository.saveAndFlush(advertisement);
@@ -157,8 +156,8 @@ public class AdvertisementService {
 		else
 			return null;
 	}
-	
-	public Collection<Advertisement> getAdvertisementsByNewspaperId(int newspaperId){
+
+	public Collection<Advertisement> getAdvertisementsByNewspaperId(int newspaperId) {
 		return this.advertisementRepository.getAdvertisementsByNewspaperId(newspaperId);
 	}
 

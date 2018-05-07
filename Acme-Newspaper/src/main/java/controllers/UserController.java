@@ -25,7 +25,6 @@ import domain.Actor;
 import domain.Article;
 import domain.Chirp;
 import domain.User;
-import domain.Volumen;
 import forms.UserForm;
 
 @Controller
@@ -58,37 +57,42 @@ public class UserController extends AbstractController {
 		Boolean owner = false;
 
 		//Si la userID es nula y no está logueado, lo envío a la lista de usuarios.
-		if(userId == null)
-			try{
+		if (userId == null)
+			try {
 				userId = this.actorService.findByPrincipal().getId();
 				actor = this.actorService.findOne(userId);
 				articles = this.articleService.getPublishedArticlesByUserId(userId);
 				chirps = this.chirpService.findChirpsByUserId(userId);
 				result = new ModelAndView("user/display");
-			}catch(Throwable oops){
-				result = list(null,null);
-//				result.addObject("users", this.userService.findAll());
+				if (LoginService.getPrincipal().isAuthority("USER")) {
+					result.addObject("numFollowers", this.userService.getFollowers(userId).size());
+					owner = true;
+					result.addObject("owner", owner);
+				}
+			} catch (Throwable oops) {
+				result = this.list(null, null);
+				//				result.addObject("users", this.userService.findAll());
 				return result;
 			}
-		
+
 		//Si la userId no es de ningún actor, devuelve a la lista de usuarios. 
 		//Puede darse el caso de que un no-autenticado intente meter la url con un userId no válido.
-		else{
-			try{
-		
+		else {
+			try {
+
 				actor = this.actorService.findOne(userId);
-			
-				if(actor == null){
+
+				if (actor == null) {
 					result = new ModelAndView("user/list");
-					result.addObject("users",this.userService.findAll());
+					result.addObject("users", this.userService.findAll());
 					return result;
 				}
-			
+
 				if (LoginService.getPrincipal().getId() == actor.getUserAccount().getId())
 					owner = true;
-			}catch(Throwable oops){	}
-			
-			
+			} catch (Throwable oops) {
+			}
+
 			articles = this.articleService.getPublishedArticlesByUserId(userId);
 			chirps = this.chirpService.findChirpsByUserId(userId);
 			result = new ModelAndView("user/display");
@@ -110,10 +114,9 @@ public class UserController extends AbstractController {
 					result.addObject("owner", owner);
 					result.addObject("isFollower", me.getFollowing().contains(following));
 				}
-			} catch (Throwable oops) {}
+			} catch (Throwable oops) {
+			}
 		}
-		
-		
 
 		result.addObject("user", actor);
 		result.addObject("articles", articles);
@@ -121,21 +124,19 @@ public class UserController extends AbstractController {
 
 		return result;
 	}
-	
-	
-	
+
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
 		ModelAndView result;
 		Page<User> pageObject;
-		
+
 		if (pageNumber == null)
 			pageNumber = 1;
 		if (pageSize == null)
 			pageSize = 3;
-		
-		pageObject = userService.findAllPaginate(pageNumber, pageSize);
+
+		pageObject = this.userService.findAllPaginate(pageNumber, pageSize);
 
 		result = new ModelAndView("user/list");
 		result.addObject("users", pageObject.getContent());
