@@ -282,6 +282,13 @@ public class MessageService {
 		Folder folder;
 		final Collection<Message> menRes = new ArrayList<Message>();
 
+		final Collection<Authority> au = this.actorService.findByPrincipal().getUserAccount().getAuthorities();
+		Boolean r = false;
+		for (final Authority x : au)
+			if (x.getAuthority().equals(Authority.ADMIN))
+				r = true;
+		Assert.isTrue(r == true);
+
 		final Collection<Actor> receptores = this.actorService.findAll();
 
 		final Collection<SpamWord> spamWords = this.spamWordService.findAll();
