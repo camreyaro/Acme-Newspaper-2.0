@@ -89,12 +89,15 @@ public class FolderService {
 		parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
 		System.out.println("En sus muertos, aqui estoy: " + parent.getName());
 		System.out.println("Nombre del padre: " + padre);
+		System.out.println("Nombre: " + nombre);
 
 		Assert.isTrue(!nombre.equals("inbox"));
 		Assert.isTrue(!nombre.equals("outbox"));
 		Assert.isTrue(!nombre.equals("notificationbox"));
 		Assert.isTrue(!nombre.equals("trashbox"));
 		Assert.isTrue(!nombre.equals("inspamboxbox"));
+
+		System.out.println("No pasa los primeros: ");
 
 		for (final Folder f : folders)
 			Assert.isTrue(!f.getName().equals(nombre));
@@ -111,7 +114,7 @@ public class FolderService {
 
 		result = this.save(folder);
 		parent.getChildren().add(result);
-		this.save(parent);
+		this.save2(parent); //Save 2 es el save de parents
 
 		return result;
 	}
@@ -205,6 +208,7 @@ public class FolderService {
 		Assert.notNull(result);
 		return result;
 	}
+	//Save for parents
 	public Folder save2(final Folder folder) {
 		Folder result;
 		result = this.folderRepository.save(folder);

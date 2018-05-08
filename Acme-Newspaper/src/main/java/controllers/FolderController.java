@@ -95,29 +95,37 @@ public class FolderController extends AbstractController {
 	public ModelAndView saveFinal(final Folder fol, final BindingResult binding) {
 		ModelAndView result;
 		Folder folder;
+		System.out.println("Vamos a ver el paa: " + fol.getParent());
 		folder = this.folderService.reconstruct(fol, binding);
 
 		if (!folder.getActor().equals(this.actorService.findByPrincipal()))
 			result = new ModelAndView("redirect:list.do");
-		else if (binding.hasErrors())
-			result = this.createEditModelAndView(folder);
-		else
+		else if (binding.hasErrors()) {
+				result = this.createEditModelAndViewList(folder, folder.getParent().getId());
+		} else{
 			try {
 				if (folder.getId() != 0) {
 					folder.setParent(this.folderService.findOne(folder.getId()).getParent());
 					this.folderService.save(folder);
-				} else if (folder.getParent() != null) {
+				} else if (folder.getParent() != null)
 					this.folderService.createForUser(folder.getName(), folder.getParent().getName());
-				} else if (folder.getParent() == null)
+				else if (folder.getParent() == null)
 					this.folderService.createForUserRaiz(folder.getName());
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 				String errorMessage = "folder.commit.error";
+				
 				if (oops.getMessage().contains("message.error"))
 					errorMessage = oops.getMessage();
-				result = this.createEditModelAndView(folder, errorMessage);
+				
+				if (folder.getParent() == null)
+					result = this.createEditModelAndView(folder,errorMessage);
+				else
+					result = this.createEditModelAndViewList(folder,errorMessage, folder.getParent().getId());
+			
 			}
+		}
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
