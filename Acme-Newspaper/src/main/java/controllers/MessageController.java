@@ -149,7 +149,6 @@ public class MessageController extends AbstractController {
 		final String admin = "ADMIN";
 		final Collection<Authority> au = this.actorService.findByPrincipal().getUserAccount().getAuthorities();
 		message = this.messageService.create();
-		System.out.println("Mensaje creado folder: " + message.getFolder());
 
 		boolean a = false;
 		for (final Authority au2 : au)
@@ -186,33 +185,38 @@ public class MessageController extends AbstractController {
 	public ModelAndView save(final Message mes, final BindingResult binding, final String priority) {
 		ModelAndView result;
 		Message message;
-		if (mes.getId() == 0) {
-			Priority prioridad;
-			if (priority.equals("LOW"))
-				prioridad = Priority.LOW;
-			else if (priority.equals("NEUTRAL"))
-				prioridad = Priority.NEUTRAL;
-			else
-				prioridad = Priority.HIGH;
-			mes.setPriority(prioridad);
-		}
 
-		message = this.messageService.reconstruct(mes, binding);
-
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(message);
-		else
-			try {
-				Assert.notNull(message.getRecipient());
-				if (message.getId() != 0)
-					this.messageService.update(message, message.getFolder().getName());
+		if (mes.getFolder() == null)
+			result = new ModelAndView("redirect:create.do?all=0");
+		else {
+			if (mes.getId() == 0) {
+				Priority prioridad;
+				if (priority.equals("LOW"))
+					prioridad = Priority.LOW;
+				else if (priority.equals("NEUTRAL"))
+					prioridad = Priority.NEUTRAL;
 				else
-					this.messageService.save(message);
-				final int folderId = message.getFolder().getId();
-				result = new ModelAndView("redirect:list.do?folderId=" + folderId);
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(message, "message.commit.error");
+					prioridad = Priority.HIGH;
+				mes.setPriority(prioridad);
 			}
+
+			message = this.messageService.reconstruct(mes, binding);
+
+			if (binding.hasErrors())
+				result = this.createEditModelAndView(message);
+			else
+				try {
+					Assert.notNull(message.getRecipient());
+					if (message.getId() != 0)
+						this.messageService.update(message, message.getFolder().getName());
+					else
+						this.messageService.save(message);
+					final int folderId = message.getFolder().getId();
+					result = new ModelAndView("redirect:list.do?folderId=" + folderId);
+				} catch (final Throwable oops) {
+					result = this.createEditModelAndView(message, "message.commit.error");
+				}
+		}
 		return result;
 	}
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "saveAll")
@@ -240,7 +244,6 @@ public class MessageController extends AbstractController {
 
 				result = new ModelAndView("redirect:list.do?folderId=" + folderId);
 			} catch (final Throwable oops) {
-				System.out.println(oops.getMessage());
 				result = this.AllModelAndView(message, "message.commit.error");
 			}
 		return result;
@@ -257,7 +260,6 @@ public class MessageController extends AbstractController {
 			final int folderId = messageR.getFolder().getId();
 			result = new ModelAndView("redirect:list.do?folderId=" + folderId);
 		} catch (final Throwable oops) {
-			System.out.println(oops.getMessage());
 			result = this.createEditModelAndView(messageR, "message.commit.error");
 		}
 		return result;

@@ -76,7 +76,7 @@ public class FolderService {
 		return result;
 	}
 
-	public Folder createForUser(final String nombre, final String padre) {
+	public Folder createForUser(final String nombre, final int padre) {
 		Folder folder;
 		Actor actor;
 		Folder result;
@@ -86,7 +86,8 @@ public class FolderService {
 		folders = this.folderRepository.findFolderByUser(actor.getUserAccount().getId());
 		final Folder parent;
 
-		parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
+		//parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
+		parent = this.findOne(padre);
 		System.out.println("En sus muertos, aqui estoy: " + parent.getName());
 		System.out.println("Nombre del padre: " + padre);
 		System.out.println("Nombre: " + nombre);
@@ -97,7 +98,10 @@ public class FolderService {
 		Assert.isTrue(!nombre.equals("trashbox"));
 		Assert.isTrue(!nombre.equals("inspamboxbox"));
 
-		System.out.println("No pasa los primeros: ");
+		Assert.isTrue(parent.getActor().getId() == this.actorService.findByPrincipal().getId(), "message.error.notFolderParent");
+
+		System.out.println("Id del parent: " + parent.getActor().getId());
+		System.out.println("Id del actor: " + parent.getActor().getId());
 
 		for (final Folder f : folders)
 			Assert.isTrue(!f.getName().equals(nombre));
@@ -196,6 +200,7 @@ public class FolderService {
 		Folder result;
 		final Collection<Folder> folders = this.findByUser();
 		Assert.isTrue(folder.getActor().getId() == this.actorService.findByPrincipal().getId(), "message.error.notActor");
+		Assert.isTrue(folder.getParent().getActor().getId() == this.actorService.findByPrincipal().getId(), "message.error.notFolderParent");
 		Assert.isTrue(folder.getPredefined() == false);
 		if (folder.getId() > 0)
 			Assert.isTrue(folders.contains(folder));

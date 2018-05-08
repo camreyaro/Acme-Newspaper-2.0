@@ -108,7 +108,7 @@ public class FolderController extends AbstractController {
 					folder.setParent(this.folderService.findOne(folder.getId()).getParent());
 					this.folderService.save(folder);
 				} else if (folder.getParent() != null)
-					this.folderService.createForUser(folder.getName(), folder.getParent().getName());
+					this.folderService.createForUser(folder.getName(), folder.getParent().getId());
 				else if (folder.getParent() == null)
 					this.folderService.createForUserRaiz(folder.getName());
 				result = new ModelAndView("redirect:list.do");
