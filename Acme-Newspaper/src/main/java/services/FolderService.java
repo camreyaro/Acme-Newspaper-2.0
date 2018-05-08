@@ -88,9 +88,6 @@ public class FolderService {
 
 		//parent = this.findFolderByActor(actor.getUserAccount().getUsername(), padre);
 		parent = this.findOne(padre);
-		System.out.println("En sus muertos, aqui estoy: " + parent.getName());
-		System.out.println("Nombre del padre: " + padre);
-		System.out.println("Nombre: " + nombre);
 
 		Assert.isTrue(!nombre.equals("inbox"));
 		Assert.isTrue(!nombre.equals("outbox"));
@@ -99,9 +96,6 @@ public class FolderService {
 		Assert.isTrue(!nombre.equals("inspamboxbox"));
 
 		Assert.isTrue(parent.getActor().getId() == this.actorService.findByPrincipal().getId(), "message.error.notFolderParent");
-
-		System.out.println("Id del parent: " + parent.getActor().getId());
-		System.out.println("Id del actor: " + parent.getActor().getId());
 
 		for (final Folder f : folders)
 			Assert.isTrue(!f.getName().equals(nombre));
@@ -114,8 +108,6 @@ public class FolderService {
 		folder.setChildren(new ArrayList<Folder>());
 		folder.setParent(parent);
 
-		System.out.println("El parent que le ponemos: " + folder.getParent().getName());
-
 		result = this.save(folder);
 		parent.getChildren().add(result);
 		this.save2(parent); //Save 2 es el save de parents
@@ -124,7 +116,6 @@ public class FolderService {
 	}
 
 	public Folder createForUserRaiz(final String nombre) {
-		System.out.println("Entra al save ");
 
 		Folder folder;
 		Actor actor;
@@ -149,7 +140,6 @@ public class FolderService {
 		//folder.setMessages(messages);
 		folder.setPredefined(false);
 		folder.setChildren(new ArrayList<Folder>());
-		System.out.println(folder);
 		result = this.save(folder);
 		return result;
 	}
@@ -165,7 +155,6 @@ public class FolderService {
 		folder.setPredefined(true);
 		folder.setChildren(new ArrayList<Folder>());
 
-		//result = this.saveSystem(folder, actor);
 		result = this.folderRepository.save(folder);
 		return result;
 	}
@@ -297,8 +286,6 @@ public class FolderService {
 			Assert.notNull(result);
 			result.setName(s.getName());
 		}
-
-		System.out.println("el paarent: " + result.getParent());
 
 		this.validator.validate(result, binding);
 

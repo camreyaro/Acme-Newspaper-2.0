@@ -125,11 +125,9 @@ public class MessageService {
 
 		final Folder folder = message.getFolder();
 
-		if (folder.getName().equals("trashbox")) {
-			System.out.println("Entra al delete");
+		if (folder.getName().equals("trashbox"))
 			this.deleteRepo(message);
-
-		} else
+		else
 			this.update(message, "trashbox");
 
 	}
@@ -168,7 +166,6 @@ public class MessageService {
 		actor = this.actorService.findByPrincipal();
 		final Collection<Actor> all = new ArrayList<Actor>(this.actorService.findAll());
 
-		System.out.println("Empezamos a mandar mensajes a todos");
 		for (final Actor x : all) {
 			final Message message = new Message();
 			Message result;
@@ -182,7 +179,6 @@ public class MessageService {
 			message.setSubject(messageToSend.getSubject());
 			message.setBody(messageToSend.getBody());
 			message.setSpam(false);
-			System.out.println("vamos a hacer el save");
 
 			result = this.saveNotification(message);
 
