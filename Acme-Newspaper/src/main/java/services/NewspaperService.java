@@ -133,7 +133,9 @@ public class NewspaperService {
 	}
 	public void delete(final Newspaper newspaper) {
 		Assert.notNull(newspaper, "error.commit.null");
-		Assert.isTrue(LoginService.getPrincipal().isAuthority("ADMIN"), "error.commit.permission");
+		
+		Boolean auth = LoginService.getPrincipal().isAuthority("ADMIN") || LoginService.getPrincipal().isAuthority("USER");
+		Assert.isTrue(auth, "error.commit.permission");
 
 		newspaper.getPublisher().getNewspapers().remove(newspaper);
 
@@ -251,7 +253,7 @@ public class NewspaperService {
 	public Newspaper reconstruct(final Newspaper n, final BindingResult binding) {
 		Newspaper result;
 
-		Newspaper original = this.findOne(n.getId());
+		
 
 		if (n.getId() == 0) {
 			result = n;
@@ -260,6 +262,8 @@ public class NewspaperService {
 			result.setArticles(new ArrayList<Article>());
 
 		} else {
+			Newspaper original = this.findOne(n.getId());
+			
 			result = n;
 			result.setTitle(n.getTitle());
 			result.setDescription(n.getDescription());

@@ -188,22 +188,21 @@ public class ArticleController extends AbstractController {
 	}
 
 	@RequestMapping("/user/myList")
-	public ModelAndView myList(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView myList(@RequestParam(required = false) Integer pageNumber) {
 		ModelAndView res;
 		Double totalPages = 0.;
 
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 4;
+		
 		
 		Actor a = this.actorService.findByPrincipal();
-		totalPages = Math.ceil((this.articleService.articlesByUserId(a.getId()).size() / (double) pageSize));
-		Collection<Article> articles = this.articleService.getArticlesByUserIdPaginate(pageNumber, pageSize, a.getId()).getContent();
+		totalPages = Math.ceil((this.articleService.articlesByUserId(a.getId()).size() / (double) 3));
+		Collection<Article> articles = this.articleService.getArticlesByUserIdPaginate(pageNumber, 3, a.getId()).getContent();
 		res = new ModelAndView("newspaper/article/user/myList");
 		res.addObject("articles", articles);
 		res.addObject("pageNumber", pageNumber);
-		res.addObject("pageSize", pageSize);
+		res.addObject("pageSize", 3);
 		res.addObject("totalPages", totalPages);
 
 		return res;
@@ -220,7 +219,7 @@ public class ArticleController extends AbstractController {
 
 	@RequestMapping(value = "/searchedList", method = RequestMethod.GET)
 	public ModelAndView searchedList(@RequestParam(value = "keyword", required = false) @Nullable String keyword,
-			@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+			@RequestParam(required = false) Integer pageNumber) {
 		ModelAndView result;
 		Collection<Article> articles;
 		Boolean esAdmin = false;
@@ -228,8 +227,6 @@ public class ArticleController extends AbstractController {
 
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 4;
 
 		try {
 
@@ -238,38 +235,38 @@ public class ArticleController extends AbstractController {
 		}
 
 		if (keyword == null || keyword == "" || keyword.length() < 2){
-			totalPages = Math.ceil((this.articleService.findAllValidAndPublic().size() / (double) pageSize));
-			articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
+			totalPages = Math.ceil((this.articleService.findAllValidAndPublic().size() / (double) 3));
+			articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, 3).getContent();
 		}else {
 
 			if (esAdmin)
 				articles = this.articleService.findAdminByKeyword(keyword);
 			
-			totalPages = Math.ceil((this.articleService.findAdminByKeyword(keyword).size() / (double) pageSize));
-			articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
+			totalPages = Math.ceil((this.articleService.findAdminByKeyword(keyword).size() / (double) 3));
+			articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, 3).getContent();
 
 			try {
 				Actor a = this.actorService.findByPrincipal();
 				if (LoginService.getPrincipal().isAuthority("CUSTOMER")){
 					System.out.println(keyword);
 					System.out.println(a.getId());
-					articles = this.articleService.findSuscriptedArticlesByKeywordPaginate(pageNumber, pageSize, keyword, a.getId()).getContent();
+					articles = this.articleService.findSuscriptedArticlesByKeywordPaginate(pageNumber, 3, keyword, a.getId()).getContent();
 				
-				totalPages = Math.ceil((this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId()).size() / (double) pageSize));
+				totalPages = Math.ceil((this.articleService.findSuscriptedArticlesByKeyword(keyword, a.getId()).size() / (double) 3));
 //				articles = this.articleService.findAllValidAndPublicPaginate(pageNumber, pageSize).getContent();
 				}else{
 //					articles = this.articleService.findPublicArticlesByKeyword(keyword);
 				
-				totalPages = Math.ceil((this.articleService.findPublicArticlesByKeyword(keyword).size() / (double) pageSize));
-				articles = this.articleService.findPublicArticlesByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
+				totalPages = Math.ceil((this.articleService.findPublicArticlesByKeyword(keyword).size() / (double) 3));
+				articles = this.articleService.findPublicArticlesByKeywordPaginate(pageNumber, 3, keyword).getContent();
 				}
 
 			} catch (Throwable oops) {
 
 				articles = this.articleService.findPublicArticlesByKeyword(keyword);
 				
-				totalPages = Math.ceil((this.articleService.findPublicArticlesByKeyword(keyword).size() / (double) pageSize));
-				articles = this.articleService.findPublicArticlesByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
+				totalPages = Math.ceil((this.articleService.findPublicArticlesByKeyword(keyword).size() / (double) 3));
+				articles = this.articleService.findPublicArticlesByKeywordPaginate(pageNumber, 3, keyword).getContent();
 			}
 		}
 
@@ -277,7 +274,7 @@ public class ArticleController extends AbstractController {
 		result.addObject("articles", articles);
 		result.addObject("requestURI", "newspaper/article/searchedList.do");
 		result.addObject("pageNumber", pageNumber);
-		result.addObject("pageSize", pageSize);
+		result.addObject("pageSize", 3);
 		result.addObject("totalPages", totalPages);
 		result.addObject("keyword", keyword);
 		return result;

@@ -31,19 +31,17 @@ public class NewspaperUserController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber) {
 		ModelAndView result;
 		Collection<Newspaper> newspapers;
 		Page<Newspaper> pageObject;
 
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 5;
 
 		User user = (User) this.actorService.findByPrincipal();
 
-		pageObject = this.newspaperService.findAllByUserPaginate(pageNumber, pageSize, user.getId());
+		pageObject = this.newspaperService.findAllByUserPaginate(pageNumber, 3, user.getId());
 		newspapers = pageObject.getContent();
 
 		result = new ModelAndView("newspaper/list");
@@ -51,11 +49,13 @@ public class NewspaperUserController extends AbstractController {
 		result.addObject("requestURI", "newspaper/user/list.do");
 		result.addObject("actor", user);
 		result.addObject("pageNumber", pageNumber);
-		result.addObject("pageSize", pageSize);
+		result.addObject("pageSize", 3);
 		result.addObject("myList", true);
 		result.addObject("totalPages", pageObject.getTotalPages());
 		return result;
 	}
+	
+	
 
 	@RequestMapping(value = "/avaibleList", method = RequestMethod.GET)
 	public ModelAndView avaibleList() {

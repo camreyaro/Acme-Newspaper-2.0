@@ -31,27 +31,25 @@ public class ChirpUserController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber) {
 		ModelAndView result;
 		Collection<Chirp> chirps = new ArrayList<>();
 		Double totalPages = 0.;
 
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 5;
 
 		User user = (User) this.actorService.findByPrincipal();
 
-		chirps.addAll(this.chirpService.findFollowingChirpsByUserIdPaginate(pageNumber, pageSize, user.getId()).getContent());
+		chirps.addAll(this.chirpService.findFollowingChirpsByUserIdPaginate(pageNumber, 3, user.getId()).getContent());
 
-		totalPages = Math.ceil((this.chirpService.findFollowingChirpsByUserId(user.getId()).size() / (double) pageSize));
+		totalPages = Math.ceil((this.chirpService.findFollowingChirpsByUserId(user.getId()).size() / (double) 3));
 
 		result = new ModelAndView("chirp/user/list");
 		result.addObject("chirps", chirps);
 		result.addObject("requestURI", "chirp/user/list.do");
 		result.addObject("pageNumber", pageNumber);
-		result.addObject("pageSize", pageSize);
+		result.addObject("pageSize", 3);
 		result.addObject("totalPages", totalPages);
 		return result;
 	}

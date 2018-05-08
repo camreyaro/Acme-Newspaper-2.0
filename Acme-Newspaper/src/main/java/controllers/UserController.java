@@ -70,7 +70,7 @@ public class UserController extends AbstractController {
 					result.addObject("owner", owner);
 				}
 			} catch (Throwable oops) {
-				result = this.list(null, null);
+				result = this.list(null);
 				//				result.addObject("users", this.userService.findAll());
 				return result;
 			}
@@ -127,22 +127,20 @@ public class UserController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber) {
 		ModelAndView result;
 		Page<User> pageObject;
 
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 3;
 
-		pageObject = this.userService.findAllPaginate(pageNumber, pageSize);
+		pageObject = this.userService.findAllPaginate(pageNumber, 3);
 
 		result = new ModelAndView("user/list");
 		result.addObject("users", pageObject.getContent());
 		result.addObject("totalPages", pageObject.getTotalPages());
 		result.addObject("pageNumber", pageNumber);
-		result.addObject("pageSize", pageSize);
+		result.addObject("pageSize", 3);
 
 		return result;
 	}

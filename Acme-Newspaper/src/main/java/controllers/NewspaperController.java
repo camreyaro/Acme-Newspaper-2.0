@@ -44,28 +44,26 @@ public class NewspaperController extends AbstractController {
 
 	// Listing ----------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam(value = "keyword", required = false) @Nullable String keyword, @RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView list(@RequestParam(value = "keyword", required = false) @Nullable String keyword, @RequestParam(required = false) Integer pageNumber) {
 		ModelAndView result;
 		Collection<Newspaper> newspapers = new ArrayList<>();
 		Double totalPages = 0.;
 
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 5;
 
 		//		totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) pageSize));
 
 		if (keyword == null) {
-			newspapers = this.newspaperService.getPublishedNewspapersPaginate(pageNumber, pageSize).getContent();
-			totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) pageSize));
+			newspapers = this.newspaperService.getPublishedNewspapersPaginate(pageNumber, 3).getContent();
+			totalPages = Math.ceil((this.newspaperService.findAllPublished().size() / (double) 3));
 		} else if (keyword.isEmpty() || keyword.length() < 2) {
 			result = new ModelAndView("newspaper/search");
 			result.addObject("errorSearch", "error.commit.search");
 			return result;
 		} else {
-			newspapers = this.newspaperService.getNewspapersByKeywordPaginate(pageNumber, pageSize, keyword).getContent();
-			totalPages = Math.ceil((this.newspaperService.findNewspapersByKeyword(keyword).size() / (double) pageSize));
+			newspapers = this.newspaperService.getNewspapersByKeywordPaginate(pageNumber, 3, keyword).getContent();
+			totalPages = Math.ceil((this.newspaperService.findNewspapersByKeyword(keyword).size() / (double) 3));
 		}
 
 		//		if(newspapers.size() == 0){
@@ -77,7 +75,7 @@ public class NewspaperController extends AbstractController {
 		result.addObject("newspapers", newspapers);
 		result.addObject("requestURI", "newspaper/list.do");
 		result.addObject("pageNumber", pageNumber);
-		result.addObject("pageSize", pageSize);
+		result.addObject("pageSize", 3);
 		result.addObject("totalPages", totalPages);
 		result.addObject("myList", false);
 		result.addObject("keyword", keyword);

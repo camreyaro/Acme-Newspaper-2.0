@@ -33,21 +33,19 @@ public class VolumenUserController extends AbstractController {
 
 
 	@RequestMapping("/myList")
-	public ModelAndView myList(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView myList(@RequestParam(required = false) Integer pageNumber) {
 		final ModelAndView res;
 		Page<Volumen> pageObject;
 		
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 5;
 
 		res = new ModelAndView("volumen/list");
-		pageObject = this.volumenService.getMyCreatedVolumensPaginate(pageNumber, pageSize);
+		pageObject = this.volumenService.getMyCreatedVolumensPaginate(pageNumber, 3);
 
 		res.addObject("volumens", pageObject.getContent());
 		res.addObject("pageNumber", pageNumber);
-		res.addObject("pageSize", pageSize);
+		res.addObject("pageSize", 3);
 		res.addObject("totalPages", pageObject.getTotalPages());
 		res.addObject("requestURI", "volumen/user/myList.do");
 

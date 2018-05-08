@@ -29,28 +29,26 @@ public class VolumenController extends AbstractController {
 
 
 	@RequestMapping("/list")
-	public ModelAndView list(@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+	public ModelAndView list(@RequestParam(required = false) Integer pageNumber) {
 		final ModelAndView res;
 		Collection<Volumen> volumens = new ArrayList<Volumen>();
 		Page<Volumen> pageObject;
 		
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 5;
 
 		try {
 			if (LoginService.getPrincipal().isAuthority("CUSTOMER")){
-				pageObject = this.volumenService.getMyNoSuscribedVolumensPaginate(pageNumber, pageSize);
+				pageObject = this.volumenService.getMyNoSuscribedVolumensPaginate(pageNumber, 3);
 				volumens = pageObject.getContent();
 			
 			}else{
-				pageObject = this.volumenService.findAllPaginate(pageNumber, pageSize);
+				pageObject = this.volumenService.findAllPaginate(pageNumber, 3);
 				volumens = pageObject.getContent();
 			}
 
 		} catch (final Throwable oops) {
-			pageObject = this.volumenService.findAllPaginate(pageNumber, pageSize);
+			pageObject = this.volumenService.findAllPaginate(pageNumber, 3);
 			volumens = pageObject.getContent();
 		}
 
@@ -58,7 +56,7 @@ public class VolumenController extends AbstractController {
 		res.addObject("requestURI", "volumen/list.do");
 		res.addObject("volumens", volumens);
 		res.addObject("pageNumber", pageNumber);
-		res.addObject("pageSize", pageSize);
+		res.addObject("pageSize", 3);
 		res.addObject("totalPages", pageObject.getTotalPages());
 
 		return res;
@@ -67,7 +65,7 @@ public class VolumenController extends AbstractController {
 
 	@RequestMapping("newspaper/list")
 	public ModelAndView newspaperList(@RequestParam final Integer volumenId, 
-			@RequestParam(required = false) Integer pageNumber, @RequestParam(required = false) Integer pageSize) {
+			@RequestParam(required = false) Integer pageNumber) {
 		final ModelAndView res;
 		Boolean creator = false;
 		final Volumen volumen = this.volumenService.findOne(volumenId);
@@ -76,8 +74,6 @@ public class VolumenController extends AbstractController {
 
 		if (pageNumber == null)
 			pageNumber = 1;
-		if (pageSize == null)
-			pageSize = 5;
 
 		try {
 			final Actor actor = this.actorService.findByPrincipal();
@@ -96,7 +92,7 @@ public class VolumenController extends AbstractController {
 		res.addObject("creator", creator);
 		res.addObject("volumen", volumen);
 		res.addObject("pageNumber", pageNumber);
-		res.addObject("pageSize", pageSize);
+		res.addObject("pageSize", 3);
 		res.addObject("totalPages", totalPages);
 
 		return res;
