@@ -72,6 +72,7 @@ public class AdvertisementService {
 		this.advertisementRepository.save(advertisement);
 	}
 	public Advertisement findOne(int advertisementId) {
+		Assert.isTrue(advertisementId > 0);
 		Advertisement advertisement = this.advertisementRepository.findOne(advertisementId);
 		Assert.notNull(advertisement, "error.commit.null");
 		return advertisement;
@@ -119,7 +120,8 @@ public class AdvertisementService {
 
 	public Advertisement reconstruct(final Advertisement advertisement, final BindingResult binding) {
 		Advertisement res;
-		Advertisement original = this.advertisementRepository.findOne(advertisement.getId());
+
+		Advertisement original = this.findOne(advertisement.getId());
 
 		if (advertisement.getId() == 0)
 			res = advertisement;

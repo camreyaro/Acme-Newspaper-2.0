@@ -39,27 +39,27 @@ public class NewspaperService {
 
 	// Managed repository ------------------------------ (Relacion con su propio repositorio)
 	@Autowired
-	private NewspaperRepository	newspaperRepository;
+	private NewspaperRepository		newspaperRepository;
 	@Autowired
-	private SpamWordService		spamWordService;
+	private SpamWordService			spamWordService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private UserService			userService;
+	private UserService				userService;
 
 	@Autowired
-	private ArticleService		articleService;
+	private ArticleService			articleService;
 	@Autowired
-	private SuscriptionService	suscriptionService;
+	private SuscriptionService		suscriptionService;
 	@Autowired
-	private VolumenService		volumenService;
+	private VolumenService			volumenService;
 	@Autowired
 	private AdvertisementService	advertisementService;
 
 	@Autowired
-	Validator					validator;
+	Validator						validator;
 
 
 	// Simple CRUD methods ------------------------------ (Operaciones básicas, pueden tener restricciones según los requisitos)
@@ -81,6 +81,7 @@ public class NewspaperService {
 	}
 
 	public Newspaper findOne(final int NewspaperId) {
+		Assert.isTrue(NewspaperId > 0);
 		Newspaper newspaper;
 		newspaper = this.newspaperRepository.findOne(NewspaperId);
 		Assert.notNull(newspaper, "error.commit.null");
@@ -135,7 +136,7 @@ public class NewspaperService {
 		Assert.isTrue(LoginService.getPrincipal().isAuthority("ADMIN"), "error.commit.permission");
 
 		newspaper.getPublisher().getNewspapers().remove(newspaper);
-		
+
 		for (final Article a : new ArrayList<>(newspaper.getArticles())) {
 			newspaper.getArticles().remove(a);
 			this.articleService.delete(a);
@@ -146,10 +147,10 @@ public class NewspaperService {
 
 		for (final Volumen v : new ArrayList<>(this.volumenService.getVolumensOfNewspaper(newspaper.getId())))
 			this.volumenService.removeNewspaper(v, newspaper);
-		
+
 		for (final Advertisement ad : new ArrayList<>(this.advertisementService.getAdvertisementsByNewspaperId(newspaper.getId())))
 			this.advertisementService.delete(ad);
-		
+
 		this.newspaperRepository.delete(newspaper);
 	}
 
@@ -249,7 +250,8 @@ public class NewspaperService {
 
 	public Newspaper reconstruct(final Newspaper n, final BindingResult binding) {
 		Newspaper result;
-		final Newspaper original = this.newspaperRepository.findOne(n.getId());
+
+		Newspaper original = this.findOne(n.getId());
 
 		if (n.getId() == 0) {
 			result = n;
@@ -275,22 +277,19 @@ public class NewspaperService {
 		return result;
 
 	}
-	
+
 	//Paginated repository
-	public Page<Newspaper> getPublishedNewspapersPaginate(final Integer pageNumber,
-			final Integer pageSize) {
+	public Page<Newspaper> getPublishedNewspapersPaginate(final Integer pageNumber, final Integer pageSize) {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 		return this.newspaperRepository.getPublishedNewspapersPaginate(request);
 	}
-	
-	public Page<Newspaper> getNewspapersByKeywordPaginate(final Integer pageNumber,
-			final Integer pageSize, String keyword) {
+
+	public Page<Newspaper> getNewspapersByKeywordPaginate(final Integer pageNumber, final Integer pageSize, String keyword) {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 		return this.newspaperRepository.findByKeywordPaginate(keyword, request);
 	}
-	
-	public Page<Newspaper> findAllByUserPaginate(final Integer pageNumber,
-			final Integer pageSize, final int userId) {
+
+	public Page<Newspaper> findAllByUserPaginate(final Integer pageNumber, final Integer pageSize, final int userId) {
 		final PageRequest request = new PageRequest(pageNumber - 1, pageSize);
 		return this.newspaperRepository.findAllByUserPaginate(userId, request);
 	}
