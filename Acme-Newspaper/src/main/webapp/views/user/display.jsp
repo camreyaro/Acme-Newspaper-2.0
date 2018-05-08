@@ -35,11 +35,11 @@
 	<h3><spring:message code="article.publicArticles"/></h3>
 	
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="articles" requestURI="user/display.do" id="row">
+	name="articles" requestURI="user/display.do" id="row1">
 
 	<spring:message code="article.title" var="titleHeader" />
 	<display:column title="${titleHeader}">
-	<a href="newspaper/article/display.do?articleId=${row.id}"><jstl:out value="${row.title}" /></a>
+	<a href="newspaper/article/display.do?articleId=${row1.id}"><jstl:out value="${row1.title}" /></a>
 	</display:column>
 	
 	<spring:message code="article.moment" var="momentHeader" />
@@ -77,11 +77,11 @@
 	<h3><spring:message code="article.suscribedArticles"/></h3>
 	
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="privateArticlesSuscribed" requestURI="user/display.do" id="row">
+	name="privateArticlesSuscribed" requestURI="user/display.do" id="row2">
 
 	<spring:message code="article.title" var="titleHeader" />
 	<display:column title="${titleHeader}">
-	<a href="newspaper/article/display.do?articleId=${row.id}"><jstl:out value="${row.title}"/></a>
+	<a href="newspaper/article/display.do?articleId=${row2.id}"><jstl:out value="${row2.title}"/></a>
 	</display:column>
 	
 	<spring:message code="article.moment" var="momentHeader" />
@@ -99,7 +99,7 @@
 	<h3><spring:message code="article.notSuscribedArticles"/></h3>
 	
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="privateArticlesNotSuscribed" requestURI="user/display.do" id="row">
+	name="privateArticlesNotSuscribed" requestURI="user/display.do" id="row3">
 
 	<spring:message code="article.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" />
@@ -119,7 +119,7 @@
 	<h3><spring:message code="article.privateArticles"/></h3>
 	
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="AllPrivateArticles" requestURI="user/display.do" id="row">
+	name="AllPrivateArticles" requestURI="user/display.do" id="row4">
 
 	<spring:message code="article.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" />
@@ -138,7 +138,7 @@
 	<h3>Chirps:</h3>
 	
 	<display:table pagesize="5" class="displaytag" keepStatus="true"
-	name="chirps" requestURI="user/display.do" id="row">
+	name="chirps" requestURI="user/display.do" id="row5">
 
 	<spring:message code="chirp.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" />
