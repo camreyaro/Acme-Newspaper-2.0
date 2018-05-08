@@ -140,7 +140,7 @@ public class FolderService {
 		//folder.setMessages(messages);
 		folder.setPredefined(false);
 		folder.setChildren(new ArrayList<Folder>());
-		result = this.save(folder);
+		result = this.save2(folder);
 		return result;
 	}
 	public Folder createForUser2(final String nombre, final Actor actor) {
@@ -280,6 +280,8 @@ public class FolderService {
 			result = s;
 			result.setParent(s.getParent());
 			result.setActor(actor);
+			result.setPredefined(false);
+			result.setChildren(new ArrayList<Folder>());
 
 		} else {
 			result = this.findOne(s.getId());

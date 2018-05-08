@@ -24,10 +24,8 @@
 	<jstl:if test="${folder.id !=0 }">
 		<form:hidden path="id"/>
 		<form:hidden path="version"/>
-		<form:hidden path="predefined"/>
-		<form:hidden path="children"/>
 		<form:hidden path="parent"/>
-		<form:hidden path="actor"/>
+
 
 		
 		
@@ -47,10 +45,6 @@
 	<jstl:if test="${folder.id == 0 }">
 		<form:hidden path="id"/>
 		<form:hidden path="version"/>
-		<form:hidden path="predefined"/>
-		<form:hidden path="children"/>
-		<form:hidden path="actor"/>
-		<form:hidden path="parent"/>
 		
 		
 
