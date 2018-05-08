@@ -18,7 +18,7 @@
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
 <display:table pagesize="5" class="displaytag"
-	name="chirps" requestURI="administrator/spamChirpsList.do" id="row">
+	name="chirps" requestURI="chirp/administrator/spamChirpsList.do" id="row">
 
 	<spring:message code="master.page.chirp" var="titleH" />
 	<display:column property="title" title="${titleH}" />
@@ -28,4 +28,6 @@
 	</display:column>
 	
 </display:table>
-
+<p>
+<spring:message code="admin.viewAll"/> <spring:message code="master.page.chirp"/>s? <a href="chirp/administrator/spamChirpsList.do?viewAll=1"><spring:message code="master.page.view"/></a>
+</p>

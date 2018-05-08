@@ -110,11 +110,14 @@ public class AdvertisementController extends AbstractController {
 	//Administrator ---------------------
 
 	@RequestMapping("advertisement/administrator/spamAdvertisementsList")
-	public ModelAndView spamNewspapersList() {
+	public ModelAndView spamNewspapersList(@RequestParam(value = "viewAll", required = false) String viewAll) {
 		ModelAndView result;
 		Collection<Advertisement> spamAds;
 
-		spamAds = this.advertisementService.getAdvertisementWithSpamWords();
+		if (viewAll == null)
+			spamAds = this.advertisementService.getAdvertisementWithSpamWords();
+		else
+			spamAds = this.advertisementService.findAll();
 
 		result = new ModelAndView("administrator/spamAdvertisementsList");
 		result.addObject("spamAds", spamAds);

@@ -32,4 +32,6 @@
 	</display:column>
 	
 </display:table>
-
+<p>
+<spring:message code="admin.viewAll"/> <spring:message code="master.page.advertisement"/>s? <a href="advertisement/administrator/spamAdvertisementsList.do?viewAll=1"><spring:message code="master.page.view"/></a>
+</p>

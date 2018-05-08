@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.Collection;
@@ -9,28 +10,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ChirpService;
-
-import domain.Article;
 import domain.Chirp;
-import domain.Newspaper;
 
 @Controller()
 @RequestMapping("/chirp/administrator")
 public class ChirpAdminController {
-	
+
 	@Autowired
 	private ChirpService	chirpService;
-	
+
+
 	@RequestMapping("/delete")
 	public ModelAndView deleteChirp(@RequestParam(value = "chirpId", required = true) int chirpId) {
 		ModelAndView result;
 		Chirp chirp;
 
-		chirp = chirpService.findOne(chirpId);
-		
-		try{
-			chirpService.delete(chirp);
-		}catch (Throwable o) { 
+		chirp = this.chirpService.findOne(chirpId);
+
+		try {
+			this.chirpService.delete(chirp);
+		} catch (Throwable o) {
 			return new ModelAndView("administrator/spamChirpsList");
 		}
 
@@ -38,20 +37,23 @@ public class ChirpAdminController {
 
 		return result;
 	}
-	
+
 	@RequestMapping("/spamChirpsList")
-	public ModelAndView spamNewspapersList() {
+	public ModelAndView spamNewspapersList(@RequestParam(value = "viewAll", required = false) String viewAll) {
 		ModelAndView result;
 		Collection<Chirp> chirps;
 
-		chirps = this.chirpService.getChirpsWithSpamWords();
+		if (viewAll == null)
+			chirps = this.chirpService.getChirpsWithSpamWords();
+		else
+			chirps = this.chirpService.findAll();
 
 		result = new ModelAndView("administrator/spamChirpsList");
 		result.addObject("chirps", chirps);
 
 		return result;
 	}
-	
+
 	protected ModelAndView createEditModelAndView(Chirp chirp) {
 		return this.createEditModelAndView(chirp, null);
 	}
