@@ -41,8 +41,7 @@
 </security:authorize>
 	<p/>
 
-<jstl:if test="${ (not newspaper.publicNp and (owner or suscribe)) or newspaper.publicNp}">
-	<!-- ARTICLES -->
+<!-- ARTICLES -->
 	
 	<display:table pagesize="5" class="displaytag"  keepStatus="true"
 	name="articles" requestURI="${requestURI}" id="row">
@@ -50,8 +49,9 @@
 
 		<spring:message code="master.page.title" var="titleH" />
 		<display:column title="${titleH}">
-			<a href="newspaper/article/display.do?articleId=${row.id}"> <jstl:out value="${row.title}"/> </a> 
-		
+			<jstl:if test="${ (not newspaper.publicNp and (owner or suscribe)) or newspaper.publicNp}">
+			<a href="newspaper/article/display.do?articleId=${row.id}"> </jstl:if> <jstl:out value="${row.title}"/> </a> 
+			
 			<jstl:if test="${ owner && (!row.saved)}">
 				<acme:action url="newspaper/article/user/edit.do?articleId=${row.id}" code="master.page.edit"/>
 			</jstl:if>
@@ -65,11 +65,13 @@
 		
 		<spring:message code="article.creator" var="creatorH" />
 		<display:column title="${creatorH}">
-			<a href="user//display.do?userId=${row.creator.id}"> <jstl:out value="${row.creator.userAccount.username}"/> </a>
+			<jstl:if test="${ (not newspaper.publicNp and (owner or suscribe)) or newspaper.publicNp}">
+				<a href="user//display.do?userId=${row.creator.id}"> </jstl:if> <jstl:out value="${row.creator.userAccount.username}"/> </a>
+			
 		</display:column>
 		
 	</display:table>
-</jstl:if>
+
 
 	<p/>
 	
