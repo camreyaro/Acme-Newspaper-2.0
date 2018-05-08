@@ -121,6 +121,9 @@
 					</security:authorize>
 					<li><a href="folder/list.do"><spring:message code="master.page.folder" /></a></li>						
 					<li><a href="message/create.do?all=0"><spring:message code="master.page.sendMessage" /></a></li>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="message/create.do?all=1"><spring:message code="message.send.all" /></a></li>
+					</security:authorize>
 					<li><a href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a></li>
 				</ul>
 			</li>
