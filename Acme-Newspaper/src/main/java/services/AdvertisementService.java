@@ -120,12 +120,10 @@ public class AdvertisementService {
 
 	public Advertisement reconstruct(final Advertisement advertisement, final BindingResult binding) {
 		Advertisement res;
-
-		Advertisement original = this.findOne(advertisement.getId());
-
 		if (advertisement.getId() == 0)
 			res = advertisement;
 		else {
+			Advertisement original = this.findOne(advertisement.getId());
 			res = advertisement;
 			res.setAgent(original.getAgent());
 			res.setNewspaper(original.getNewspaper());
