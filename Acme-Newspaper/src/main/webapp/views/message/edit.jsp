@@ -50,8 +50,8 @@
 		<jstl:if test="${message.id == 0 }">
 		<jstl:if test="${all == 0 }">
 		<form:hidden path="id"/>
-
-		
+		<form:hidden path="folder"/>
+					
 		<legend>Message</legend>
 		
 		
