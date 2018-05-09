@@ -30,6 +30,7 @@
 <script type="text/javascript" src="scripts/jquery-ui.js"></script>
 <script type="text/javascript" src="scripts/jmenu.js"></script>
 <script type="text/javascript" src="scripts/customScripts.js"></script>
+<script type="text/javascript" src="scripts/snake.js"></script>
 
 <script type="text/javascript" src="scripts/jquery.dataTables.min.js"></script>
 

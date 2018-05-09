@@ -21,6 +21,14 @@
 
 <p><spring:message code="panic.text" /> <code>${name}</code>.</p>
 
+<center>
+		<b>Score: </b><span id="score">0</span>
+		<br/>
+		<div id="game"></div>
+		</center>
+		<script>init();</script>
+
+<!--  
 <h2><spring:message code="panic.message" /></h2>
 
 <p style="font-family: 'Courier New'">
@@ -31,4 +39,4 @@
 
 <p style="font-family: 'Courier New'">	
 	${stackTrace}
-</p>
+</p>-->
