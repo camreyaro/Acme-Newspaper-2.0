@@ -67,7 +67,7 @@ public class ChirpUserController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Chirp chirp, BindingResult binding) {
 		ModelAndView result;
 		chirp.setId(0);

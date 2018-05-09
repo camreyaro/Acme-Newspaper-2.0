@@ -54,8 +54,6 @@ public class NewspaperUserController extends AbstractController {
 		result.addObject("totalPages", pageObject.getTotalPages());
 		return result;
 	}
-	
-	
 
 	@RequestMapping(value = "/avaibleList", method = RequestMethod.GET)
 	public ModelAndView avaibleList() {
@@ -117,7 +115,7 @@ public class NewspaperUserController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Newspaper newspaper, BindingResult binding) {
 		ModelAndView result;
 		try {

@@ -88,7 +88,7 @@ public class AdvertisementController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "advertisement/agent/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "advertisement/agent/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(Advertisement advertisement, BindingResult binding) {
 		ModelAndView result;
 

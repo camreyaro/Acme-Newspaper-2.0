@@ -32,10 +32,10 @@ public class LegalTextAdminController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/administrator/save", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/administrator/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(@Valid LegalText legalText, BindingResult binding) {
 		ModelAndView result;
-		
+
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(legalText);
 		else

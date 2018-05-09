@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-	<form:form action="newspaper/user/save.do" modelAttribute="newspaper">
+	<form:form action="newspaper/user/edit.do" modelAttribute="newspaper">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 

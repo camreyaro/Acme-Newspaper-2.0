@@ -31,14 +31,14 @@
 <script type="text/javascript" src="scripts/jmenu.js"></script>
 <script type="text/javascript" src="scripts/customScripts.js"></script>
 
-<script type="text/javascript" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="scripts/jquery.dataTables.min.js"></script>
 
 
 <link rel="stylesheet" href="styles/common.css" type="text/css">
 <link rel="stylesheet" href="styles/jmenu.css" media="screen" type="text/css" />
 <link rel="stylesheet" href="styles/displaytag.css" type="text/css">
 
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" type="text/css">
+<link rel="stylesheet" href="styles/jquery.dataTables.min.css" type="text/css">
 
 <title><tiles:insertAttribute name="title" ignore="true" /></title>
 
@@ -63,8 +63,8 @@
 	}
 </script>
 
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-      <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<link rel="stylesheet" type="text/css" href="styles/cookieconsent.min.css" />
+      <script src="scripts/cookieconsent.min.js"></script>
       <script>
          window.addEventListener("load", function(){
          window.cookieconsent.initialise({

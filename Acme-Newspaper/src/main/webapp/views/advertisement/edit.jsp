@@ -17,7 +17,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-	<form:form action="advertisement/agent/save.do" modelAttribute="advertisement">
+	<form:form action="advertisement/agent/edit.do" modelAttribute="advertisement">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	<form:hidden path="creditCard.brandName" id="brand"/>

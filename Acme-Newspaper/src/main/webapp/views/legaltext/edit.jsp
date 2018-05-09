@@ -19,7 +19,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="legaltext/administrator/save.do"
+<form:form action="legaltext/administrator/edit.do"
 	modelAttribute="legaltext">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
